@@ -134,8 +134,9 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL, obs_err = TRUE, tvi_err = 
             } else {
                 year <- 1
             }
-            b_tmp <- b + rnorm(n=1, mean=0, sd=sd_z)
-            Length1_true[i] = Length1_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp))
+            b_tmp <- b
+            z_increment <- rnorm(1, 0, sd_z)
+            Length1_true[i] = Length1_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp)) + z_increment
         }
         #Length1[i] <- Length1_hat[i] # Can use the actual first length estimated in the model
         # Add observation error?
@@ -155,8 +156,9 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL, obs_err = TRUE, tvi_err = 
             } else {
                 year <- 1
             }
-            b_tmp <- b + rnorm(1, 0, sd_z)
-            Length2_true[i] = Length2_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp))
+            b_tmp <- b
+            z_increment <- rnorm(1, 0, sd_z)
+            Length2_true[i] = Length2_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp)) + z_increment
         }
         #Length2[i] <- Length2_hat[i]
         # Add observation error?
@@ -178,6 +180,7 @@ ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=TRUE)$ATR
 #load("ATR_sim.RData")
 
 par(mfrow=c(1,1))
+xlim <- c(0, max(ATR_mod$iAge2, ATR_sim$Age2))
 ylim <- c(0, 200)
 plot(1, type="n", xlim=xlim, ylim=ylim, xlab="Age", ylab="Length (cm)", las=1)
 legend("bottomright", legend=c("Females","Males"), col=c("pink","blue"), lwd=1, bty="n")
@@ -185,7 +188,7 @@ for (II in 1:100)
 {
     set.seed(15 + (II-1))
     ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
-    #segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
+    segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
     segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
 }
 

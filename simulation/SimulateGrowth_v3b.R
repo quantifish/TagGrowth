@@ -34,8 +34,8 @@ Nindiv <- nrow(ATR_mod) # We begin with the same number of individuals we have
 
 # Here I am reading in the parameters estimated in our model, we can just swap
 # out the parameters for whatever model we are interested in
-pars <- read.csv("Pars.csv")
-load("Report.RData") # These two data sets are the same.
+pars <- read.csv("../estimation/Pars.csv")
+load("../estimation/Report.RData") # These two data sets are the same.
 
 names(Report)
 Report$par.fixed
@@ -190,7 +190,7 @@ for (II in 1:100)
 {
     set.seed(15 + (II-1))
     ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
-    #segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
+    segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
     segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
 }
 
