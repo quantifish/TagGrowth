@@ -3,17 +3,11 @@
 ######################################################################################################
 # Authors: Jim Thorson, Darcy Webber
 
-# Fixed effects:
-# Random effects:
-
-rm(list=ls())
+# Make sure R is clean
+rm(list = ls())
 
 # Load TMB
 library(TMB)
-
-# Specify which file/version
-file <- "ATR"
-compile(paste(file, ".cpp", sep=""))
 
 
 ######################################################################################################
@@ -65,7 +59,8 @@ for (II in 1:nrow(ATR_mod)) {
 ######################################################################################################
 # Make AD object
 ######################################################################################################
-dyn.load(dynlib(file))
+compile("ATR.cpp")
+dyn.load(dynlib("ATR"))
 Nindiv <- nrow(ATR_mod)
 Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
