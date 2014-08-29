@@ -144,7 +144,7 @@ Type objective_function<Type>::operator() ()
       sumj += gamma * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
     }
     Length2_hat(i) = ( Length1_hat(i) * exp(-b_indiv(i) * iLiberty(i)) ) + ( pow(b_indiv(i), psi-1) * (1 - exp(-b_indiv(i))) * sumj );
-    Length2_hat(i) += z1(i) + z2(i);
+    Length2_hat(i) += z2(i);
     // Time-variation probability from first capture to second capture
     sumj = Type(0.0001);
     for (int j = 0; j < (iLiberty(i)-1); j++) sumj += exp(Type(2.0) * -b_indiv(i) * j);
