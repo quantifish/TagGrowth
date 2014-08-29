@@ -16,8 +16,8 @@ rm(list=ls())
 ######################################################################################################
 
 # Load the actual data
-load("../data/ATR.RData")
-load("../data/ATR_mod.RData")
+load("../estimation/ATR.RData")
+load("../estimation/ATR_mod.RData")
 
 # Change to daily/weekly estimates
 source("../time-step.R")
@@ -35,8 +35,8 @@ Nindiv <- nrow(ATR_mod) # We begin with the same number of individuals we have
 
 # Here I am reading in the parameters estimated in our model, we can just swap
 # out the parameters for whatever model we are interested in
-pars <- read.csv("Pars.csv")
-load("Report.RData") # These two data sets are the same.
+pars <- read.csv("../estimation/Pars.csv")
+load("../estimation/Report.RData") # These two data sets are the same.
 names(Report)
 Report$par.fixed
 unique(names(Report$par.random))
@@ -148,8 +148,7 @@ for (II in 1:NN)
         for ( j in 0:(Age1[i]-1) )
         {
             b_tmp <- b # Notice no white-noise variation on b
-            sd_z1[i] <- sd_z * (b^(psi-1) * (1-exp(-b)))
-            z1[i] <- rnorm(n=1, mean=0, sd=sd_z1[i]) # These two equations have been modified to a recursive version
+            z1[i] <- rnorm(n=1, mean=0, sd=sd_z) # These two equations have been modified to a recursive version
             Length1_true[i] = Length1_true[i] * exp(-b_tmp) + gamma*(b_tmp)^(psi-1) * (1-exp(-b_tmp)) + z1[i]
         }
         mod_new_2[II] <- Length1_true[i]
