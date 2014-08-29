@@ -92,6 +92,57 @@ Nareas <- length(unique(ATR_mod$Area1))
 
 
 ######################################################################################################
+# PARAMETERS (simulation design)
+######################################################################################################
+
+# Using the BACCO library for its latin hypercube design
+library(BACCO)
+
+# How many experiments would you like to do?
+Ndesign <- 100
+
+# Set up the container to hold each experiment
+Input <- list()
+
+# Define the number of individuals in the simulation
+Nindiv <- 315
+
+# Sex-specific parameters c("female", "male")
+L0 <- c(50, 52)
+bmean <- c(0.00074, 0.00077)
+sd_b <- c(0.24, 0.22)
+#b_indiv <- pars[which(pars[,2] %in% "b_indiv"),3]
+
+# Population-level parameters
+gamma <- 0.14
+psi <- 2.07e-10
+sd_obs <- 0.077
+sd_z <- 5.3e-05
+sd_y <- 0.4
+
+# Simulate sex, ages at tagging and time at liberty
+Sex <- rbinom(n = Nindiv, size = 1, prob = 0.5) + 1 # (1=female, 2=male)
+#Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
+#Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
+Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
+Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
+Age2 <- Age1 + Liberty
+#Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
+#Year2 <- Year1+Liberty
+Year0 <- sample(ATR_mod$Year0, size = Nindiv, replace = TRUE)
+Year1 <- Year0 + sample(ATR_mod$Year1 - ATR_mod$Year0, size = Nindiv, replace = TRUE)
+Year2 <- Year1 + sample(ATR_mod$Year2 - ATR_mod$Year1, size = Nindiv, replace = TRUE)
+Area <- sample(ATR_mod$Area1, size = Nindiv, replace = TRUE)
+Time0 <- sample(ATR_mod$Time0, size = Nindiv, replace = TRUE)
+Time1 <- sample(ATR_mod$Time1, size = Nindiv, replace = TRUE) # WRONG
+Time2 <- sample(ATR_mod$Time2, size = Nindiv, replace = TRUE) # WRONG
+
+# Ignoring annual and area effects for now
+yrs <- range(Year0, Year1, Year2)
+Nareas <- length(unique(ATR_mod$Area1))
+
+
+######################################################################################################
 # THE SIMULATION MODEL
 ######################################################################################################
 
@@ -267,55 +318,3 @@ lines(density(ATR_sim$z2), col=2, lwd=2)
 # 6. Check it out when I don't include obs_error in the simulation -- this is consistent
 # with the poor model fits to smaller indivs in the analysis of the real data.  Why are we
 # these small indivs so poorly???  Perhaps a prior on L0 would tidy this up?
-
-
-
-
-
-
-######################################################################################################
-# PARAMETERS (made up)
-######################################################################################################
-# Define the number of individuals in the simultion
-Nindiv <- 10
-
-# Sex-specific parameters c("female", "male")
-L0 <- c(50, 52)
-bmean <- c(0.00074, 0.00077)
-sd_b <- c(0.24, 0.22)
-#b_indiv <- pars[which(pars[,2] %in% "b_indiv"),3]
-
-# Population-level parameters
-gamma <- 0.14
-psi <- 2.07e-10
-sd_obs <- 0.077
-sd_z <- 5.3e-05
-sd_y <- 0.4
-Linf <- (gamma*bmean^psi) / bmean
-
-# Simulate sex, ages at tagging and time at liberty
-Sex <- rbinom(n=Nindiv, size=1, prob=0.5) + 1 # (1=female, 2=male)
-#Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
-#Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
-Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
-Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
-Age2 <- Age1 + Liberty
-#Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
-#Year2 <- Year1+Liberty
-Year0 <- sample(ATR_mod$Year0, size = Nindiv, replace = TRUE)
-Year1 <- Year0 + sample(ATR_mod$Year1 - ATR_mod$Year0, size = Nindiv, replace = TRUE)
-Year2 <- Year1 + sample(ATR_mod$Year2 - ATR_mod$Year1, size = Nindiv, replace = TRUE)
-Area <- sample(ATR_mod$Area1, size = Nindiv, replace = TRUE)
-Time0 <- sample(ATR_mod$Time0, size = Nindiv, replace = TRUE)
-Time1 <- sample(ATR_mod$Time1, size = Nindiv, replace = TRUE) # WRONG
-Time2 <- sample(ATR_mod$Time2, size = Nindiv, replace = TRUE) # WRONG
-
-# Annual effects
-yrs <- range(Year0, Year1, Year2)
-#ln_ydev <- rnorm(n=length(yrs[1]:yrs[2]), mean=0, sd=sd_y)
-ln_ydev <- Report$par.random[which(names(Report$par.random) %in% "ln_ydev")]
-time_step <- 52
-
-# Area effects
-Nareas <- length(unique(ATR_mod$Area1))
-#ln_xdev <- rnorm(n=Nareas, mean=0, sd=0)
