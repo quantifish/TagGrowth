@@ -307,63 +307,6 @@ lines(density(ATR_sim$z2), col=2, lwd=2)
 # with the poor model fits to smaller indivs in the analysis of the real data.  Why are we
 # these small indivs so poorly???  Perhaps a prior on L0 would tidy this up?
 
-dyn.load(dynlib(file))
-Nindiv <- nrow(ATR_mod)
-Data <- list(iAge1 = ATR_sim[1:Nindiv,'Age1'], iLiberty = ATR_sim[1:Nindiv,'Liberty'],
-             Length1 = ATR_sim[1:Nindiv,'Length1'], Length2 = ATR_sim[1:Nindiv,'Length2'],
-             Sex = ATR_sim[1:Nindiv,'Sex'],
-             Time0 = ATR_sim[1:Nindiv,'Time0'], Time1 = ATR_sim[1:Nindiv,'Time1'],
-             Year0 = ATR_sim[1:Nindiv,'Year0'],
-             Year1 = ATR_sim[1:Nindiv,'Year1'],
-             Area1 = ATR_sim[1:Nindiv,'Area'] )
-
-# No year-effects or area-effects
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1))
-obj <- MakeADFun(data = Data, parameters = Params, random = c("ln_bdev", "z1", "z2"))
-
-# With year-effects
-Nyears <- 40
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-               ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params, random = c("ln_bdev", "z1", "z2", "ln_ydev"))
-
-# With area-effects
-Nareas <- length(unique(ATR_mod$Area1))
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-               ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params, random = c("ln_bdev", "z1", "z2", "ln_xdev"))
-
-
-######################################################################################################
-# Run model
-######################################################################################################
-newtonOption(smartsearch=TRUE)
-obj$fn(obj$par)
-obj$gr(obj$par)
-obj$control <- list(trace=10)
-obj$hessian <- TRUE
-
-ptm <- proc.time()
-opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
-summary(obj)
-Report <- sdreport(obj)
-proc.time() - ptm
-
-
-
-
-
-
-
 
 
 
