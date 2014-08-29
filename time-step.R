@@ -1,10 +1,9 @@
-# A function for converting the data frame from annual to
-# daily/weekly/monthly time steps.
+# A function for converting the data frame from annual to daily/weekly time steps.
 
 time.step <- function(ATR_mod, units = "weeks")
 {
-    if (units == "days") { mult <- 365.25 }
-    if (units == "weeks") { mult <- 52.15 }
+    if (units == "days") mult <- 365.25
+    if (units == "weeks") mult <- 52.15
     ATR_mod$Age2 <- ATR_mod$Age2 * mult
     ATR_mod$Age1 <- as.numeric(ATR_mod$Age2 - difftime(ATR_mod$Date2, ATR_mod$Date1, units = units))
     ATR_mod$iAge1 <- round(ATR_mod$Age1)
@@ -42,5 +41,3 @@ time.step <- function(ATR_mod, units = "weeks")
     ATR_mod$Time2 <- ATR_mod$Time1 + ATR_mod$iLiberty
     return(ATR_mod)
 }
-
-# END
