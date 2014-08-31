@@ -95,17 +95,21 @@ Nareas <- length(unique(ATR_mod$Area1))
 # PARAMETERS (simulation design)
 ######################################################################################################
 
-# Using the BACCO library for its latin hypercube design
-library(BACCO)
-
 # How many experiments would you like to do?
 Ndesign <- 100
 
-# Set up the container to hold each experiment
-Input <- list()
-
-# Define the number of individuals in the simulation
+# Define the number of individuals in each simulation
 Nindiv <- 315
+
+# Specify the bounds for each of the model parameters
+names <- c("L0","bmean","sd_b","gamma","psi","sd_obs","sd_z","sd_y")
+bounds <- matrix(NA, nrow=length(names), ncol=2)
+rownames(bounds) <- names
+colnames(bounds) <- c("lower","upper")
+
+# Use the latin hypercube design to create grid of input parameters given the specified bounds
+library(BACCO) # Using the BACCO library for its latin hypercube design
+Input <- latin.hypercube(n=Ndesign, d=length(names), names=names, normalize=TRUE)
 
 # Sex-specific parameters c("female", "male")
 L0 <- c(50, 52)
@@ -127,6 +131,8 @@ Sex <- rbinom(n = Nindiv, size = 1, prob = 0.5) + 1 # (1=female, 2=male)
 Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
 Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
 Age2 <- Age1 + Liberty
+
+# Ignoring annual and area effects for now
 #Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
 #Year2 <- Year1+Liberty
 Year0 <- sample(ATR_mod$Year0, size = Nindiv, replace = TRUE)
@@ -137,7 +143,6 @@ Time0 <- sample(ATR_mod$Time0, size = Nindiv, replace = TRUE)
 Time1 <- sample(ATR_mod$Time1, size = Nindiv, replace = TRUE) # WRONG
 Time2 <- sample(ATR_mod$Time2, size = Nindiv, replace = TRUE) # WRONG
 
-# Ignoring annual and area effects for now
 yrs <- range(Year0, Year1, Year2)
 Nareas <- length(unique(ATR_mod$Area1))
 
@@ -168,7 +173,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL, obs_err = TRUE, tvi_err = 
     {
         s <- Sex[i]
         a <- Area[i]
-        ln_bdev[i] <- rnorm(n=1, mean=0, sd=sd_b[s])
+        ln_bdev[i] <- rnorm(1, 0, sd_b[s])
         b <- bmean[s] * exp(ln_bdev[i])
         #b <- b_indiv[i] # Can use the actual b's estimated in model
         # Time-variation error from birth to first capture
@@ -191,7 +196,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL, obs_err = TRUE, tvi_err = 
         }
         #Length1[i] <- Length1_hat[i] # Can use the actual first length estimated in the model
         # Add observation error?
-        if (obs_err) Length1[i] <- Length1_true[i] + rnorm(n=1, mean=0, sd=sd_obs * Length1_true[i])
+        if (obs_err) Length1[i] <- Length1_true[i] + rnorm(1, 0, sd_obs * Length1_true[i])
         # Time-variation error from first capture to second capture
         # Second length measurement
         year <- Year1[i]; # The (index) year that the individual was born
