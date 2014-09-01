@@ -24,7 +24,8 @@ ATR_mod <- time.step(ATR_mod, units = "weeks")
 head(ATR_mod)
 
 # Validate that the counter in the model will index the correct years (daily)
-for (II in 1:nrow(ATR_mod)) {
+for (II in 1:nrow(ATR_mod))
+{
     time0 = ATR_mod$Time0[II]
     year1 = ATR_mod$Year0[II]
     for (i in 0:(ATR_mod$iAge1[II]-1))
@@ -36,7 +37,8 @@ for (II in 1:nrow(ATR_mod)) {
 }
 
 # Validate that the counter in the model will index the correct years (weeks)
-for (II in 1:nrow(ATR_mod)) {
+for (II in 1:nrow(ATR_mod))
+{
     time0 = ATR_mod$Time0[II]
     year1 = ATR_mod$Year0[II]
     for (i in 0:(ATR_mod$iAge1[II]-1))
@@ -66,9 +68,8 @@ Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLi
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
              Sex = ATR_mod[1:Nindiv,'Sex'],
              Time0 = ATR_mod[1:Nindiv,'Time0'], Time1 = ATR_mod[1:Nindiv,'Time1'],
-             Year0 = ATR_mod[1:Nindiv,'Year0'],
-             Year1 = ATR_mod[1:Nindiv,'Year1'],
-             Area1 = ATR_mod[1:Nindiv,'Area1'] )
+             Year0 = ATR_mod[1:Nindiv,'Year0'], Year1 = ATR_mod[1:Nindiv,'Year1'],
+             Area1 = ATR_mod[1:Nindiv,'Area1'])
 Nyears <- 40
 Nareas <- length(unique(ATR_mod$Area1))
 
