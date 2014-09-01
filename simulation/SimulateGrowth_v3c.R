@@ -125,7 +125,7 @@ sd_z <- 5.3e-05
 sd_y <- 0.4
 
 # Simulate sex, ages at tagging and time at liberty
-Sex <- rbinom(n = Nindiv, size = 1, prob = 0.5) + 1 # (1=female, 2=male)
+Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
 #Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
 #Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
 Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
