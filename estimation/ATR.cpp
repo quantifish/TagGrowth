@@ -89,20 +89,14 @@ Type objective_function<Type>::operator() ()
   int time, year;
   Type sd_ydev = exp(ln_sd_ydev);
   // Random effect probability of each year
-  for (int y = 0; y < Nyears; y++)
-  {
-    ans -= dnorm( ln_ydev(y), Type(0.), sd_ydev, 1 );
-  }
+  for (int y = 0; y < Nyears; y++) { ans -= dnorm( ln_ydev(y), Type(0.), sd_ydev, 1 ); }
 
   // Area effects
   int Narea = ln_xdev.size();
   int area;
   Type sd_xdev = exp(ln_sd_xdev);
   // Random effect probability of each area
-  for (int a = 0; a < Narea; a++)
-  {
-    ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, 1 );
-  }
+  for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, 1 ); }
 
   //cout << "time | year" << endl;
   //cout << time << " | " << year << endl;
@@ -111,14 +105,15 @@ Type objective_function<Type>::operator() ()
   for (int i = 0; i < Nindiv; i++)
   {
     sex = Sex(i) - 1;                          // Sex of the individual
+    year = Year0(i);                           // The (index) year that the individual was born
+    area = Area1(i) - 1;                       // Location of the individual at time 1
     b_indiv(i) = bmean(sex) * exp(ln_bdev(i)); // Value for b_indiv
     a_indiv(i) = gamma * pow(b_indiv(i), psi); // Derived value for a_indiv
     // Random effect probability of bdevs
     ans -= dnorm( ln_bdev(i), Type(0.), sd_bdev(sex), 1 );
-    year = Year0(i);                           // The (index) year that the individual was born
-    area = Area1(i) - 1;                       // Location of the individual at time 1
     sumj = Type(0.);
-    for (int j = 0; j < (iAge1(i)-1); j++) {
+    for (int j = 0; j < (iAge1(i)-1); j++)
+    {
       // This piece of code gives us the year (from 0 to 39, ref to the years
       // 1973/74 to 2012/13) that the fish is in at each time-step.  This is
       // required because if a time-step other than annual is used then we need
@@ -131,14 +126,15 @@ Type objective_function<Type>::operator() ()
     Length1_hat(i) += z1(i);
     // Time-variation probability from birth to first capture
     sumj = Type(0.0001);
-    for (int j = 0; j < (iAge1(i)-1); j++) sumj += exp(Type(2.0) * -b_indiv(i) * j);
+    for (int j = 0; j < (iAge1(i)-1); j++) { sumj += exp(Type(2.0) * -b_indiv(i) * j); }
     sd_z1(i) = sd_z * (pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i)))) * pow(sumj,0.5);
     ans -= dnorm( z1(i), Type(0.), sd_z1(i), 1 );
     ans -= dnorm( Length1(i), Length1_hat(i), sd_obs * Length1_hat(i), 1 );
     // Probability of second length measurement
     year = Year1(i); // The (index) year that the individual was first captured
     sumj = Type(0.);
-    for (int j = 0; j < (iLiberty(i)-1); j++) {
+    for (int j = 0; j < (iLiberty(i)-1); j++)
+    {
       time = Time1(i) + j;
       if ( fmod (time, time_step) == 0. ) { year += 1; }
       sumj += gamma * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
@@ -147,9 +143,9 @@ Type objective_function<Type>::operator() ()
     Length2_hat(i) += z2(i);
     // Time-variation probability from first capture to second capture
     sumj = Type(0.0001);
-    for (int j = 0; j < (iLiberty(i)-1); j++) sumj += exp(Type(2.0) * -b_indiv(i) * j);
+    for (int j = 0; j < (iLiberty(i)-1); j++) { sumj += exp(Type(2.0) * -b_indiv(i) * j); }
     sd_z2(i) = sd_z * (pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i)))) * pow(sumj,0.5);
-    ans -= dnorm( z2(i), Type(0.0), sd_z2(i), 1 );
+    ans -= dnorm( z2(i), Type(0.), sd_z2(i), 1 );
     ans -= dnorm( Length2(i), Length2_hat(i), sd_obs * Length2_hat(i), 1 );
   }
   
