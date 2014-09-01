@@ -16,10 +16,12 @@ where γ and Ψ approximate the allometric scaling of energy costs and acquisiti
 
 L(t) = L(t)
 
-where Δt is the number of time-periods elapsed between length intervals, and where the Brody growth coefficient k = b (as in the conventional von Bertalanffy growth function).
+where Δt is the number of time-periods elapsed between length intervals, and where the Brody growth coefficient k = b (as in the conventional von Bertalanffy growth function). Readers are referred to Shelton et al. (2013) for an expanded model that incorporates variability in γ over time, although we retain the assumption that b varies among individuals (and hence has subscript i), where it follows a normal distribution (truncated at zero) with estimated mean and variance parameters.
+
+Following previous notation, parameters are estimated by integrating across all random effects b, while noting that Eq. 15 also requires estimation of Li(t0), i.e., the length upon first observation for each individual.
 
 ##Simulation
 Details to come.
 
 ## Estimation
-Details to come.
+We implement this model using the Template Model Builder (TMB) software called from R using the TMB package.
