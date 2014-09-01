@@ -1,6 +1,9 @@
-tag-growth
+Welcome to tag-growth
 ==========
 
+The software tag-growth is a model for analysing growth using tag-recapture data where the individual fish have been aged upon recapture.
+
+##Introduction
 Variation among individuals can be easily included by treating each individual's demographic parameters as a random effect that arises from a population-level distribution.  We start with the specialized von Bertalanffy growth function:
 
 dL/dt = a - bL
