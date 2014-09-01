@@ -1,5 +1,4 @@
 # A function for converting the data frame from annual to daily/weekly time steps.
-
 time.step <- function(ATR_mod, units = "weeks")
 {
     if (units == "days") mult <- 365.25
