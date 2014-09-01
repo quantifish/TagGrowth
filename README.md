@@ -24,4 +24,4 @@ Following previous notation, parameters are estimated by integrating across all 
 Details to come.
 
 ## Estimation
-We implement this model using the Template Model Builder (TMB) software called from R using the TMB package.
+We implement this model using the Template Model Builder (TMB) software called from R using the TMB package (https://github.com/kaskr/adcomp).
