@@ -17,3 +17,9 @@ where γ and Ψ approximate the allometric scaling of energy costs and acquisiti
 L(t) = L(t)
 
 where Δt is the number of time-periods elapsed between length intervals, and where the Brody growth coefficient k = b (as in the conventional von Bertalanffy growth function).
+
+##Simulation
+Details to come.
+
+## Estimation
+Details to come.
