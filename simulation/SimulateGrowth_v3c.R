@@ -11,6 +11,9 @@
 
 rm(list=ls())
 
+require(BACCO) # Using the BACCO library for its latin hypercube design
+source("../time-step.R")
+
 ######################################################################################################
 # DATA
 ######################################################################################################
@@ -20,7 +23,6 @@ load("../estimation/ATR.RData")
 load("../estimation/ATR_mod.RData")
 
 # Change to daily/weekly estimates
-source("../time-step.R")
 #ATR_mod <- time.step(ATR_mod, units = "days")
 ATR_mod <- time.step(ATR_mod, units = "weeks")
 head(ATR_mod)
@@ -98,18 +100,17 @@ Nareas <- length(unique(ATR_mod$Area1))
 # How many experiments would you like to do?
 Ndesign <- 100
 
-# Define the number of individuals in each simulation
+# Define the number of individuals in each experiment/simulation
 Nindiv <- 315
 
 # Specify the bounds for each of the model parameters
 names <- c("L0","bmean","sd_b","gamma","psi","sd_obs","sd_z","sd_y")
-bounds <- matrix(NA, nrow=length(names), ncol=2)
+bounds <- matrix(NA, nrow = length(names), ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower","upper")
 
 # Use the latin hypercube design to create grid of input parameters given the specified bounds
-library(BACCO) # Using the BACCO library for its latin hypercube design
-Input <- latin.hypercube(n=Ndesign, d=length(names), names=names, normalize=TRUE)
+Input <- latin.hypercube(n = Ndesign, d = length(names), names = names, normalize = TRUE)
 
 # Sex-specific parameters c("female", "male")
 L0 <- c(50, 52)
