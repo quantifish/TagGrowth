@@ -12,7 +12,8 @@
 rm(list=ls())
 
 require(BACCO) # Using the BACCO library for its latin hypercube design
-source("../time-step.R")
+source("../src/time-step.R")
+source("../src/normalise.R")
 
 ######################################################################################################
 # DATA
@@ -102,15 +103,53 @@ Ndesign <- 100
 
 # Define the number of individuals in each experiment/simulation
 Nindiv <- 315
+Nsex <- 2
 
-# Specify the bounds for each of the model parameters
+# Specify the bounds for each of the model parameters - don't forget some of
+# these need to be sex-specific
 names <- c("L0","bmean","sd_b","gamma","psi","sd_obs","sd_z","sd_y")
-bounds <- matrix(NA, nrow = length(names), ncol = 2)
+Npar <- length(names)
+bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower","upper")
+bounds[1,] <- c(40, 60) # L0
+bounds[2,] <- c(0.0001, 0.001) # bmean
+bounds[3,] <- c(0.1, 0.3) # sd_b
+bounds[4,] <- c(0.1, 0.3) # gamma
+bounds[5,] <- c(1e-10, 1e-5) # psi
+bounds[6,] <- c(0.01, 0.1) # sd_obs
+bounds[7,] <- c(1e-05, 1e-01) # sd_z
+bounds[8,] <- c(0.1, 0.5) # sd_y
 
-# Use the latin hypercube design to create grid of input parameters given the specified bounds
+# Use the latin hypercube design to create grid of input parameters given the
+# specified bounds
 Input <- latin.hypercube(n = Ndesign, d = length(names), names = names, normalize = TRUE)
+Pars <- array(data = NA, dim = c(Ndesign, Npar, Nsex))
+
+# Normalise the cube to between the parameter bounds
+for (II in 1:Npar)
+{
+    for (III in 1:Nsex)
+    {
+        Pars[, II, III] <- normalise(v = Input[, II], a = bounds[II, 1], b = bounds[II, 2])
+    }
+}
+
+# Plot the input design
+png("../figs/Sim-parameters.png", width = 6, height = 6, units = "in", res = 300)
+pairs(as.data.frame(Pars[,,1]), las = 1, labels = names, gap = 0.2)
+dev.off()
+
+# Simulate sex, ages at tagging and time at liberty
+Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
+#Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
+#Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
+Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
+Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
+Age2 <- Age1 + Liberty
+
+
+
 
 # Sex-specific parameters c("female", "male")
 L0 <- c(50, 52)
