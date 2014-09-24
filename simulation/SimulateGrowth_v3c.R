@@ -99,11 +99,23 @@ Nareas <- length(unique(ATR_mod$Area1))
 ######################################################################################################
 
 # How many experiments would you like to do?
-Ndesign <- 100
+Ndesign <- 10
 
 # Define the number of individuals in each experiment/simulation
-Nindiv <- 315
+Nindiv <- 5
 Nsex <- 2
+
+# Simulate sex, ages at tagging and time at liberty
+Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
+Age1 <- as.integer(runif(n = Nindiv, min = 4, max = 25))
+Liberty <- as.integer(runif(n = Nindiv, min = 1, max = 8))
+Age2 <- Age1 + Liberty
+Time0
+Time1
+Year0
+Year1
+Area1 <- 1
+Data <- data.frame(Sex, Age1, Age2, Liberty, Time0, Time1, Year0, Year1, Area1)
 
 # Specify the bounds for each of the model parameters - don't forget some of
 # these need to be sex-specific
@@ -112,19 +124,20 @@ Npar <- length(names)
 bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower","upper")
-bounds[1,] <- c(40, 60) # L0
+bounds[1,] <- c(40, 60)        # L0
 bounds[2,] <- c(0.0001, 0.001) # bmean
-bounds[3,] <- c(0.1, 0.3) # sd_b
-bounds[4,] <- c(0.1, 0.3) # gamma
-bounds[5,] <- c(1e-10, 1e-5) # psi
-bounds[6,] <- c(0.01, 0.1) # sd_obs
-bounds[7,] <- c(1e-05, 1e-01) # sd_z
-bounds[8,] <- c(0.1, 0.5) # sd_y
+bounds[3,] <- c(0.1, 0.3)      # sd_b
+bounds[4,] <- c(0.1, 0.3)      # gamma
+bounds[5,] <- c(1e-10, 1e-5)   # psi
+bounds[6,] <- c(0.01, 0.1)     # sd_obs
+bounds[7,] <- c(1e-05, 1e-01)  # sd_z
+bounds[8,] <- c(0.1, 0.5)      # sd_y
 
 # Use the latin hypercube design to create grid of input parameters given the
 # specified bounds
 Input <- latin.hypercube(n = Ndesign, d = length(names), names = names, normalize = TRUE)
 Pars <- array(data = NA, dim = c(Ndesign, Npar, Nsex))
+dimnames(Pars) <- list(Simulation = 1:Ndesign, Parameter = names, Sex = c("female", "male"))
 
 # Normalise the cube to between the parameter bounds
 for (II in 1:Npar)
@@ -135,42 +148,22 @@ for (II in 1:Npar)
     }
 }
 
+
+Input <- vector("list", Ndesign)
+for (I in 1:Ndesign)
+{
+    Input[[I]]$Parameters <- Pars[I,,]
+    Input[[I]]$Data <- Data
+}
+
+
+
+
 # Plot the input design
 png("../figs/Sim-parameters.png", width = 6, height = 6, units = "in", res = 300)
 pairs(as.data.frame(Pars[,,1]), las = 1, labels = names, gap = 0.2)
 dev.off()
 
-# Simulate sex, ages at tagging and time at liberty
-Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
-#Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
-#Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
-Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
-Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
-Age2 <- Age1 + Liberty
-
-
-
-
-# Sex-specific parameters c("female", "male")
-L0 <- c(50, 52)
-bmean <- c(0.00074, 0.00077)
-sd_b <- c(0.24, 0.22)
-#b_indiv <- pars[which(pars[,2] %in% "b_indiv"),3]
-
-# Population-level parameters
-gamma <- 0.14
-psi <- 2.07e-10
-sd_obs <- 0.077
-sd_z <- 5.3e-05
-sd_y <- 0.4
-
-# Simulate sex, ages at tagging and time at liberty
-Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
-#Age1 <- as.integer(runif(n=Nindiv, min=4, max=25))
-#Liberty <- as.integer(runif(n=Nindiv, min=1, max=8))
-Age1 <- sample(ATR_mod$iAge1, size = Nindiv, replace = TRUE)
-Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
-Age2 <- Age1 + Liberty
 
 # Ignoring annual and area effects for now
 #Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
@@ -191,7 +184,8 @@ Nareas <- length(unique(ATR_mod$Area1))
 # THE SIMULATION MODEL
 ######################################################################################################
 
-SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL, obs_err = TRUE, tvi_err = TRUE)
+SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
+                      obs_err = TRUE, tvi_err = TRUE)
 {
     # ln_xdev are the deviations for each area
     # ln_ydev are the deviations for each year
