@@ -14,6 +14,7 @@ rm(list=ls())
 require(BACCO) # Using the BACCO library for its latin hypercube design
 source("../src/time-step.R")
 source("../src/normalise.R")
+source("SimGrowth.R")
 
 ######################################################################################################
 # DATA
@@ -94,28 +95,33 @@ Nareas <- length(unique(ATR_mod$Area1))
 #ln_xdev <- rnorm(n=Nareas, mean=0, sd=0)
 
 
-######################################################################################################
-# PARAMETERS (simulation design)
-######################################################################################################
+#=================================================================================
+# SIMULATE DATA
+#=================================================================================
 
-# How many experiments would you like to do?
-Ndesign <- 10
-
-# Define the number of individuals in each experiment/simulation
-Nindiv <- 5
+Ndesign <- 10 # How many experiments would you like to do?
+Nindiv <- 300 # Define the number of individuals in each simulation
 Nsex <- 2
+Nareas <- 1
 
 # Simulate sex, ages at tagging and time at liberty
 Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
 Age1 <- as.integer(runif(n = Nindiv, min = 4, max = 25))
 Liberty <- as.integer(runif(n = Nindiv, min = 1, max = 8))
 Age2 <- Age1 + Liberty
-Time0
-Time1
-Year0
-Year1
-Area1 <- 1
+Time0 <- rep(1, Nindiv)
+Time1 <- rep(1, Nindiv)
+Time2 <- rep(1, Nindiv)
+Year0 <- rep(1, Nindiv)
+Year1 <- rep(1, Nindiv)
+Year2 <- rep(1, Nindiv)
+Area1 <- rep(1, Nindiv)
 Data <- data.frame(Sex, Age1, Age2, Liberty, Time0, Time1, Year0, Year1, Area1)
+
+
+#=================================================================================
+# SIMULATE PARAMETERS
+#=================================================================================
 
 # Specify the bounds for each of the model parameters - don't forget some of
 # these need to be sex-specific
@@ -123,14 +129,14 @@ names <- c("L0","bmean","sd_b","gamma","psi","sd_obs","sd_z","sd_y")
 Npar <- length(names)
 bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
-colnames(bounds) <- c("lower","upper")
-bounds[1,] <- c(40, 60)        # L0
-bounds[2,] <- c(0.0001, 0.001) # bmean
-bounds[3,] <- c(0.1, 0.3)      # sd_b
-bounds[4,] <- c(0.1, 0.3)      # gamma
-bounds[5,] <- c(1e-10, 1e-5)   # psi
-bounds[6,] <- c(0.01, 0.1)     # sd_obs
-bounds[7,] <- c(1e-05, 1e-01)  # sd_z
+colnames(bounds) <- c("lower", "upper")
+bounds[1,] <- c(43, 50)        # L0
+bounds[2,] <- c(0.0001, 0.009) # bmean
+bounds[3,] <- c(0.18, 0.21)      # sd_b
+bounds[4,] <- c(0.19, 0.19)      # gamma
+bounds[5,] <- c(1.7e-10, 1.7e-10)   # psi
+bounds[6,] <- c(0.083, 0.083)     # sd_obs
+bounds[7,] <- c(6.5e-06, 6.5e-06)  # sd_z
 bounds[8,] <- c(0.1, 0.5)      # sd_y
 
 # Use the latin hypercube design to create grid of input parameters given the
@@ -140,30 +146,28 @@ Pars <- array(data = NA, dim = c(Ndesign, Npar, Nsex))
 dimnames(Pars) <- list(Simulation = 1:Ndesign, Parameter = names, Sex = c("female", "male"))
 
 # Normalise the cube to between the parameter bounds
-for (II in 1:Npar)
-{
-    for (III in 1:Nsex)
-    {
-        Pars[, II, III] <- normalise(v = Input[, II], a = bounds[II, 1], b = bounds[II, 2])
-    }
-}
-
+for ( II in 1:Npar )
+    for ( JJ in 1:Nsex )
+        Pars[, II, JJ] <- normalise(v = Input[, II], a = bounds[II, 1], b = bounds[II, 2])
 
 Input <- vector("list", Ndesign)
-for (I in 1:Ndesign)
+for ( I in 1:Ndesign )
 {
     Input[[I]]$Parameters <- Pars[I,,]
     Input[[I]]$Data <- Data
 }
-
-
-
 
 # Plot the input design
 png("../figs/Sim-parameters.png", width = 6, height = 6, units = "in", res = 300)
 pairs(as.data.frame(Pars[,,1]), las = 1, labels = names, gap = 0.2)
 dev.off()
 
+
+
+
+######################################################################################################
+# THE SIMULATION MODEL
+######################################################################################################
 
 # Ignoring annual and area effects for now
 #Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
@@ -180,107 +184,36 @@ yrs <- range(Year0, Year1, Year2)
 Nareas <- length(unique(ATR_mod$Area1))
 
 
-######################################################################################################
-# THE SIMULATION MODEL
-######################################################################################################
-
-SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
-                      obs_err = TRUE, tvi_err = TRUE)
-{
-    # ln_xdev are the deviations for each area
-    # ln_ydev are the deviations for each year
-    # obs_err is the observation error
-    # tvi_err is the time-variying individual error
-    # Individual vectors
-    ln_bdev <- rep(NA, Nindiv)
-    Length1 <- Length1_true <- rep(NA, Nindiv)
-    Length2 <- Length2_true <- rep(NA, Nindiv)
-    sd_z1 <- rep(NA, Nindiv)
-    sd_z2 <- rep(NA, Nindiv)
-    z1 <- rep(NA, Nindiv)
-    z2 <- rep(NA, Nindiv)
-    # Check for spatially-explicit or annual random effects
-    if (is.null(ln_xdev)) ln_xdev <- rep(0, Nareas)
-    if (is.null(ln_ydev)) ln_ydev <- rep(0, length(yrs[1]:yrs[2]))
-    # Cycle through each individual and simulate a growth schedule
-    for (i in 1:Nindiv)
-    {
-        s <- Sex[i]
-        a <- Area[i]
-        ln_bdev[i] <- rnorm(1, 0, sd_b[s])
-        b <- bmean[s] * exp(ln_bdev[i])
-        #b <- b_indiv[i] # Can use the actual b's estimated in model
-        # Time-variation error from birth to first capture
-        # First length measurement
-        year <- Year0[i] # The (index) year that the individual was born
-        #for (j in 0:(Age1[i]-1)) sumj <- sumj + gamma * exp(ln_xdev[a] + ln_ydev[Year0[i]+j+1] - bmean[s]*exp(ln_bdev[i])*j)
-        Length1_true[i] = L0[s]
-        for ( j in 0:(Age1[i]-1) )
-        {
-            if (!all(ln_ydev == 0))
-            {
-                time <- Time0[i] + j
-                if ( time %% time_step == 0. ) { year <- year + 1 }
-            } else {
-                year <- 1
-            }
-            b_tmp <- b
-            z_increment <- rnorm(1, 0, sd_z)
-            Length1_true[i] = Length1_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp)) + z_increment
-        }
-        #Length1[i] <- Length1_hat[i] # Can use the actual first length estimated in the model
-        # Add observation error?
-        if (obs_err) Length1[i] <- Length1_true[i] + rnorm(1, 0, sd_obs * Length1_true[i])
-        # Time-variation error from first capture to second capture
-        # Second length measurement
-        year <- Year1[i]; # The (index) year that the individual was born
-        sumj <- 0
-        #for (j in seq(0,Liberty[i]-1,length=Liberty[i]) ) sumj <- sumj + gamma * exp(ln_xdev[a] + ln_ydev[Year1[i]+j+1] - bmean[s]*exp(ln_bdev[i])*j)
-        Length2_true[i] = Length1_true[i]
-        for ( j in seq(0, Liberty[i]-1, length = Liberty[i]) )
-        {
-            if (!all(ln_ydev == 0))
-            {
-                time <- Time1[i] + j
-                if ( time %% time_step == 0. ) { year <- year + 1 }
-            } else {
-                year <- 1
-            }
-            b_tmp <- b
-            z_increment <- rnorm(1, 0, sd_z)
-            Length2_true[i] = Length2_true[i] * exp(-b_tmp) + gamma*exp(ln_ydev[year+1])*(b_tmp)^(psi-1) * (1-exp(-b_tmp)) + z_increment
-        }
-        #Length2[i] <- Length2_hat[i]
-        # Add observation error?
-        if (obs_err) Length2[i] <- Length2_true[i] + rnorm(n=1, mean=0, sd=sd_obs * Length2_true[i])
-    }
-    ATR_sim <- data.frame(Sex, Age1, Age2, Liberty, Length1, Length2, ln_bdev, sd_z1, sd_z2, z1, z2,
-                          Year0, Year1, Year2, Time0, Time1, Time2, Area, Length1_true, Length2_true)
-    out <- list(ATR_sim = ATR_sim)
-    return(out)
-}
 
 set.seed(15)
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
-ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
+ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=TRUE, Input[[9]]$Parameters, Input[[9]]$Data)$ATR_sim
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=TRUE)$ATR_sim
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=FALSE)$ATR_sim
-#ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE)$ATR_sim
+ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE, Input[[9]]$Parameters, Input[[9]]$Data)$ATR_sim
 #save(ATR_sim, file="ATR_sim.RData")
 #load("ATR_sim.RData")
 
+#par(mfrow = c(1,1))
+#xlim <- c(0, max(ATR_mod$iAge2, ATR_sim$Age2))
+#ylim <- c(0, 200)
+#plot(1, type="n", xlim=xlim, ylim=ylim, xlab="Age", ylab="Length (cm)", las=1)
+#legend("bottomright", legend=c("Females","Males"), col=c("pink","blue"), lwd=1, bty="n")
+#for (II in 1:100)
+#{
+#    set.seed(15 + (II-1))
+#    ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
+#    segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
+#    segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
+#}
+
+# Plot the simulated growth schedules
 par(mfrow=c(1,1))
-xlim <- c(0, max(ATR_mod$iAge2, ATR_sim$Age2))
-ylim <- c(0, 200)
+ylim <- c(0, 100)
 plot(1, type="n", xlim=xlim, ylim=ylim, xlab="Age", ylab="Length (cm)", las=1)
+segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
+segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
 legend("bottomright", legend=c("Females","Males"), col=c("pink","blue"), lwd=1, bty="n")
-for (II in 1:100)
-{
-    set.seed(15 + (II-1))
-    ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
-    segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
-    segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
-}
 
 # Plot the growth schedules
 par(mfrow=c(1,2))
@@ -299,12 +232,6 @@ segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=AT
 title("Males")
 legend("bottomright", legend=c("Observed","Model fit","Simulated"), col=c(1,3,2), lwd=1, bty="n")
 
-par(mfrow=c(1,1))
-ylim <- c(0, 200)
-plot(1, type="n", xlim=xlim, ylim=ylim, xlab="Age", ylab="Length (cm)", las=1)
-segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
-segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")
-legend("bottomright", legend=c("Females","Males"), col=c("pink","blue"), lwd=1, bty="n")
 
 
 # Plot observed vs. predicted length at age
