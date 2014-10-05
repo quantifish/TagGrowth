@@ -7,7 +7,10 @@
 rm(list = ls())
 
 # Load TMB
-library(TMB)
+require(TMB)
+require(ggplot2)
+
+source("../src/theme_presentation.R")
 
 
 ######################################################################################################
@@ -18,7 +21,7 @@ load("ATR.RData")
 load("ATR_mod.RData")
 
 # Change to daily/weekly estimates
-source("../time-step.R")
+source("../src/time-step.R")
 #ATR_mod <- time.step(ATR_mod, units = "days")
 ATR_mod <- time.step(ATR_mod, units = "weeks")
 head(ATR_mod)
@@ -110,10 +113,10 @@ obj <- MakeADFun(data = Data, parameters = Params,
 ######################################################################################################
 # Run model
 ######################################################################################################
-newtonOption(smartsearch=TRUE)
+newtonOption(smartsearch = TRUE)
 obj$fn(obj$par)
 obj$gr(obj$par)
-obj$control <- list(trace=10)
+obj$control <- list(trace = 10)
 obj$hessian <- TRUE
 
 ptm <- proc.time()
@@ -184,6 +187,7 @@ box()
 #abline(v=Report$value["ameanM"], col=2)
 dev.off()
 
+
 # Plot observed vs. predicted length at age
 png("ObsVsPred.png", width=5, height=5, units="in", res=300)
 par(mfrow=c(1,2))
@@ -194,6 +198,16 @@ abline(0,1, col=2, lwd = 2); box()
 plot( x=Report$value[names(Report$value) %in% "Length2_hat"], y=ATR_mod$Length2[1:Nindiv], xlab="Predicted length", ylab="Observed length", las = 1, xlim = xlim, ylim = ylim)
 abline(0,1, col=2, lwd = 2); box()
 dev.off()
+
+ggplot() +
+    geom_points(data = select, aes(x = Length1_hat, y = Length1, group = c(Epoch), color = factor(Epoch)), size = 1.5) + 
+    scale_colour_grey() +
+    facet_grid(. ~ sex) +
+    xlab("Predicted length (cm)") + ylab("Observed length (cm)") +
+    scale_x_continuous(breaks = seq(30, 90, 10)) +
+    guides(color = guide_legend(title = "Epoch"))
+    theme_presentation()
+
 
 # Plot observed vs. "true" growth schedules
 png("IndivGrowth.png", width=10, height=5, units="in", res=300)
