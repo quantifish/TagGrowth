@@ -99,22 +99,23 @@ Nareas <- length(unique(ATR_mod$Area1))
 # SIMULATE DATA
 #=================================================================================
 
-Ndesign <- 10 # How many experiments would you like to do?
+Ndesign <- 2 # How many experiments would you like to do?
 Nindiv <- 300 # Define the number of individuals in each simulation
 Nsex <- 2
 Nareas <- 1
 
 # Simulate sex, ages at tagging and time at liberty
 Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
-Age1 <- as.integer(runif(n = Nindiv, min = 4, max = 25))
-Liberty <- as.integer(runif(n = Nindiv, min = 1, max = 8))
+#Age1 <- as.integer(runif(n = Nindiv, min = 10, max = 150))
+Age1 <- round(rnorm(n = Nindiv, 500, 150), digits = 0)
+Liberty <- as.integer(runif(n = Nindiv, min = 0, max = 466))
 Age2 <- Age1 + Liberty
 Time0 <- rep(1, Nindiv)
 Time1 <- rep(1, Nindiv)
 Time2 <- rep(1, Nindiv)
 Year0 <- rep(1, Nindiv)
-Year1 <- rep(1, Nindiv)
-Year2 <- rep(1, Nindiv)
+Year1 <- rep(2, Nindiv)
+Year2 <- rep(3, Nindiv)
 Area1 <- rep(1, Nindiv)
 Data <- data.frame(Sex, Age1, Age2, Liberty, Time0, Time1, Year0, Year1, Area1)
 
@@ -130,11 +131,11 @@ Npar <- length(names)
 bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower", "upper")
-bounds[1,] <- c(43, 50)        # L0
-bounds[2,] <- c(0.0001, 0.009) # bmean
+bounds[1,] <- c(43.122, 49.742)        # L0
+bounds[2,] <- c(0.000969, 0.00107) # bmean
 bounds[3,] <- c(0.18, 0.21)      # sd_b
-bounds[4,] <- c(0.19, 0.19)      # gamma
-bounds[5,] <- c(1.7e-10, 1.7e-10)   # psi
+bounds[4,] <- c(0.189, 0.189)      # gamma
+bounds[5,] <- c(1.689e-10, 1.689e-10)   # psi
 bounds[6,] <- c(0.083, 0.083)     # sd_obs
 bounds[7,] <- c(6.5e-06, 6.5e-06)  # sd_z
 bounds[8,] <- c(0.1, 0.5)      # sd_y
@@ -172,13 +173,13 @@ dev.off()
 # Ignoring annual and area effects for now
 #Year1 <- as.integer(runif(n=Nindiv, min=2001, max=2008))
 #Year2 <- Year1+Liberty
-Year0 <- sample(ATR_mod$Year0, size = Nindiv, replace = TRUE)
-Year1 <- Year0 + sample(ATR_mod$Year1 - ATR_mod$Year0, size = Nindiv, replace = TRUE)
-Year2 <- Year1 + sample(ATR_mod$Year2 - ATR_mod$Year1, size = Nindiv, replace = TRUE)
-Area <- sample(ATR_mod$Area1, size = Nindiv, replace = TRUE)
-Time0 <- sample(ATR_mod$Time0, size = Nindiv, replace = TRUE)
-Time1 <- sample(ATR_mod$Time1, size = Nindiv, replace = TRUE) # WRONG
-Time2 <- sample(ATR_mod$Time2, size = Nindiv, replace = TRUE) # WRONG
+#Year0 <- sample(ATR_mod$Year0, size = Nindiv, replace = TRUE)
+#Year1 <- Year0 + sample(ATR_mod$Year1 - ATR_mod$Year0, size = Nindiv, replace = TRUE)
+#Year2 <- Year1 + sample(ATR_mod$Year2 - ATR_mod$Year1, size = Nindiv, replace = TRUE)
+#Area <- sample(ATR_mod$Area1, size = Nindiv, replace = TRUE)
+#Time0 <- sample(ATR_mod$Time0, size = Nindiv, replace = TRUE)
+#Time1 <- sample(ATR_mod$Time1, size = Nindiv, replace = TRUE) # WRONG
+#Time2 <- sample(ATR_mod$Time2, size = Nindiv, replace = TRUE) # WRONG
 
 yrs <- range(Year0, Year1, Year2)
 Nareas <- length(unique(ATR_mod$Area1))
@@ -187,10 +188,10 @@ Nareas <- length(unique(ATR_mod$Area1))
 
 set.seed(15)
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
-ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=TRUE, Input[[9]]$Parameters, Input[[9]]$Data)$ATR_sim
+ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=TRUE, Input[[1]]$Parameters, Input[[1]]$Data)$ATR_sim
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=TRUE)$ATR_sim
 #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=FALSE)$ATR_sim
-ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE, Input[[9]]$Parameters, Input[[9]]$Data)$ATR_sim
+ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE, Input[[1]]$Parameters, Input[[1]]$Data)$ATR_sim
 #save(ATR_sim, file="ATR_sim.RData")
 #load("ATR_sim.RData")
 
@@ -209,7 +210,8 @@ ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE, I
 
 # Plot the simulated growth schedules
 par(mfrow=c(1,1))
-ylim <- c(0, 100)
+xlim <- c(0, max(ATR_sim$Age2))
+ylim <- c(0, 200)
 plot(1, type="n", xlim=xlim, ylim=ylim, xlab="Age", ylab="Length (cm)", las=1)
 segments(x0=ATR_sim$Age1[ATR_sim$Sex==1], x1=ATR_sim$Age2[ATR_sim$Sex==1], y0=ATR_sim$Length1[ATR_sim$Sex==1], y1=ATR_sim$Length2[ATR_sim$Sex==1], col="pink")
 segments(x0=ATR_sim$Age1[ATR_sim$Sex==2], x1=ATR_sim$Age2[ATR_sim$Sex==2], y0=ATR_sim$Length1[ATR_sim$Sex==2], y1=ATR_sim$Length2[ATR_sim$Sex==2], col="blue")

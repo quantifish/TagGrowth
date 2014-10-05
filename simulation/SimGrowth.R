@@ -11,6 +11,9 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                       obs_err = TRUE, tvi_err = TRUE,
                       Pars, Data)
 {
+    #ln_xdev=NULL; ln_ydev=NULL; obs_err=TRUE; tvi_err=TRUE
+    #Pars=Input[[1]]$Parameters
+    #Data=Input[[1]]$Data
     # Parameters
     L0 <- Pars['L0',]
     bmean <- Pars['bmean',]
@@ -30,7 +33,8 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
     Time1 <- Data[,'Time1']
     Year0 <- Data[,'Year0']
     Year1 <- Data[,'Year1']
-    Area1 <- Data[,'Area1']
+    Year2 <- Data[,'Year2']
+    Area <- Data[,'Area1']
     # Individual vectors
     ln_bdev <- rep(NA, Nindiv)
     Length1 <- Length1_true <- rep(NA, Nindiv)
@@ -40,6 +44,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
     z1 <- rep(NA, Nindiv)
     z2 <- rep(NA, Nindiv)
     # Check for spatially-explicit or annual random effects
+    yrs <- range(Year0, Year1, Year2)
     if ( is.null(ln_xdev) ) ln_xdev <- rep(0, Nareas)
     if ( is.null(ln_ydev) ) ln_ydev <- rep(0, length(yrs[1]:yrs[2]))
     # Cycle through each individual and simulate a growth schedule
