@@ -11,63 +11,25 @@ require(TMB)
 require(ggplot2)
 require(reshape2)
 
-source("../src/theme_presentation.R")
-source("../src/plot.obs.pred.R")
-source("../src/plot.histogram.R")
-source("../src/time-step.R")
+source("../../src/theme_presentation.R")
+source("../../src/plot.obs.pred.R")
+source("../../src/plot.histogram.R")
+
+compile("ATR.cpp")
 
 
 ######################################################################################################
 # DATA
 ######################################################################################################
-# Load data
-load("ATR.RData")
-load("ATR_mod.RData")
 
-# Change to daily/weekly estimates
-#ATR_mod <- time.step(ATR_mod, units = "days")
-ATR_mod <- time.step(ATR_mod, units = "weeks")
+load("../sims/sim1.RData")
+ATR_mod <- sim$Sim
 head(ATR_mod)
-
-# Validate that the counter in the model will index the correct years (daily)
-for (II in 1:nrow(ATR_mod))
-{
-    time0 = ATR_mod$Time0[II]
-    year1 = ATR_mod$Year0[II]
-    for (i in 0:(ATR_mod$iAge1[II]-1))
-    {
-        time1 = time0 + i
-        if ( time1 %% 365 == 0. ) { year1 = year1 + 1; }
-    }
-    cat("Time1:", time1, ATR_mod[II,]$Time1, "| Year1:", year1, ATR_mod[II,]$Year1, "|", year1 == ATR_mod[II,]$Year1, "\n")
-}
-
-# Validate that the counter in the model will index the correct years (weeks)
-for (II in 1:nrow(ATR_mod))
-{
-    time0 = ATR_mod$Time0[II]
-    year1 = ATR_mod$Year0[II]
-    for (i in 0:(ATR_mod$iAge1[II]-1))
-    {
-        time1 = time0 + i
-        if ( time1 %% 52 == 0. ) { year1 = year1 + 1; }
-    }
-    cat("Time1:", time1, ATR_mod[II,]$Time1, "| Year1:", year1, ATR_mod[II,]$Year1, "|", year1 == ATR_mod[II,]$Year1, "\n")    
-    time1 = ATR_mod$Time1[II]
-    year2 = ATR_mod$Year1[II]
-    for (i in 0:(ATR_mod$iLiberty[II]-1))
-    {
-        time2 = time0 + i
-        if ( time2 %% 52 == 0. ) { year2 = year2 + 1; }
-    }
-    cat("Time2:", time2, ATR_mod[II,]$Time2, "| Year2:", year2, ATR_mod[II,]$Year2, "|", year2 == ATR_mod[II,]$Year2, "\n")
-}
 
 
 ######################################################################################################
 # Make AD object
 ######################################################################################################
-compile("ATR.cpp")
 dyn.load(dynlib("ATR"))
 Nindiv <- nrow(ATR_mod)
 Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
@@ -89,28 +51,6 @@ Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
 obj <- MakeADFun(data = Data, parameters = Params,
                  map = list(ln_ydev=factor(rep(NA,Nyears)), ln_sd_ydev=factor(NA), ln_xdev=factor(rep(NA,Nareas)), ln_sd_xdev=factor(NA)),
                  random = c("ln_bdev", "z1", "z2"))
-
-# With year-effects
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-               ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01),
-               ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params,
-                 map = list(ln_xdev=factor(rep(NA,Nareas)), ln_sd_xdev=factor(NA)),
-                 random = c("ln_bdev", "z1", "z2", "ln_ydev"))
-
-# With area-effects
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-               ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01),
-               ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params,
-                 map = list(ln_ydev=factor(rep(NA,Nyears)), ln_sd_ydev=factor(NA)),
-                 random = c("ln_bdev", "z1", "z2", "ln_xdev"))
 
 
 ######################################################################################################

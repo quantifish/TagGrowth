@@ -15,7 +15,7 @@ source("SimGrowth.R")
 #=================================================================================
 # SIMULATE DATA
 #=================================================================================
-Ndesign <- 10 # How many experiments would you like to do?
+Ndesign <- 20 # How many experiments would you like to do?
 Nindiv <- 315 # Define the number of individuals in each simulation
 Nsex <- 2
 Nareas <- 1
@@ -46,13 +46,13 @@ Npar <- length(names)
 bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower", "upper")
-bounds[1,] <- c(40, 50)           # L0
-bounds[2,] <- c(0.0009, 0.0015)   # bmean
-bounds[3,] <- c(0.18, 0.21)       # sd_b
-bounds[4,] <- c(0.15, 0.20)       # gamma
+bounds[1,] <- c(30, 60)           # L0
+bounds[2,] <- c(0.0005, 0.005)   # bmean
+bounds[3,] <- c(0.1, 0.21)       # sd_b
+bounds[4,] <- c(0.1, 0.25)       # gamma
 bounds[5,] <- c(1.6e-10, 1.7e-10) # psi
-bounds[6,] <- c(0.080, 0.085)     # sd_obs
-bounds[7,] <- c(6.4e-06, 6.6e-06) # sd_z
+bounds[6,] <- c(0.01, 0.1)     # sd_obs
+bounds[7,] <- c(6e-06, 6e-01) # sd_z
 bounds[8,] <- c(0.1, 0.5)         # sd_y
 
 # Use the latin hypercube design to create grid of input parameters given the
