@@ -1,7 +1,6 @@
-######################################################################################################
+#=================================================================================
 # RANDOM EFFECTS MODELLING OF GROWTH USING TAG RECAPTURE DATA
-######################################################################################################
-# Authors: Jim Thorson, Darcy Webber
+#=================================================================================
 
 # Make sure R is clean
 rm(list = ls())
@@ -16,57 +15,52 @@ source("../../src/plot.obs.pred.R")
 source("../../src/plot.histogram.R")
 
 compile("ATR.cpp")
-
-
-######################################################################################################
-# DATA
-######################################################################################################
-
-load("../sims/sim1.RData")
-ATR_mod <- sim$Sim
-head(ATR_mod)
-
-
-######################################################################################################
-# Make AD object
-######################################################################################################
 dyn.load(dynlib("ATR"))
-Nindiv <- nrow(ATR_mod)
-Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
-             Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
-             Sex = ATR_mod[1:Nindiv,'Sex'],
-             Time0 = ATR_mod[1:Nindiv,'Time0'], Time1 = ATR_mod[1:Nindiv,'Time1'],
-             Year0 = ATR_mod[1:Nindiv,'Year0'], Year1 = ATR_mod[1:Nindiv,'Year1'],
-             Area1 = ATR_mod[1:Nindiv,'Area1'])
-Nyears <- 40
-Nareas <- length(unique(ATR_mod$Area1))
 
-# No year-effects or area-effects
-Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-               ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-               ln_sd_obs=log(20),
-               z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-               ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01),
-               ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params,
-                 map = list(ln_ydev=factor(rep(NA,Nyears)), ln_sd_ydev=factor(NA), ln_xdev=factor(rep(NA,Nareas)), ln_sd_xdev=factor(NA)),
-                 random = c("ln_bdev", "z1", "z2"))
+I've saved sim 1
+
+for (Isim in 1:100)
+{
+    # Data
+    fname <- paste("../sims/sim", Isim, ".RData", sep = "")
+    load(fname)
+    ATR_mod <- sim$Sim
+    Nindiv <- nrow(ATR_mod)
+    # Make AD object
+    Data <- list(iAge1 = ATR_mod[1:Nindiv,'Age1'], iLiberty = ATR_mod[1:Nindiv,'Liberty'],
+                 Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
+                 Sex = ATR_mod[1:Nindiv,'Sex'],
+                 Time0 = ATR_mod[1:Nindiv,'Time0'], Time1 = ATR_mod[1:Nindiv,'Time1'],
+                 Year0 = ATR_mod[1:Nindiv,'Year0'], Year1 = ATR_mod[1:Nindiv,'Year1'],
+                 Area1 = ATR_mod[1:Nindiv,'Area1'])
+    Nyears <- 40
+    Nareas <- length(unique(ATR_mod$Area1))
+    Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
+                   ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
+                   ln_sd_obs=log(20),
+                   z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
+                   ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01),
+                   ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
+    obj <- MakeADFun(data = Data, parameters = Params,
+                     map = list(ln_ydev=factor(rep(NA,Nyears)), ln_sd_ydev=factor(NA), ln_xdev=factor(rep(NA,Nareas)), ln_sd_xdev=factor(NA)),
+                     random = c("ln_bdev", "z1", "z2"))
+    # Run model
+    newtonOption(smartsearch = TRUE)
+    obj$fn(obj$par)
+    obj$gr(obj$par)
+    obj$control <- list(trace = 10)
+    obj$hessian <- TRUE
+    opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
+    Report <- sdreport(obj)
+    # Append Report to sim and save as .RData file
+    sim$obj <- obj
+    sim$opt <- opt
+    sim$Report <- Report
+    save(sim, file = fname)
+    cat("Simulation", Isim, "done\n")
+}
 
 
-######################################################################################################
-# Run model
-######################################################################################################
-newtonOption(smartsearch = TRUE)
-obj$fn(obj$par)
-obj$gr(obj$par)
-obj$control <- list(trace = 10)
-obj$hessian <- TRUE
-
-ptm <- proc.time()
-opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
-summary(obj)
-Report <- sdreport(obj)
-proc.time() - ptm
 
 
 ######################################################################################################

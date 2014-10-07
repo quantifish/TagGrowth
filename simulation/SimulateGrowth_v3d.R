@@ -2,6 +2,8 @@
 # SIMULATION
 #=================================================================================
 
+# This verison uses a more complex latin hypercube design
+
 rm(list=ls())
 
 require(BACCO) # Using the BACCO library for its latin hypercube design
@@ -47,12 +49,12 @@ bounds <- matrix(NA, nrow = Npar, ncol = 2)
 rownames(bounds) <- names
 colnames(bounds) <- c("lower", "upper")
 bounds[1,] <- c(30, 60)           # L0
-bounds[2,] <- c(0.0005, 0.005)   # bmean
-bounds[3,] <- c(0.1, 0.21)       # sd_b
-bounds[4,] <- c(0.1, 0.25)       # gamma
+bounds[2,] <- c(0.0005, 0.005)    # bmean
+bounds[3,] <- c(0.1, 0.21)        # sd_b
+bounds[4,] <- c(0.1, 0.25)        # gamma
 bounds[5,] <- c(1.6e-10, 1.7e-10) # psi
-bounds[6,] <- c(0.01, 0.1)     # sd_obs
-bounds[7,] <- c(6e-06, 6e-01) # sd_z
+bounds[6,] <- c(0.01, 0.1)        # sd_obs
+bounds[7,] <- c(6e-06, 6e-01)     # sd_z
 bounds[8,] <- c(0.1, 0.5)         # sd_y
 
 # Use the latin hypercube design to create grid of input parameters given the
