@@ -1,5 +1,6 @@
 #' Growth simulation model
 #'
+#' @author Darcy Webber, Jim Thorson
 #' @param ln_xdev are the deviations for each area
 #' @param ln_ydev are the deviations for each year
 #' @param obs_err is the observation error
@@ -8,16 +9,77 @@
 #' 
 SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                       obs_err = TRUE, tvi_err = TRUE,
-                      Pars)
+                      Pars, Nindiv)
 {
     #ln_xdev=NULL; ln_ydev=NULL; obs_err=TRUE; tvi_err=TRUE
-    #Pars=Input[[1]]$Parameters
-    #Data=Input[[1]]$Data
     # Simulate sex, ages at tagging and time at liberty for each individual
-    Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1=female, 2=male)
-    Age1 <- round(rnorm(n = Nindiv, 500, 150), digits = 0)
-    Liberty <- round(runif(n = Nindiv, min = 0, max = 466), digits = 0)
-    Age2 <- Age1 + Liberty
+    # Simulate from observations?
+    if ( TRUE )
+    {
+        # First we are going to load in the observed data set. We are going to
+        # sample things like time at liberty and age at capture and recapture
+        # from this data set
+        load("../data/ATR_mod.RData")
+        ATR_mod <- time.step(ATR_mod, units = "weeks")
+        Sex <- sample.int(ATR_mod$Sex, size = Nindiv, replace = TRUE) # (1 = female, 2 = male)
+        #Age1 <- round(sample(ATR_mod$Age1, size = Nindiv, replace = TRUE), digits = 0)
+        #Age2 <- round(sample(ATR_mod$Age2, size = Nindiv, replace = TRUE), digits = 0)
+        #Liberty <- round(sample(ATR_mod$Liberty, size = Nindiv, replace = TRUE), digits = 0)
+        #Age1 <- sample(ATR_mod$Age1, size = Nindiv, replace = TRUE)
+        #Age2 <- sample(ATR_mod$Age2, size = Nindiv, replace = TRUE)
+        #Liberty <- Age2 - Age1
+        #Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
+        #Age2 <- Age1 + Liberty
+        # This functions picks 2 of either Age1, Age2 or Liberty and calculates
+        # the value of the third
+        chooser <- function()
+        {
+            Age1 <- sample(ATR_mod$Age1, size = 1, replace = TRUE) #* rnorm(1, 1, 0.4)
+            Age2 <- sample(ATR_mod$Age2, size = 1, replace = TRUE) #* rnorm(1, 1, 0.4)
+            Liberty <- sample(ATR_mod$Liberty, size = 1, replace = TRUE) #* rnorm(1, 1, 1)
+            rnd <- rbinom(1, 1, 0.5) + 1
+            #if (rnd == 1) Age1 <- Age2 - Liberty
+            #if (rnd == 2) Age2 <- Age1 + Liberty
+            #Age1 <- Age2 - Liberty
+            Age2 <- Age1 + Liberty
+            cat(Age1, "|", Age2, "|", Liberty, "\n")
+            if (Liberty < 0) stop("Error: a negative time at liberty was simulated")
+            if (Age1 < 0 | Age2 < 0) stop("Error: a fish younger than zero was simulated")
+            return(c(Age1, Age2, Liberty))
+        }
+        Age1 <- matrix(NA, 100, Nindiv)
+        Age2 <- matrix(NA, 100, Nindiv)
+        Liberty <- matrix(NA, 100, Nindiv)
+        for (j in 1:100)
+        {
+            for (i in 1:Nindiv)
+            {
+                tmp <- chooser()
+                Age1[j,i] <- tmp[1]
+                Age2[j,i] <- tmp[2]
+                Liberty[j,i] <- tmp[3]
+            }
+        }
+        par(mfrow = c(2,2))
+        plot(density(ATR_mod$Age1), type = "l")
+        for (j in 1:100) lines(density(Age1[j,]), col = 2)
+        lines(density(ATR_mod$Age1))
+        plot(density(ATR_mod$Age2), type = "l")
+        for (j in 1:100) lines(density(Age2[j,]), col = 2)
+        lines(density(ATR_mod$Age2))
+        plot(density(ATR_mod$iLiberty), type = "l")
+        for (j in 1:100) lines(density(Liberty[j,]), col = 2)
+        lines(density(ATR_mod$Liberty))
+        plot(ATR_mod$Age1, ATR_mod$Age2)
+    }
+    # Simulate from distribution?
+    if ( FALSE )
+    {
+        Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1 = female, 2 = male)
+        Age1 <- round(rnorm(n = Nindiv, 500, 150), digits = 0)
+        Liberty <- round(runif(n = Nindiv, min = 0, max = 466), digits = 0)
+        Age2 <- Age1 + Liberty
+    }
     Time0 <- rep(1, Nindiv)
     Time1 <- rep(1, Nindiv)
     Time2 <- rep(1, Nindiv)

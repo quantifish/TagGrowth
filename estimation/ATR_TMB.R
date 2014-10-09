@@ -21,8 +21,8 @@ source("../src/time-step.R")
 # DATA
 ######################################################################################################
 # Load data
-load("ATR.RData")
-load("ATR_mod.RData")
+load("../data/ATR.RData")
+load("../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
 #ATR_mod <- time.step(ATR_mod, units = "days")

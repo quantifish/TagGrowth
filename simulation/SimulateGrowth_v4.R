@@ -6,14 +6,14 @@ rm(list=ls())
 
 source("../src/plot.growth.R")
 source("SimGrowth.R")
+source("../src/time-step.R")
 
 
 #=================================================================================
 # SIMULATE DATA
 #=================================================================================
-Ndesign <- 20 # How many experiments would you like to do?
-Nindiv <- 315 # Define the number of individuals in each simulation
-#Nsex <- 2
+Ndesign <- 100 # The number of simulations we will do
+Nindiv <- 315  # The same as our estimation model
 Nareas <- 1
 
 
@@ -21,10 +21,10 @@ Nareas <- 1
 # SPECIFY PARAMETERS FOR SIMULATION
 #=================================================================================
 L0 <- c(43,50)
-bmean <- c(0.00096,0.00106)
+bmean <- c(0.00100,0.00106)
 sd_b <- c(0.21,0.19)
 gamma <- c(0.19,0.19)
-psi <- c(0.00000000017,0.00000000017)
+psi <- c(0.0000000002,0.0000000002)
 sd_obs <- c(0.083,0.083)
 sd_z <- c(0.0000065,0.0000065)
 sd_y <- c(0,0)

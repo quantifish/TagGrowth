@@ -1,4 +1,8 @@
-# A function for converting the data frame from annual to daily/weekly time steps.
+#' Function for converting data.frame from annual to daily/weekly time steps.
+#'
+#' @author Darcy Webber, Jim Thorson
+#' @param units choose between weeks or days
+#' 
 time.step <- function(ATR_mod, units = "weeks", year0 = 1972)
 {
     # There are 365.25 days in a year or 52.15 weeks in a year
@@ -8,6 +12,7 @@ time.step <- function(ATR_mod, units = "weeks", year0 = 1972)
     ATR_mod$Age1 <- as.numeric(ATR_mod$Age2 - difftime(ATR_mod$Date2, ATR_mod$Date1, units = units))
     ATR_mod$iAge1 <- round(ATR_mod$Age1)
     ATR_mod$Date0 <- ATR_mod$Date2 - as.difftime(ATR_mod$Age2, unit = units)
+    ATR_mod$Liberty <- as.numeric(difftime(ATR_mod$Date2, ATR_mod$Date1, units = units))
     ATR_mod$iLiberty <- round(as.numeric(difftime(ATR_mod$Date2, ATR_mod$Date1, units = units)))
     # We define a year as 1 Nov. to 31 Oct.
     ATR_mod$Year0 <- rep(NA, nrow(ATR_mod))
