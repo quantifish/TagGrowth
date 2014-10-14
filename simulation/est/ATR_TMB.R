@@ -17,9 +17,8 @@ source("../../src/plot.histogram.R")
 compile("ATR.cpp")
 dyn.load(dynlib("ATR"))
 
-I've saved sim 1
 
-for (Isim in 1:100)
+for (Isim in 1:2)
 {
     # Data
     fname <- paste("../sims/sim", Isim, ".RData", sep = "")

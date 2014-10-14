@@ -41,7 +41,7 @@ for (ss in 1:Ndesign)
 {
     #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=ln_ydev, obs_err=TRUE, tvi_err=TRUE)$ATR_sim
     ATR_sim <- SimGrowth(ln_xdev = NULL, ln_ydev = NULL,
-                         obs_err = TRUE, tvi_err = TRUE, Pars)
+                         obs_err = TRUE, tvi_err = TRUE, Pars, Nindiv)
     #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=TRUE)$ATR_sim
     #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=TRUE, tvi_err=FALSE)$ATR_sim
     #ATR_sim <- SimGrowth(ln_xdev=NULL, ln_ydev=NULL, obs_err=FALSE, tvi_err=FALSE, Input[[1]]$Parameters, Input[[1]]$Data)$ATR_sim

@@ -50,7 +50,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
         Age1 <- matrix(NA, 100, Nindiv)
         Age2 <- matrix(NA, 100, Nindiv)
         Liberty <- matrix(NA, 100, Nindiv)
-        for (j in 1:100)
+        for (j in 1:1)
         {
             for (i in 1:Nindiv)
             {
@@ -60,24 +60,56 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                 Liberty[j,i] <- tmp[3]
             }
         }
-        par(mfrow = c(2,2))
-        plot(density(ATR_mod$Age1), type = "l")
-        for (j in 1:100) lines(density(Age1[j,]), col = 2)
-        lines(density(ATR_mod$Age1))
-        plot(density(ATR_mod$Age2), type = "l")
-        for (j in 1:100) lines(density(Age2[j,]), col = 2)
-        lines(density(ATR_mod$Age2))
-        plot(density(ATR_mod$iLiberty), type = "l")
-        for (j in 1:100) lines(density(Liberty[j,]), col = 2)
-        lines(density(ATR_mod$Liberty))
-        plot(ATR_mod$Age1, ATR_mod$Age2)
+        #par(mfrow = c(2,2))
+        #plot(density(ATR_mod$Age1), type = "l")
+        #for (j in 1:100) lines(density(Age1[j,]), col = 2)
+        #lines(density(ATR_mod$Age1))
+        #plot(density(ATR_mod$Age2), type = "l")
+        #for (j in 1:100) lines(density(Age2[j,]), col = 2)
+        #lines(density(ATR_mod$Age2))
+        #plot(density(ATR_mod$iLiberty), type = "l")
+        #for (j in 1:100) lines(density(Liberty[j,]), col = 2)
+        #lines(density(ATR_mod$Liberty))
+        #plot(Age1, Age2, col = 2, pch = 3)
+        #points(ATR_mod$Age1, ATR_mod$Age2)
+        #dev.off()
+        # Need to round these numbers now
+        Age1 <- round(Age1[1,], digits = 0)
+        Age2 <- round(Age2[1,], digits = 0)
+        Liberty <- round(Liberty[1,], digits = 0)
     }
-    # Simulate from distribution?
+    # Simulate from distributions?
     if ( FALSE )
     {
         Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1 = female, 2 = male)
-        Age1 <- round(rnorm(n = Nindiv, 500, 150), digits = 0)
-        Liberty <- round(runif(n = Nindiv, min = 0, max = 466), digits = 0)
+        load("../data/ATR_mod.RData")
+        ATR_mod <- time.step(ATR_mod, units = "weeks")
+        # Fit lognormal distributions to Age1 and Liberty
+        if ( TRUE )
+        {
+            fit_age1 <- MASS::fitdistr(ATR_mod$Age1, "lognormal")$estimate
+            fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "lognormal")$estimate
+            Age1 <- rlnorm(Nindiv, fit_age1[1], fit_age1[2])
+            Liberty <- rlnorm(Nindiv, fit_liberty[1], fit_liberty[2])
+            plot(density(ATR_mod$Age1))
+            lines(density(Age1), col = 2)
+            plot(density(ATR_mod$Liberty))
+            lines(density(Liberty), col = 2)
+        }
+        # Fit Poisson distributions to Age1 and Liberty
+        if ( FALSE )
+        {
+            fit_age1 <- MASS::fitdistr(ATR_mod$iAge1, "Poisson")$estimate
+            fit_liberty <- MASS::fitdistr(ATR_mod$iLiberty, "Poisson")$estimate
+            Age1 <- rpois(Nindiv, fit_age1)
+            Liberty <- rpois(Nindiv, fit_liberty)
+            plot(density(ATR_mod$iAge1))
+            lines(density(Age1), col = 2)
+            plot(density(ATR_mod$iLiberty))
+            lines(density(Liberty), col = 2)
+        }
+        Age1 <- round(Age1, digits = 0)
+        Liberty <- round(Liberty, digits = 0)
         Age2 <- Age1 + Liberty
     }
     Time0 <- rep(1, Nindiv)
