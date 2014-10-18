@@ -13,13 +13,13 @@ require(reshape2)
 source("../../src/theme_presentation.R")
 source("../../src/plot.obs.pred.R")
 source("../../src/plot.histogram.R")
+source("SimFit.R")
 
 compile("ATR.cpp")
-dyn.load(dynlib("ATR"))
-
 
 for (Isim in 1:2)
 {
+    dyn.load(dynlib("ATR"))
     # Data
     fname <- paste("../sims/sim", Isim, ".RData", sep = "")
     load(fname)
@@ -34,14 +34,14 @@ for (Isim in 1:2)
                  Area1 = ATR_mod[1:Nindiv,'Area1'])
     Nyears <- 40
     Nareas <- length(unique(ATR_mod$Area1))
-    Params <- list(ln_gamma=log(10000), logit_psi=qlogis(0.2), ln_L0=rep(log(1),2),
-                   ln_bmean=rep(log(0.2),2), ln_bdev=rep(0,Nindiv), ln_sd_bdev=c(log(0.01),log(0.01)),
-                   ln_sd_obs=log(20),
-                   z1=rep(0,Nindiv), z2=rep(0,Nindiv), ln_sd_z=log(0.1),
-                   ln_ydev=rep(0,Nyears), ln_sd_ydev=log(0.01),
-                   ln_xdev=rep(0,Nareas), ln_sd_xdev=log(0.01))
+    Params <- list(ln_gamma = log(10000), logit_psi = qlogis(0.2), ln_L0 = rep(log(1), 2),
+                   ln_bmean = rep(log(0.2), 2), ln_bdev = rep(0, Nindiv), ln_sd_bdev = c(log(0.01), log(0.01)),
+                   ln_sd_obs = log(20),
+                   z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
+                   ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.01),
+                   ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.01))
     obj <- MakeADFun(data = Data, parameters = Params,
-                     map = list(ln_ydev=factor(rep(NA,Nyears)), ln_sd_ydev=factor(NA), ln_xdev=factor(rep(NA,Nareas)), ln_sd_xdev=factor(NA)),
+                     map = list(ln_ydev = factor(rep(NA, Nyears)), ln_sd_ydev = factor(NA), ln_xdev = factor(rep(NA, Nareas)), ln_sd_xdev = factor(NA)),
                      random = c("ln_bdev", "z1", "z2"))
     # Run model
     newtonOption(smartsearch = TRUE)
@@ -54,9 +54,15 @@ for (Isim in 1:2)
     # Append Report to sim and save as .RData file
     sim$obj <- obj
     sim$opt <- opt
+    Report$diag.cov.random <- NULL
+    Report$cov <- NULL
+    Report$sd <- NULL
+    Report$gradient.fixed <- NULL
+    Report$cov.fixed <- NULL
     sim$Report <- Report
     save(sim, file = fname)
     cat("Simulation", Isim, "done\n")
+    dyn.unload(dynlib("ATR"))
 }
 
 

@@ -11,16 +11,19 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                       obs_err = TRUE, tvi_err = TRUE,
                       Pars, Nindiv)
 {
+    source("../src/time-step.R")
+    load("../data/ATR_mod.RData")
+    ATR_mod <- time.step(ATR_mod, units = "weeks")
     #ln_xdev=NULL; ln_ydev=NULL; obs_err=TRUE; tvi_err=TRUE
     # Simulate sex, ages at tagging and time at liberty for each individual
+    #=================================================================================================
     # Simulate from observations?
+    #=================================================================================================
     if ( TRUE )
     {
         # First we are going to load in the observed data set. We are going to
         # sample things like time at liberty and age at capture and recapture
         # from this data set
-        load("../data/ATR_mod.RData")
-        ATR_mod <- time.step(ATR_mod, units = "weeks")
         Sex <- sample.int(ATR_mod$Sex, size = Nindiv, replace = TRUE) # (1 = female, 2 = male)
         #Age1 <- round(sample(ATR_mod$Age1, size = Nindiv, replace = TRUE), digits = 0)
         #Age2 <- round(sample(ATR_mod$Age2, size = Nindiv, replace = TRUE), digits = 0)
@@ -60,30 +63,17 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                 Liberty[j,i] <- tmp[3]
             }
         }
-        #par(mfrow = c(2,2))
-        #plot(density(ATR_mod$Age1), type = "l")
-        #for (j in 1:100) lines(density(Age1[j,]), col = 2)
-        #lines(density(ATR_mod$Age1))
-        #plot(density(ATR_mod$Age2), type = "l")
-        #for (j in 1:100) lines(density(Age2[j,]), col = 2)
-        #lines(density(ATR_mod$Age2))
-        #plot(density(ATR_mod$iLiberty), type = "l")
-        #for (j in 1:100) lines(density(Liberty[j,]), col = 2)
-        #lines(density(ATR_mod$Liberty))
-        #plot(Age1, Age2, col = 2, pch = 3)
-        #points(ATR_mod$Age1, ATR_mod$Age2)
-        #dev.off()
         # Need to round these numbers now
         Age1 <- round(Age1[1,], digits = 0)
         Age2 <- round(Age2[1,], digits = 0)
         Liberty <- round(Liberty[1,], digits = 0)
     }
+    #=================================================================================================
     # Simulate from distributions?
+    #=================================================================================================
     if ( FALSE )
     {
         Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1 = female, 2 = male)
-        load("../data/ATR_mod.RData")
-        ATR_mod <- time.step(ATR_mod, units = "weeks")
         # Fit lognormal distributions to Age1 and Liberty
         if ( TRUE )
         {
@@ -91,10 +81,6 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
             fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "lognormal")$estimate
             Age1 <- rlnorm(Nindiv, fit_age1[1], fit_age1[2])
             Liberty <- rlnorm(Nindiv, fit_liberty[1], fit_liberty[2])
-            plot(density(ATR_mod$Age1))
-            lines(density(Age1), col = 2)
-            plot(density(ATR_mod$Liberty))
-            lines(density(Liberty), col = 2)
         }
         # Fit Poisson distributions to Age1 and Liberty
         if ( FALSE )
@@ -103,15 +89,32 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
             fit_liberty <- MASS::fitdistr(ATR_mod$iLiberty, "Poisson")$estimate
             Age1 <- rpois(Nindiv, fit_age1)
             Liberty <- rpois(Nindiv, fit_liberty)
-            plot(density(ATR_mod$iAge1))
-            lines(density(Age1), col = 2)
-            plot(density(ATR_mod$iLiberty))
-            lines(density(Liberty), col = 2)
         }
         Age1 <- round(Age1, digits = 0)
         Liberty <- round(Liberty, digits = 0)
         Age2 <- Age1 + Liberty
     }
+    #=================================================================================================
+    if ( FALSE )
+    {
+        par(mfrow = c(2,2))
+        plot(density(ATR_mod$Age1), type = "l")
+        #for (j in 1:100) lines(density(Age1[j,]), col = 2)
+        lines(density(Age1), col = 2)
+        lines(density(ATR_mod$Age1))
+        plot(density(ATR_mod$Age2), type = "l")
+        #for (j in 1:100) lines(density(Age2[j,]), col = 2)
+        lines(density(Age2), col = 2)
+        lines(density(ATR_mod$Age2))
+        plot(density(ATR_mod$iLiberty), type = "l")
+        #for (j in 1:100) lines(density(Liberty[j,]), col = 2)
+        lines(density(Liberty), col = 2)
+        lines(density(ATR_mod$Liberty))
+        plot(Age1, Age2, col = 2, pch = 3)
+        points(ATR_mod$Age1, ATR_mod$Age2)
+        dev.off()
+    }
+    #=================================================================================================
     Time0 <- rep(1, Nindiv)
     Time1 <- rep(1, Nindiv)
     Time2 <- rep(1, Nindiv)

@@ -1,8 +1,4 @@
 *~
-*.RData
-*.rda
-*.png
 *.dll
 *.o
 *.so
-*.csv

@@ -8,6 +8,8 @@ Variation among individuals can be easily included by treating each individual's
 
 dL/dt = a - bL
 
+![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29%0D%0A&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+
 where dL/dt is change in length as a function of time, a scales with energy acquisition, and b represents metabolic upkeep costs. However, individuals that are more highly active may obtain more food (increased a) and simultaneously have greater upkeep costs (increased b). Following Shelton et al. (2013), we include this correlation via the following equation:
 
 a = γbΨ
