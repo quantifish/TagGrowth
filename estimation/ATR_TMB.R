@@ -11,9 +11,11 @@ require(TMB)
 require(ggplot2)
 require(reshape2)
 
-source("../src/theme_presentation.R")
+source("../src/plot_theme.R")
+source("../src/plot_palette.R")
 source("../src/plot.obs.pred.R")
 source("../src/plot.histogram.R")
+source("../src/plot.indiv.growth.R")
 source("../src/time-step.R")
 
 
@@ -140,11 +142,11 @@ head(Report$value, 15)
 t(t(tapply(X=Report$value, INDEX=names(Report$value), FUN=length)))
 
 # Save results to file
-#save(obj, file="obj.RData")
-#save(opt, file="opt.RData")
-save(Report, file="Report.RData")
-#load("Report.RData")
-write.csv(data.frame(names(Report$value), Report$value), file="Pars.csv", row.names=TRUE)
+save(obj, file = "obj.RData")
+save(opt, file = "opt.RData")
+save(Report, file = "Report.RData")
+load("Report.RData")
+write.csv(data.frame(names(Report$value), Report$value), file = "Pars.csv", row.names = TRUE)
 
 # Append model outputs to ATR_mod
 ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
@@ -171,22 +173,10 @@ dev.off()
 
 plot.obs.pred()
 plot.histogram()
+plot.indiv.growth()
 
 
-# Plot observed vs. "true" growth schedules
-png("IndivGrowth.png", width=10, height=5, units="in", res=300)
-par(mfrow=c(1,2))
-plot(1, type="n", xlim=c(0,max(ATR_mod$Age2[1:Nindiv]/365)), ylim=c(0,max(ATR_mod$Length2[1:Nindiv])), xlab="Age", ylab="Length (cm)", las=1)
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==1]/365, x1=ATR_mod$Age2[ATR_mod$Sex==1]/365, y0=ATR_mod$Length1[ATR_mod$Sex==1], y1=ATR_mod$Length2[ATR_mod$Sex==1])
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==1]/365, x1=ATR_mod$Age2[ATR_mod$Sex==1]/365, y0=(Report$value[names(Report$value) %in% "Length1_hat"])[ATR_mod$Sex==1], y1=(Report$value[names(Report$value) %in% "Length2_hat"])[ATR_mod$Sex==1], col="red")
-title("Females")
-legend("bottomright", legend=c("Observed","Expected"), col=1:2, lwd=1, bty="n")
-plot(1, type="n", xlim=c(0,max(ATR_mod$Age2[1:Nindiv]/365)), ylim=c(0,max(ATR_mod$Length2[1:Nindiv])), xlab="Age", ylab="Length (cm)", las=1)
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==2]/365, x1=ATR_mod$Age2[ATR_mod$Sex==2]/365, y0=ATR_mod$Length1[ATR_mod$Sex==2], y1=ATR_mod$Length2[ATR_mod$Sex==2])
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==2]/365, x1=ATR_mod$Age2[ATR_mod$Sex==2]/365, y0=(Report$value[names(Report$value) %in% "Length1_hat"])[ATR_mod$Sex==2], y1=(Report$value[names(Report$value) %in% "Length2_hat"])[ATR_mod$Sex==2], col="red")
-title("Males")
-legend("bottomright", legend=c("Observed","Expected"), col=1:2, lwd=1, bty="n")
-dev.off()
+
 
 # Year effects
 png("YearEffect.png", width=5, height=5, units="in", res=300)

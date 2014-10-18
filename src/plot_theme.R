@@ -1,6 +1,6 @@
-theme_presentation <- function (base_size = 12, base_family = "") 
+plot_theme <- function (base_size = 12, base_family = "") 
 {
-  theme_grey(base_size = base_size, base_family = base_family) %+replace% 
+    theme_grey(base_size = base_size, base_family = base_family) %+replace% 
     theme(axis.text = element_text(size = rel(1.0)),
           axis.title=element_text(size=rel(1.2)),
           axis.ticks = element_line(colour = "black"), 

@@ -1,6 +1,6 @@
 plot.obs.pred <- function()
 {
-    png("ObsVsPred.png", width = 10, height = 5, units = "in", res = 400)
+    require(ggplot2)
     d1 <- data.frame(ATR_mod[,c('Sex','Length1','Length1_hat')], Length = "Length at tagging")
     d2 <- data.frame(ATR_mod[,c('Sex','Length2','Length2_hat')], Length = "Length at recapture")
     names(d2) <- names(d1)
@@ -11,12 +11,15 @@ plot.obs.pred <- function()
         geom_abline(aes(yintercept = 0, slope = 1)) +
         geom_point(aes(x = Length1_hat, y = Length1, group = c(Sex), color = factor(Sex))) +
         facet_grid(. ~ Length) +
-        xlab("Predicted length (cm)") + ylab("Observed length (cm)") +
+        xlab("\nPredicted length (cm)") + ylab("Observed length (cm)\n") +
         scale_x_continuous(limits = c(50, 175)) +
         scale_y_continuous(limits = c(50, 175)) +
         coord_fixed() +
         guides(color = guide_legend(title = "Sex")) +
-        theme_presentation()
+        plot_theme() +
+        scale_colour_manual(values = plot_palette)
+    
+    png("ObsVsPred.png", width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }

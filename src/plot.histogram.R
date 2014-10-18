@@ -1,6 +1,6 @@
 plot.histogram <- function()
 {
-    png("REs.png", width = 10, height = 5, units = "in", res = 400)
+    require(ggplot2)
     REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
     #REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
     #REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
@@ -14,8 +14,11 @@ plot.histogram <- function()
         geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
         #facet_grid(Sex ~ variable, scales = "free")
         facet_grid(. ~ Sex, scales = "fixed") +
-        xlab("b") + ylab("Density") +
-        theme_presentation()
+        xlab("\nb") + ylab("Density\n") +
+        plot_theme() +
+        scale_colour_manual(values = plot_palette)
+    
+    png("REs.png", width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }

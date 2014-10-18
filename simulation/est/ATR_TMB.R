@@ -17,7 +17,7 @@ source("SimFit.R")
 
 compile("ATR.cpp")
 
-for (Isim in 1:2)
+for (Isim in 5:6)
 {
     dyn.load(dynlib("ATR"))
     # Data
@@ -62,7 +62,12 @@ for (Isim in 1:2)
     sim$Report <- Report
     save(sim, file = fname)
     cat("Simulation", Isim, "done\n")
+    #options(warn = -1)
     dyn.unload(dynlib("ATR"))
+    #detach("package:ATR", unload = TRUE)
+    #unloadNamespace("ATR")
+    #options(warn = 0)
+    #getLoadedDLLs()
 }
 
 
