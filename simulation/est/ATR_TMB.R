@@ -7,18 +7,12 @@ rm(list = ls())
 
 # Load TMB
 require(TMB)
-require(ggplot2)
-require(reshape2)
-
-source("../../src/theme_presentation.R")
-source("../../src/plot.obs.pred.R")
-source("../../src/plot.histogram.R")
-source("SimFit.R")
 
 compile("ATR.cpp")
 
-for (Isim in 5:6)
+for (Isim in 26:100)
 {
+    cat("\nStarting simulation", Isim, "...\n")
     dyn.load(dynlib("ATR"))
     # Data
     fname <- paste("../sims/sim", Isim, ".RData", sep = "")
@@ -47,96 +41,28 @@ for (Isim in 5:6)
     newtonOption(smartsearch = TRUE)
     obj$fn(obj$par)
     obj$gr(obj$par)
-    obj$control <- list(trace = 10)
+    obj$env$tracemgc <- FALSE
+    obj$env$inner.control$trace <- FALSE
+    obj$env$silent <- TRUE
     obj$hessian <- TRUE
-    opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
-    Report <- sdreport(obj)
-    # Append Report to sim and save as .RData file
-    sim$obj <- obj
-    sim$opt <- opt
-    Report$diag.cov.random <- NULL
-    Report$cov <- NULL
-    Report$sd <- NULL
-    Report$gradient.fixed <- NULL
-    Report$cov.fixed <- NULL
-    sim$Report <- Report
-    save(sim, file = fname)
-    cat("Simulation", Isim, "done\n")
-    #options(warn = -1)
+    #obj$env$inner.control$step.tol <- 1e-12 # Default : 1e-8 # Change in parameters limit inner optimization
+    #obj$env$inner.control$tol10 <- 1e-8     # Default : 1e-3 # Change in pen.like limit inner optimization
+    #obj$env$inner.control$grad.tol <- 1e-12 # Default : 1e-8 # Maximum gradient limit inner optimization
+    doFit <- function()
+    {
+        opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
+        Report <- sdreport(obj)
+        # Append Report to sim and save as .RData file
+        sim$obj <- obj
+        sim$opt <- opt
+        Report$diag.cov.random <- NULL
+        Report$cov <- NULL
+        Report$sd <- NULL
+        Report$gradient.fixed <- NULL
+        Report$cov.fixed <- NULL
+        sim$Report <- Report
+        save(sim, file = fname)
+    }
+    tryCatch(doFit(), error = function(e) cat("Error in simulation", Isim, "\n"), finally = cat("Simulation", Isim, "done\n"))
     dyn.unload(dynlib("ATR"))
-    #detach("package:ATR", unload = TRUE)
-    #unloadNamespace("ATR")
-    #options(warn = 0)
-    #getLoadedDLLs()
 }
-
-
-
-
-######################################################################################################
-# Inspect results
-######################################################################################################
-REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
-REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
-REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
-REs_y <- Report$par.random[names(Report$par.random) %in% "ln_ydev"]
-head(Report$value, 15)
-t(t(tapply(X=Report$value, INDEX=names(Report$value), FUN=length)))
-
-# Save results to file
-#save(obj, file="obj.RData")
-#save(opt, file="opt.RData")
-save(Report, file="Report.RData")
-#load("Report.RData")
-write.csv(data.frame(names(Report$value), Report$value), file="Pars.csv", row.names=TRUE)
-
-# Append model outputs to ATR_mod
-ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
-ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
-
-######################################################################################################
-# Plot results
-######################################################################################################
-# Prior on Linf
-png("LinfPrior.png", width=5, height=5, units="in", res=300)
-par(mfrow=c(1,1))
-x <- 75:275
-priorF <- dnorm(x=x, mean=180.20, sd=0.102*180.20)
-priorM <- dnorm(x=x, mean=169.07, sd=0.102*169.07)
-plot(x, priorM, type = "l", col = "blue", lwd = 2, xlab = expression(L[infinity]), ylab = "Density", las = 1)
-lines(x, priorF, col="pink", lwd=2)
-LinfF <- Report$value[names(Report$value) %in% "Linf"][1]
-LinfM <- Report$value[names(Report$value) %in% "Linf"][2]
-abline(v=LinfF, lty=2, lwd=2, col="pink")
-abline(v=LinfM, lty=2, lwd=2, col="blue")
-legend("topleft", legend = c("Female prior", "Female estimate", "Male prior", "Male estimate"), lwd = 2, lty = c(1,2,1,2), col=c("pink","pink","blue","blue"), bty = "n")
-dev.off()
-
-
-plot.obs.pred()
-plot.histogram()
-
-
-# Plot observed vs. "true" growth schedules
-png("IndivGrowth.png", width=10, height=5, units="in", res=300)
-par(mfrow=c(1,2))
-plot(1, type="n", xlim=c(0,max(ATR_mod$Age2[1:Nindiv]/365)), ylim=c(0,max(ATR_mod$Length2[1:Nindiv])), xlab="Age", ylab="Length (cm)", las=1)
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==1]/365, x1=ATR_mod$Age2[ATR_mod$Sex==1]/365, y0=ATR_mod$Length1[ATR_mod$Sex==1], y1=ATR_mod$Length2[ATR_mod$Sex==1])
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==1]/365, x1=ATR_mod$Age2[ATR_mod$Sex==1]/365, y0=(Report$value[names(Report$value) %in% "Length1_hat"])[ATR_mod$Sex==1], y1=(Report$value[names(Report$value) %in% "Length2_hat"])[ATR_mod$Sex==1], col="red")
-title("Females")
-legend("bottomright", legend=c("Observed","Expected"), col=1:2, lwd=1, bty="n")
-plot(1, type="n", xlim=c(0,max(ATR_mod$Age2[1:Nindiv]/365)), ylim=c(0,max(ATR_mod$Length2[1:Nindiv])), xlab="Age", ylab="Length (cm)", las=1)
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==2]/365, x1=ATR_mod$Age2[ATR_mod$Sex==2]/365, y0=ATR_mod$Length1[ATR_mod$Sex==2], y1=ATR_mod$Length2[ATR_mod$Sex==2])
-segments(x0=ATR_mod$iAge1[ATR_mod$Sex==2]/365, x1=ATR_mod$Age2[ATR_mod$Sex==2]/365, y0=(Report$value[names(Report$value) %in% "Length1_hat"])[ATR_mod$Sex==2], y1=(Report$value[names(Report$value) %in% "Length2_hat"])[ATR_mod$Sex==2], col="red")
-title("Males")
-legend("bottomright", legend=c("Observed","Expected"), col=1:2, lwd=1, bty="n")
-dev.off()
-
-# Year effects
-png("YearEffect.png", width=5, height=5, units="in", res=300)
-par(mfrow=c(2,1))
-plot(exp(REs_y), type="l", col=2, lwd=2)
-hist(exp(REs_y))
-dev.off()
-
-# END
