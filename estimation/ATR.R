@@ -134,7 +134,6 @@ opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4
 Report <- sdreport(obj)
 proc.time() - ptm
 
-
 dyn.unload(dynlib("ATR"))
 Report$pdHess
 
@@ -162,6 +161,10 @@ ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
 ######################################################################################################
 # Plot results
 ######################################################################################################
+plot.obs.pred()
+plot.histogram()
+plot.indiv.growth()
+
 # Prior on Linf
 png("LinfPrior.png", width=5, height=5, units="in", res=300)
 par(mfrow=c(1,1))
@@ -176,14 +179,6 @@ abline(v=LinfF, lty=2, lwd=2, col="pink")
 abline(v=LinfM, lty=2, lwd=2, col="blue")
 legend("topleft", legend = c("Female prior", "Female estimate", "Male prior", "Male estimate"), lwd = 2, lty = c(1,2,1,2), col=c("pink","pink","blue","blue"), bty = "n")
 dev.off()
-
-
-plot.obs.pred()
-plot.histogram()
-plot.indiv.growth()
-
-
-
 
 # Year effects
 png("YearEffect.png", width=5, height=5, units="in", res=300)
