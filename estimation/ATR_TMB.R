@@ -18,6 +18,8 @@ source("../src/plot.histogram.R")
 source("../src/plot.indiv.growth.R")
 source("../src/time-step.R")
 
+compile("ATR.cpp")
+
 
 ######################################################################################################
 # DATA
@@ -69,7 +71,6 @@ for (II in 1:nrow(ATR_mod))
 ######################################################################################################
 # Make AD object
 ######################################################################################################
-compile("ATR.cpp")
 dyn.load(dynlib("ATR"))
 Nindiv <- nrow(ATR_mod)
 Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
@@ -121,15 +122,20 @@ obj <- MakeADFun(data = Data, parameters = Params,
 newtonOption(smartsearch = TRUE)
 obj$fn(obj$par)
 obj$gr(obj$par)
-obj$control <- list(trace = 10)
+obj$control <- list(trace = 100)
 obj$hessian <- TRUE
+obj$env$inner.control$step.tol <- 1e-12 # Default : 1e-8 # Change in parameters limit inner optimization
+obj$env$inner.control$tol10 <- 1e-8     # Default : 1e-3 # Change in pen.like limit inner optimization
+obj$env$inner.control$grad.tol <- 1e-12 # Default : 1e-8 # Maximum gradient limit inner optimization
+summary(obj)
 
 ptm <- proc.time()
 opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
-summary(obj)
 Report <- sdreport(obj)
 proc.time() - ptm
 
+dyn.unload(dynlib("ATR"))
+Report$pdHess
 
 ######################################################################################################
 # Inspect results
@@ -155,6 +161,10 @@ ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
 ######################################################################################################
 # Plot results
 ######################################################################################################
+plot.obs.pred()
+plot.histogram()
+plot.indiv.growth()
+
 # Prior on Linf
 png("LinfPrior.png", width=5, height=5, units="in", res=300)
 par(mfrow=c(1,1))
@@ -169,14 +179,6 @@ abline(v=LinfF, lty=2, lwd=2, col="pink")
 abline(v=LinfM, lty=2, lwd=2, col="blue")
 legend("topleft", legend = c("Female prior", "Female estimate", "Male prior", "Male estimate"), lwd = 2, lty = c(1,2,1,2), col=c("pink","pink","blue","blue"), bty = "n")
 dev.off()
-
-
-plot.obs.pred()
-plot.histogram()
-plot.indiv.growth()
-
-
-
 
 # Year effects
 png("YearEffect.png", width=5, height=5, units="in", res=300)

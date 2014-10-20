@@ -20,8 +20,15 @@ where Δt is the number of time-periods elapsed between length intervals, and wh
 
 Following previous notation, parameters are estimated by integrating across all random effects b, while noting that Eq. 15 also requires estimation of Li(t0), i.e., the length upon first observation for each individual.
 
+
 ##Simulation
+
 Details to come.
 
-## Estimation
-We implement this model using the Template Model Builder (TMB) software called from R using the TMB package (https://github.com/kaskr/adcomp).
+
+##Estimation 
+
+We implement this model using the Template Model Builder (TMB) software called
+from R using the TMB package (https://github.com/kaskr/adcomp). The model is
+written in C++ "estimation/ATR.cpp", and an R script "estimation/ATR.R" loads
+the data and fits the model.
