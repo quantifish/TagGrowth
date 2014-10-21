@@ -11,67 +11,32 @@ require(TMB)
 require(ggplot2)
 require(reshape2)
 
-source("../src/plot_theme.R")
-source("../src/plot_palette.R")
-source("../src/plot.obs.pred.R")
-source("../src/plot.histogram.R")
-source("../src/plot.indiv.growth.R")
-source("../src/time-step.R")
+# Source some R
+source("../../src/time-step.R")
+source("../../src/plot_theme.R")
+source("../../src/plot_palette.R")
+source("../../src/plot.obs.pred.R")
+source("../../src/plot.histogram.R")
+source("../../src/plot.indiv.growth.R")
 
-compile("ATR.cpp")
+# Compile the model
+compile("../ATR.cpp")
 
 
 ######################################################################################################
 # DATA
 ######################################################################################################
 # Load data
-load("../data/ATR.RData")
-load("../data/ATR_mod.RData")
+load("../../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
-#ATR_mod <- time.step(ATR_mod, units = "days")
 ATR_mod <- time.step(ATR_mod, units = "weeks")
-head(ATR_mod)
-
-# Validate that the counter in the model will index the correct years (daily)
-for (II in 1:nrow(ATR_mod))
-{
-    time0 = ATR_mod$Time0[II]
-    year1 = ATR_mod$Year0[II]
-    for (i in 0:(ATR_mod$iAge1[II]-1))
-    {
-        time1 = time0 + i
-        if ( time1 %% 365 == 0. ) { year1 = year1 + 1; }
-    }
-    cat("Time1:", time1, ATR_mod[II,]$Time1, "| Year1:", year1, ATR_mod[II,]$Year1, "|", year1 == ATR_mod[II,]$Year1, "\n")
-}
-
-# Validate that the counter in the model will index the correct years (weeks)
-for (II in 1:nrow(ATR_mod))
-{
-    time0 = ATR_mod$Time0[II]
-    year1 = ATR_mod$Year0[II]
-    for (i in 0:(ATR_mod$iAge1[II]-1))
-    {
-        time1 = time0 + i
-        if ( time1 %% 52 == 0. ) { year1 = year1 + 1; }
-    }
-    cat("Time1:", time1, ATR_mod[II,]$Time1, "| Year1:", year1, ATR_mod[II,]$Year1, "|", year1 == ATR_mod[II,]$Year1, "\n")    
-    time1 = ATR_mod$Time1[II]
-    year2 = ATR_mod$Year1[II]
-    for (i in 0:(ATR_mod$iLiberty[II]-1))
-    {
-        time2 = time0 + i
-        if ( time2 %% 52 == 0. ) { year2 = year2 + 1; }
-    }
-    cat("Time2:", time2, ATR_mod[II,]$Time2, "| Year2:", year2, ATR_mod[II,]$Year2, "|", year2 == ATR_mod[II,]$Year2, "\n")
-}
 
 
 ######################################################################################################
 # Make AD object
 ######################################################################################################
-dyn.load(dynlib("ATR"))
+dyn.load(dynlib("../ATR"))
 Nindiv <- nrow(ATR_mod)
 Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
