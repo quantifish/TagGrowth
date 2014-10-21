@@ -42,8 +42,8 @@ Key words: Antarctic toothfish, Ross Sea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Simulated 315 individuals, the same number as in the actual toothfish data
-set. The next step was to simulate sex, Age1, Age2 and time at liberty.
-
+set. The next step was to simulate sex, Age1, Age2 and time at liberty. What I
+did in the current simulation run was:
 \begin{itemize}
 \item Sampled sex from the observed sexes of individuals (with replacement).
 \item Sampled Age1, Age2 and time at liberty independently (with replacement)
@@ -51,9 +51,11 @@ set. The next step was to simulate sex, Age1, Age2 and time at liberty.
   this values given the other two.
 \item Rounded Age1, Age2 and time at liberty off to the nearest integer.
 \end{itemize}
+This is a bit of a hack I know, but the alternative did not yeild realistic
+looking Age1, Age2, liberty samples.
 
-Alternatively...
 
+I also tried this:
 \begin{itemize}
 \item Sampled sex using a binomial distribution.
 \item Fit lognormal distributions to Age1 and time at liberty and simulate
@@ -61,7 +63,11 @@ Alternatively...
 \item Calculate Age2 given Age1 and time at liberty.
 \item Rounded Age1, Age2 and time at liberty off to the nearest integer.
 \end{itemize}
+But this resulted in unrealistic Age2's (i.e. when a long time at liberty is
+added to an already old fish), the plots just looked a bit silly.
 
+Below are some exmaple plots using the first sampling approach above then
+running these through our simulation model. 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.49\linewidth]{../simulation/sims/growth-1.png}

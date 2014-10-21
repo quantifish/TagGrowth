@@ -124,13 +124,14 @@ obj$fn(obj$par)
 obj$gr(obj$par)
 obj$control <- list(trace = 100)
 obj$hessian <- TRUE
-obj$env$inner.control$step.tol <- 1e-12 # Default : 1e-8 # Change in parameters limit inner optimization
-obj$env$inner.control$tol10 <- 1e-8     # Default : 1e-3 # Change in pen.like limit inner optimization
-obj$env$inner.control$grad.tol <- 1e-12 # Default : 1e-8 # Maximum gradient limit inner optimization
+ConvergeTol <- 1 # 1:Normal; 2:Strong
+#obj$env$inner.control$step.tol <- c(1e-12,1e-15)[ConvergeTol] # Default : 1e-8  # Change in parameters limit inner optimization
+#obj$env$inner.control$tol10 <- c(1e-8,1e-12)[ConvergeTol]  # Default : 1e-3     # Change in pen.like limit inner optimization
+#obj$env$inner.control$grad.tol <- c(1e-12,1e-15)[ConvergeTol] # # Default : 1e-8  # Maximum gradient limit inner optimization
 summary(obj)
 
 ptm <- proc.time()
-opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
+opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10,1e-8)[ConvergeTol]))
 Report <- sdreport(obj)
 proc.time() - ptm
 
@@ -151,16 +152,18 @@ t(t(tapply(X=Report$value, INDEX=names(Report$value), FUN=length)))
 save(obj, file = "obj.RData")
 save(opt, file = "opt.RData")
 save(Report, file = "Report.RData")
-load("Report.RData")
 write.csv(data.frame(names(Report$value), Report$value), file = "Pars.csv", row.names = TRUE)
 
-# Append model outputs to ATR_mod
-ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
-ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
+# Load if not estimating
+#load("Report.RData")
 
 ######################################################################################################
 # Plot results
 ######################################################################################################
+# Append model outputs to ATR_mod
+ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
+ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
+
 plot.obs.pred()
 plot.histogram()
 plot.indiv.growth()

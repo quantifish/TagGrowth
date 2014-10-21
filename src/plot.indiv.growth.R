@@ -1,4 +1,4 @@
-plot.obs.pred <- function()
+plot.indiv.growth <- function()
 {
     require(ggplot2)
     

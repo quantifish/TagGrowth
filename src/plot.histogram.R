@@ -2,23 +2,22 @@ plot.histogram <- function()
 {
     require(ggplot2)
     REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
-    #REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
-    #REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
+    REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
+    REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
     Sex <- ATR_mod$Sex
-    #d <- data.frame(Sex, REs_b, REs_z1, REs_z2)
-    d <- data.frame(Sex, REs_b)
+    d <- data.frame(Sex, REs_b, REs_z1, REs_z2)
+    #d <- data.frame(Sex, REs_b)
     dat <- melt(d, id.vars = "Sex")
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
     p <- ggplot(data = dat, aes(x = value)) +
         geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
-        #facet_grid(Sex ~ variable, scales = "free")
-        facet_grid(. ~ Sex, scales = "fixed") +
+        #facet_grid(Sex ~ variable, scales = "free") +
+        facet_grid(variable ~ Sex, scales = "free") +
         xlab("\nb") + ylab("Density\n") +
         plot_theme() +
-        scale_colour_manual(values = plot_palette)
-    
-    png("REs.png", width = 10, height = 5, units = "in", res = 400)
+        scale_colour_manual(values = plot_palette)    
+    png("REs.png", width = 8, height = 8, units = "in", res = 400)
     print(p)
     dev.off()
 }

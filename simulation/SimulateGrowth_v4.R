@@ -26,7 +26,7 @@ sd_b <- c(0.21,0.19)
 gamma <- c(0.19,0.19)
 psi <- c(0.0000000002,0.0000000002)
 sd_obs <- c(0.083,0.083)
-sd_z <- c(0.0000065,0.0000065)
+sd_z <- c(0.05,0.05)
 sd_y <- c(0,0)
 
 Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)

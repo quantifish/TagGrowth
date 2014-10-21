@@ -10,7 +10,7 @@ require(TMB)
 
 compile("ATR.cpp")
 
-for (Isim in 48:100)
+for (Isim in 86:100)
 {
     cat("\nStarting simulation", Isim, "...\n")
     dyn.load(dynlib("ATR"))
