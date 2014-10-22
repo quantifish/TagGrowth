@@ -1,6 +1,5 @@
 // Tag recapture model
 #include <TMB.hpp>
-#include <iostream>
 
 using std::cout;
 using std::endl;
@@ -97,9 +96,6 @@ Type objective_function<Type>::operator() ()
   Type sd_xdev = exp(ln_sd_xdev);
   // Random effect probability of each area
   for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, 1 ); }
-
-  //cout << "time | year" << endl;
-  //cout << time << " | " << year << endl;
 
   // Loop over each individual in the data set
   for (int i = 0; i < Nindiv; i++)
