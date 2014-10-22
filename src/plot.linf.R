@@ -1,4 +1,5 @@
-# Prior on Linf
+plot.linf <- function()
+{
 png("LinfPrior.png", width=5, height=5, units="in", res=300)
 par(mfrow=c(1,1))
 x <- 75:275
@@ -12,3 +13,4 @@ abline(v=LinfF, lty=2, lwd=2, col="pink")
 abline(v=LinfM, lty=2, lwd=2, col="blue")
 legend("topleft", legend = c("Female prior", "Female estimate", "Male prior", "Male estimate"), lwd = 2, lty = c(1,2,1,2), col=c("pink","pink","blue","blue"), bty = "n")
 dev.off()
+}

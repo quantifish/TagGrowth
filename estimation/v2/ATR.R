@@ -67,16 +67,16 @@ obj$fn(obj$par)
 obj$gr(obj$par)
 obj$control <- list(trace = 100)
 obj$hessian <- TRUE
-ConvergeTol <- 1 # 1:Normal; 2:Strong
-#obj$env$inner.control$step.tol <- c(1e-12,1e-15)[ConvergeTol] # Default : 1e-8  # Change in parameters limit inner optimization
-#obj$env$inner.control$tol10 <- c(1e-8,1e-12)[ConvergeTol]  # Default : 1e-3     # Change in pen.like limit inner optimization
-#obj$env$inner.control$grad.tol <- c(1e-12,1e-15)[ConvergeTol] # # Default : 1e-8  # Maximum gradient limit inner optimization
+ConvergeTol <- 2 # 1:Normal; 2:Strong
+obj$env$inner.control$step.tol <- c(1e-12,1e-15)[ConvergeTol] # Default : 1e-8  # Change in parameters limit inner optimization
+obj$env$inner.control$tol10 <- c(1e-8,1e-12)[ConvergeTol]  # Default : 1e-3     # Change in pen.like limit inner optimization
+obj$env$inner.control$grad.tol <- c(1e-12,1e-15)[ConvergeTol] # # Default : 1e-8  # Maximum gradient limit inner optimization
 summary(obj)
 
 opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10,1e-8)[ConvergeTol]))
 Report <- sdreport(obj)
 
-dyn.unload(dynlib("ATR"))
+dyn.unload(dynlib("../ATR"))
 Report$pdHess
 
 ######################################################################################################

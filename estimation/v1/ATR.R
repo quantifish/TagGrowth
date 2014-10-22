@@ -12,6 +12,7 @@ require(ggplot2)
 require(reshape2)
 
 # Source some R
+source("../../src/difftime.R")
 source("../../src/time-step.R")
 source("../../src/plot_theme.R")
 source("../../src/plot_palette.R")
@@ -31,7 +32,8 @@ compile("../ATR.cpp")
 load("../../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
-ATR_mod <- time.step(ATR_mod, units = "weeks")
+#ATR_mod <- time.step(ATR_mod, units = "weeks")
+ATR_mod <- time.step(ATR_mod, units = "months")
 
 
 ######################################################################################################
@@ -48,16 +50,17 @@ Data <- list(iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLi
 Nyears <- 40
 Nareas <- length(unique(ATR_mod$Area1))
 
-# No year-effects or area-effects
+# No year-effects, area-effects, or time-varying individual effects
 Params <- list(ln_gamma = log(10000), logit_psi = qlogis(0.2), ln_L0 = rep(log(1), 2),
                ln_bmean = rep(log(0.2), 2), ln_bdev = rep(0, Nindiv), ln_sd_bdev = c(log(0.01), log(0.01)),
                ln_sd_obs = log(20),
-               z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
+               z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.01),
                ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.01),
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.01))
-obj <- MakeADFun(data = Data, parameters = Params,
-                 map = list(ln_ydev = factor(rep(NA, Nyears)), ln_sd_ydev = factor(NA), ln_xdev = factor(rep(NA, Nareas)), ln_sd_xdev = factor(NA)),
-                 random = c("ln_bdev"))
+Map <- list(ln_ydev = factor(rep(NA, Nyears)), ln_sd_ydev = factor(NA),
+            ln_xdev = factor(rep(NA, Nareas)), ln_sd_xdev = factor(NA),
+            z1 = factor(rep(NA, Nindiv)), z2 = factor(rep(NA, Nindiv)), ln_sd_z = factor(NA))
+obj <- MakeADFun(data = Data, parameters = Params, map = Map, random = c("ln_bdev"))
 
 
 ######################################################################################################
@@ -77,7 +80,7 @@ summary(obj)
 opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10,1e-8)[ConvergeTol]))
 Report <- sdreport(obj)
 
-dyn.unload(dynlib("ATR"))
+dyn.unload(dynlib("../ATR"))
 
 ######################################################################################################
 # Inspect and save results

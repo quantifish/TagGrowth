@@ -1,17 +1,26 @@
-#' Function for converting data.frame from annual to daily/weekly time steps.
+#' Function for converting data.frame from annual to daily/weekly/monthly time steps.
 #'
 #' @author Darcy Webber, Jim Thorson
-#' @param units choose between weeks or days
+#' @param ATR_mod data.frame of data
+#' @param units choose between days, weeks or months
+#' @return a data.frame
 #' 
 time.step <- function(ATR_mod, units = "weeks", year0 = 1972)
 {
     # There are 365.25 days in a year or 52.15 weeks in a year
     if (units == "days") mult <- 365.25
     if (units == "weeks") mult <- 52.15
+    if (units == "months") mult <- 12
     ATR_mod$Age2 <- ATR_mod$Age2 * mult
     ATR_mod$Age1 <- as.numeric(ATR_mod$Age2 - difftime(ATR_mod$Date2, ATR_mod$Date1, units = units))
     ATR_mod$iAge1 <- round(ATR_mod$Age1)
-    ATR_mod$Date0 <- ATR_mod$Date2 - as.difftime(ATR_mod$Age2, unit = units)
+    if (units == "months")
+    {
+        # Consider changing to lubridate or something... this is too hard
+        #ATR_mod$Date0 <- ATR_mod$Date2 - (as.difftime(ATR_mod$Age2, units = units))
+    } else {
+        ATR_mod$Date0 <- ATR_mod$Date2 - as.difftime(ATR_mod$Age2, units = units)
+    }
     ATR_mod$Liberty <- as.numeric(difftime(ATR_mod$Date2, ATR_mod$Date1, units = units))
     ATR_mod$iLiberty <- round(as.numeric(difftime(ATR_mod$Date2, ATR_mod$Date1, units = units)))
     # We define a year as 1 Nov. to 31 Oct.
