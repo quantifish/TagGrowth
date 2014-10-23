@@ -21,6 +21,12 @@ Not done.
 
 # v4
 
+Random effects: b, z, x
+
+This model did work.
+
+# v4
+
 Random effects: b, z, y, x
 
 Not done.
