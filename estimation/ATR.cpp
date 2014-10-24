@@ -7,6 +7,9 @@ using std::endl;
 template<class Type>
 Type objective_function<Type>::operator() ()
 {
+  // Options
+  DATA_FACTOR( Options );
+  
   // Observations
   DATA_FACTOR(iAge1);    // Age of individual at time 1 (days, weeks, months, or years, rounded to nearest integer)
   DATA_VECTOR(iLiberty); // Time at liberty of individual (days, weeks, months, or years)
@@ -88,15 +91,19 @@ Type objective_function<Type>::operator() ()
   int time, year;
   Type sd_ydev = exp(ln_sd_ydev);
   // Random effect probability of each year
-  for (int y = 0; y < Nyears; y++) { ans -= dnorm( ln_ydev(y), Type(0.), sd_ydev, 1 ); }
-
+  if(Options(0)==1){
+    for (int y = 0; y < Nyears; y++) { ans -= dnorm( ln_ydev(y), Type(0.), sd_ydev, true ); }
+  }
+  
   // Area effects
   int Narea = ln_xdev.size();
   int area;
   Type sd_xdev = exp(ln_sd_xdev);
   // Random effect probability of each area
-  for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, 1 ); }
-
+  if(Options(1)==1){
+    for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, true ); }
+  }
+  
   // Loop over each individual in the data set
   for (int i = 0; i < Nindiv; i++)
   {
@@ -106,7 +113,9 @@ Type objective_function<Type>::operator() ()
     b_indiv(i) = bmean(sex) * exp(ln_bdev(i)); // Value for b_indiv
     a_indiv(i) = gamma * pow(b_indiv(i), psi); // Derived value for a_indiv
     // Random effect probability of bdevs
-    ans -= dnorm( ln_bdev(i), Type(0.), sd_bdev(sex), 1 );
+    if(Options(2)==1){
+      ans -= dnorm( ln_bdev(i), Type(0.), sd_bdev(sex), true );
+    }
     sumj = Type(0.);
     for (int j = 0; j < (iAge1(i)-1); j++)
     {
@@ -124,8 +133,10 @@ Type objective_function<Type>::operator() ()
     sumj = Type(0.0001);
     for (int j = 0; j < (iAge1(i)-1); j++) { sumj += exp(Type(2.0) * -b_indiv(i) * j); }
     sd_z1(i) = sd_z * (pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i)))) * pow(sumj,0.5);
-    ans -= dnorm( z1(i), Type(0.), sd_z1(i), 1 );
-    ans -= dnorm( Length1(i), Length1_hat(i), sd_obs * Length1_hat(i), 1 );
+    if(Options(3)==1){
+      ans -= dnorm( z1(i), Type(0.), sd_z1(i), true );
+    }
+    ans -= dnorm( Length1(i), Length1_hat(i), sd_obs * Length1_hat(i), true );
     // Probability of second length measurement
     year = Year1(i); // The (index) year that the individual was first captured
     sumj = Type(0.);
@@ -141,9 +152,15 @@ Type objective_function<Type>::operator() ()
     sumj = Type(0.0001);
     for (int j = 0; j < (iLiberty(i)-1); j++) { sumj += exp(Type(2.0) * -b_indiv(i) * j); }
     sd_z2(i) = sd_z * (pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i)))) * pow(sumj,0.5);
-    ans -= dnorm( z2(i), Type(0.), sd_z2(i), 1 );
-    ans -= dnorm( Length2(i), Length2_hat(i), sd_obs * Length2_hat(i), 1 );
+    if(Options(3)==1){
+      ans -= dnorm( z2(i), Type(0.), sd_z2(i), true );
+    }
+    ans -= dnorm( Length2(i), Length2_hat(i), sd_obs * Length2_hat(i), true );
   }
+  
+  // REPORT DIAGNOSTICS
+  REPORT( b_indiv );
+  REPORT( a_indiv );  
   
   // Append outputs to report
   ADREPORT( gamma );
