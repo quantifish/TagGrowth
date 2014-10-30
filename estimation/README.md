@@ -1,13 +1,22 @@
 This folder contains all the code requied to fit a model.  Model outputs are
-placed in each of the version folders v0 - v5 depending on which random effects
-are being fit.
+placed in each of the version folders depending on which random effects are
+being fitted. The models run, if they were pdH and the folders they are stored
+in is summarised in the table below.
+
+| Random effects | pdH | Folder |
+| -------------- |:---:|:------:|
+| None           | Yes | v0     |
+| b              | Yes | v1     |
+| b, z           | No  | v2     |
+| b, y           | Yes | v3     |
+
 
 
 # v0
 
 Random effects: None
 
-This model was pos def Hessian.
+pdH.
 
 
 # v1
@@ -21,26 +30,14 @@ Not done
 
 Random effects: b, z
 
-This model has been fitted with a weekly time-step and strong convergence
-criteria. Not pdH. Fits look a little too good to be true.
+Not pdH.
 
 
 # v3
 
-Random effects: b, z, y
+Random effects: b, y
 
-Not done.
-
-
-# v4
-
-Random effects: b, z, x
-
-This model did work.
+pdH.
 
 
-# v5
 
-Random effects: b, z, y, x
-
-Not done.

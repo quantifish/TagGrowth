@@ -38,7 +38,7 @@ ATR_mod <- time.step(ATR_mod, units = "weeks")
 # Make AD object
 ######################################################################################################
 dyn.load(dynlib("ATR"))
-Options = c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
+Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
 Nindiv <- nrow(ATR_mod)
 Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
@@ -109,12 +109,12 @@ Lwr = rep(-Inf, length(obj$par))
   Lwr[match("ln_sd_xdev",names(obj$par))] = log(0.001)
   Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
 
-#ptm <- proc.time()
+ptm <- proc.time()
 opt <- nlminb(start = obj$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
 opt[["final_gradient"]] = obj$gr(opt$par)
 Diag <- obj$report()
 Report <- sdreport(obj)
-#proc.time() - ptm
+proc.time() - ptm
 
 Hess <- optimHess(par = opt$par, fn = obj$fn)
 opt <- nlminb(start = opt$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
