@@ -38,7 +38,7 @@ ATR_mod <- time.step(ATR_mod, units = "weeks")
 # Make AD object
 ######################################################################################################
 dyn.load(dynlib("ATR"))
-Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
+Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=0, "IndivTimeTF"=1) #1st slot: 
 Nindiv <- nrow(ATR_mod)
 Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],

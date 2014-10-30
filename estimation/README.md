@@ -7,8 +7,9 @@ in is summarised in the table below.
 | -------------- |:---:|:------:|
 | None           | Yes | v0     |
 | b              | Yes | v1     |
-| b, z           | No  | v2     |
-| b, y           | Yes | v3     |
+| z              | Yes | v2     |
+| b, z           | No  | v3     |
+| b, y           | Yes | v4     |
 
 
 
