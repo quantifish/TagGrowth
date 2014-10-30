@@ -145,18 +145,30 @@ save(opt, file = "opt.RData")
 save(Report, file = "Report.RData")
 write.csv(data.frame(names(Report$value), Report$value), file = "Pars.csv", row.names = TRUE)
 
-# Load if not estimating
-#load("Report.RData")
 
 ######################################################################################################
 # Plot results
 ######################################################################################################
+# Load if not estimating
+load("Report.RData")
+load("../../data/ATR_mod.RData")
+source("../../src/time-step.R")
+source("../../src/plot_theme.R")
+source("../../src/plot_palette.R")
+source("../../src/plot.obs.pred.R")
+source("../../src/plot.histogram.R")
+source("../../src/plot.indiv.growth.R")
+source("../../src/plot.linf.R")
+ATR_mod <- time.step(ATR_mod, units = "weeks")
+
+
 # Append model outputs to ATR_mod
 ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
 ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
 
 plot.obs.pred()
-plot.histogram()
+plot.histogram.b()
+plot.histogram.z()
 plot.indiv.growth()
 plot.linf()
 
