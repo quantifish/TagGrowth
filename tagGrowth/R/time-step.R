@@ -3,7 +3,9 @@
 #' @author Darcy Webber, Jim Thorson
 #' @param ATR_mod data.frame of data
 #' @param units choose between days, weeks or months
+#' @param year0 the year that the first fish was born
 #' @return a data.frame
+#' @export
 #' 
 time.step <- function(ATR_mod, units = "weeks", year0 = 1972)
 {

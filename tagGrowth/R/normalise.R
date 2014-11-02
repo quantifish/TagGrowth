@@ -1,4 +1,11 @@
-# Function to normalize a vector v between two values
+#' Function to normalize a vector between two values
+#'
+#' @param v the vector to be normalised
+#' @param a the lower bound to normalise the vector to
+#' @param a the upper bound to normalise the vector to
+#' @return a vector
+#' @export
+#' 
 normalise <- function (v, a, b)
 {
     r1 <- max(v) - min(v)

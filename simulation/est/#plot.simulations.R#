@@ -51,7 +51,7 @@ plot.simulations <- function(directory = ".")
         #geom_density(colour = "black", fill = "orange") +
         facet_grid(Sex ~ Var2, scales = "free") +
         #geom_vline(aes(xintercept = truth), size = 1.5, colour = "red", alpha = 0.6) +
-        geom_vline(aes(xintercept = truth), size = 1.5, colour = "red") +
+        geom_vline(aes(xintercept = truth), size = 0.75, colour = "red") +
         xlab("") + ylab("Frequency\n") +
         plot_theme()
         #scale_colour_manual(values = plot_palette)

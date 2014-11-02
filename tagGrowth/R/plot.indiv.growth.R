@@ -1,9 +1,11 @@
-plot.indiv.growth <- function()
+#' Plot individual growth paths
+#'
+#' @export
+#' 
+plot.indiv.growth <- function(data)
 {
-    require(ggplot2)
-    
-    d1 <- data.frame(ATR_mod[,c('Age1','Age2','Sex','Length1','Length2')], Key = "Observed")
-    d2 <- data.frame(ATR_mod[,c('Age1','Age2','Sex','Length1_hat','Length2_hat')], Key = "Expected")
+    d1 <- data.frame(data[,c('Age1','Age2','Sex','Length1','Length2')], Key = "Observed")
+    d2 <- data.frame(data[,c('Age1','Age2','Sex','Length1_hat','Length2_hat')], Key = "Expected")
     names(d2) <- names(d1)
     dat <- rbind(d1, d2)
     dat$Sex[dat$Sex == 1] <- "Females"

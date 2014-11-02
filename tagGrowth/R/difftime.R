@@ -1,5 +1,5 @@
 difftime <- function (time1, time2, tz, units = c("auto", "secs", "mins", 
-    "hours", "days", "weeks", "months")) 
+                      "hours", "days", "weeks", "months")) 
 {
     if (missing(tz)) {
         time1 <- as.POSIXct(time1)

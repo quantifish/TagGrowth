@@ -1,4 +1,7 @@
-# Validate that the counter in the model will index the correct years (daily)
+validate <- function(ATR_mod)
+{
+
+#' Validate that the counter in the model will index the correct years (daily)
 for (II in 1:nrow(ATR_mod))
 {
     time0 = ATR_mod$Time0[II]
@@ -11,7 +14,7 @@ for (II in 1:nrow(ATR_mod))
     cat("Time1:", time1, ATR_mod[II,]$Time1, "| Year1:", year1, ATR_mod[II,]$Year1, "|", year1 == ATR_mod[II,]$Year1, "\n")
 }
 
-# Validate that the counter in the model will index the correct years (weeks)
+#' Validate that the counter in the model will index the correct years (weeks)
 for (II in 1:nrow(ATR_mod))
 {
     time0 = ATR_mod$Time0[II]
@@ -30,4 +33,6 @@ for (II in 1:nrow(ATR_mod))
         if ( time2 %% 52 == 0. ) { year2 = year2 + 1; }
     }
     cat("Time2:", time2, ATR_mod[II,]$Time2, "| Year2:", year2, ATR_mod[II,]$Year2, "|", year2 == ATR_mod[II,]$Year2, "\n")
+}
+
 }

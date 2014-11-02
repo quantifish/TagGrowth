@@ -1,8 +1,11 @@
-plot.obs.pred <- function()
+#' Plot observed vs. predicted growth paths
+#'
+#' @export
+#' 
+plot.obs.pred <- function(data)
 {
-    require(ggplot2)
-    d1 <- data.frame(ATR_mod[,c('Sex','Length1','Length1_hat')], Length = "Length at tagging")
-    d2 <- data.frame(ATR_mod[,c('Sex','Length2','Length2_hat')], Length = "Length at recapture")
+    d1 <- data.frame(data[,c('Sex','Length1','Length1_hat')], Length = "Length at tagging")
+    d2 <- data.frame(data[,c('Sex','Length2','Length2_hat')], Length = "Length at recapture")
     names(d2) <- names(d1)
     dat <- rbind(d1, d2)
     dat$Sex[dat$Sex == 1] <- "Females"

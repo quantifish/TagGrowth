@@ -1,15 +1,18 @@
-plot.histogram.b <- function()
+#' Plot histogram of time-varying b
+#'
+#' @export
+#' 
+plot_histogram_b <- function(data, report)
 {
-    require(ggplot2)
-    REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
-    Sex <- ATR_mod$Sex
+    REs_b <- report$par.random[names(report$par.random) %in% "ln_bdev"]
+    Sex <- data$Sex
     d <- data.frame(Sex, REs_b)
     dat <- melt(d, id.vars = "Sex")
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
     p <- ggplot(data = dat, aes(x = value)) +
         geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
-        facet_grid(variable ~ Sex, scales = "free") +
+        facet_grid(~ Sex) +
         xlab("\nb") + ylab("Density\n") +
         plot_theme() +
         scale_colour_manual(values = plot_palette)    
@@ -18,26 +21,6 @@ plot.histogram.b <- function()
     dev.off()
 }
 
-plot.histogram.z <- function()
-{
-    require(ggplot2)
-    REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
-    REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
-    Sex <- ATR_mod$Sex
-    d <- data.frame(Sex, REs_z1, REs_z2)
-    dat <- melt(d, id.vars = "Sex")
-    dat$Sex[dat$Sex == 1] <- "Females"
-    dat$Sex[dat$Sex == 2] <- "Males"
-    p <- ggplot(data = dat, aes(x = value)) +
-        geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
-        facet_grid(variable ~ Sex, scales = "free") +
-        xlab("\nz") + ylab("Density\n") +
-        plot_theme() +
-        scale_colour_manual(values = plot_palette)    
-    png("REs_z.png", width = 8, height = 8, units = "in", res = 400)
-    print(p)
-    dev.off()
-}
 
 
 # Plot histogram of REs
