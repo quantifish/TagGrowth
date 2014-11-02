@@ -2,17 +2,19 @@ plot.simulations <- function(directory = ".")
 {
     require(ggplot2)
     require(reshape2)
-    source("plot_theme.R")
-    directory <- "../simulation/sims"
+    source("../../src/plot_theme.R")
+    directory <- "../sims"
     par.fixed <- NULL
-    for (Isim in 1:47)
+    pdH <- NULL    
+    for (Isim in 1:100)
     {
         fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
         load(fname)
         #par.fixed <- rbind(par.fixed, sim$Report$par.fixed)
-        par.fixed <- rbind(par.fixed, sim$Report$value[1:16])
+        if (!is.null(sim$Report)) if (sim$Report$pdHess) par.fixed <- rbind(par.fixed, sim$Report$value[1:16])
+        pdH <- c(pdH, sim$Report$pdHess)
     }
-    par.fixed1 <- data.frame(melt(par.fixed[,c(1,2,13,14)]), Sex = "Both")
+    par.fixed1 <- data.frame(melt(par.fixed[,c(1,2,13)]), Sex = "Both")
     par.fixed2 <- data.frame(melt(par.fixed[,c(3,9,11)]), Sex = "Females")
     par.fixed3 <- data.frame(melt(par.fixed[,c(4,10,12)]), Sex = "Males")
     par.fixed4 <- rbind(par.fixed1, par.fixed2, par.fixed3)
