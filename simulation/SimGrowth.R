@@ -11,9 +11,8 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
                       obs_err = TRUE, tvi_err = TRUE,
                       Pars, Nindiv)
 {
-    source("../src/time-step.R")
     load("../data/ATR_mod.RData")
-    ATR_mod <- time.step(ATR_mod, units = "weeks")
+    ATR_mod <- time_step(ATR_mod, units = "weeks")
     #ln_xdev=NULL; ln_ydev=NULL; obs_err=TRUE; tvi_err=TRUE
     # Simulate sex, ages at tagging and time at liberty for each individual
     #=================================================================================================

@@ -52,6 +52,7 @@ Type objective_function<Type>::operator() ()
   vector<Type> bmean(Nsex);
   vector<Type> sd_bdev(Nsex);
   vector<Type> amean(Nsex);
+  vector<Type> Linf(Nsex);
   L0 = exp(ln_L0);
   bmean = exp(ln_bmean);
   sd_bdev = exp(ln_sd_bdev);
@@ -72,13 +73,16 @@ Type objective_function<Type>::operator() ()
   Type Linf_cv = 0.102;
   Type pLinfF = 180.20;
   Type pLinfM = 169.07;
-  vector<Type> Linf(Nsex);
   vector<Type> pLinf_sd(Nsex);
   Linf = (gamma * pow(bmean, psi)) / bmean;
   pLinf_sd(0) = Linf_cv * pLinfF; // sd=cv*mu
   pLinf_sd(1) = Linf_cv * pLinfM; // sd=cv*mu
   ans -= dnorm( Linf(0), pLinfF, pLinf_sd(0), 1 );
   ans -= dnorm( Linf(1), pLinfM, pLinf_sd(1), 1 );
+
+  // Prior penalty for L0 for females and males
+  ans -= dnorm( L0(0), Type(-0.34), Type(1), 1 );
+  ans -= dnorm( L0(1), Type(3.98), Type(1), 1 );
 
   // Time varying individual stuff
   Type sd_z = exp(ln_sd_z);

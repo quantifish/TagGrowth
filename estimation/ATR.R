@@ -7,18 +7,7 @@
 rm(list = ls())
 
 # Load TMB
-require(TMB)
-require(ggplot2)
-require(reshape2)
-
-# Source some R
-source("../src/time-step.R")
-source("../src/plot_theme.R")
-source("../src/plot_palette.R")
-source("../src/plot.obs.pred.R")
-source("../src/plot.histogram.R")
-source("../src/plot.indiv.growth.R")
-source("../src/plot.linf.R")
+require(tagGrowth)
 
 # Compile the model
 compile("ATR.cpp")
@@ -31,14 +20,14 @@ compile("ATR.cpp")
 load("../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
-ATR_mod <- time.step(ATR_mod, units = "weeks")
+ATR_mod <- time_step(ATR_mod, units = "weeks")
 
 
 ######################################################################################################
 # Make AD object
 ######################################################################################################
 dyn.load(dynlib("ATR"))
-Options <- c("YearTF"=1, "AreaTF"=0, "IndivTF"=0, "IndivTimeTF"=1) #1st slot: 
+Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
 Nindiv <- nrow(ATR_mod)
 Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
@@ -155,9 +144,10 @@ write.csv(data.frame(names(Report$value), Report$value), file = "Pars.csv", row.
 ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
 ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
 
-plot.obs.pred()
-plot.histogram.z()
-plot.indiv.growth()
-plot.linf()
+plot_obs_pred(ATR_mod)
+plot_histogram_z(ATR_mod, Report)
+plot_histogram_b(ATR_mod, Report)
+plot_indiv_growth(ATR_mod)
+plot_linf(Report)
 
 # END
