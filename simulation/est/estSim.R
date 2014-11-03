@@ -10,7 +10,7 @@ require(TMB)
 
 compile("../../estimation/ATR.cpp")
 
-for (Isim in 1:100)
+for (Isim in 52:100)
 {
     cat("\nStarting simulation", Isim, "...\n")
     dyn.load(dynlib("../../estimation/ATR"))

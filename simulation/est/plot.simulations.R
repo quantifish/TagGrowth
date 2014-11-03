@@ -60,4 +60,6 @@ plot.simulations <- function(directory = ".")
     png(paste("SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
     print(p)
     dev.off()
+
+    print(length(which(pdH)))
 }
