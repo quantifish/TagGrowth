@@ -4,6 +4,7 @@ directory <- "../sims"
 fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
         load(fname)
 data(ATR_mod)
+load("../../data/ATR_mod.RData")
 plot_histogram_b(data = sim$Sim, report = sim$Report)
 
 
