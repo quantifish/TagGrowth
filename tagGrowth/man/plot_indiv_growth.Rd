@@ -3,7 +3,8 @@
 \alias{plot_indiv_growth}
 \title{Plot individual growth paths}
 \usage{
-plot_indiv_growth(data)
+plot_indiv_growth(Sex, Age1, Length1_true, Length1_hat, Age2, Length2_true,
+  Length2_hat, file_name = "IndivGrowth")
 }
 \description{
 Plot individual growth paths

@@ -10,7 +10,7 @@ require(TMB)
 
 compile("../../estimation/ATR.cpp")
 
-for (Isim in 52:100)
+for (Isim in 1:100)
 {
     cat("\nStarting simulation", Isim, "...\n")
     dyn.load(dynlib("../../estimation/ATR"))
@@ -18,7 +18,7 @@ for (Isim in 52:100)
     fname <- paste("../sims/sim", Isim, ".RData", sep = "")
     load(fname)
     ATR_mod <- sim$Sim
-    Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
+    Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=0, "IndivTimeTF"=0) #1st slot: 
     Nindiv <- nrow(ATR_mod)
     # Make AD object
     Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'Age1'], iLiberty = ATR_mod[1:Nindiv,'Liberty'],

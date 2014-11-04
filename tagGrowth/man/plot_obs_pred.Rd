@@ -3,7 +3,8 @@
 \alias{plot_obs_pred}
 \title{Plot observed vs. predicted growth paths}
 \usage{
-plot_obs_pred(data)
+plot_obs_pred(Sex, Length1_true, Length1_hat, Length2_true, Length2_hat,
+  file_name = "ObsVsPred")
 }
 \description{
 Plot observed vs. predicted growth paths

@@ -1,12 +1,17 @@
 
+require(tagGrowth)
+
+# Plot up a specific simulation
 Isim=1
 directory <- "../sims"
 fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
-        load(fname)
-data(ATR_mod)
+load(fname)
 load("../../data/ATR_mod.RData")
 plot_histogram_b(data = sim$Sim, report = sim$Report)
-
+plot_obs_pred(sim$Sim$Sex, sim$Sim$Length1_true, sim$Sim$Length1, sim$Sim$Length2_true, sim$Sim$Length2)
+plot_indiv_growth(sim$Sim$Sex,
+                  sim$Sim$Age1, sim$Sim$Length1, sim$Sim$Length1_true,
+                  sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true)
 
 plot.simulations <- function(directory = ".")
 {
@@ -47,6 +52,8 @@ plot.simulations <- function(directory = ".")
     par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
     par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
 
+    #============================================================================
+    
     p <- ggplot(data = par.fixed, aes(x = value)) +
         geom_histogram(colour = "black", fill = "orange") +
         #geom_density(colour = "black", fill = "orange") +
@@ -60,6 +67,19 @@ plot.simulations <- function(directory = ".")
     png(paste("SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
     print(p)
     dev.off()
+
+    #============================================================================
+    
+    p <- ggplot(data = par.fixed, aes(x = Var1, y = value)) +
+        geom_hline(aes(yintercept = truth), size = 0.75, colour = "red") +
+        geom_line(colour = "black", fill = "orange") +
+        facet_grid(Var2 ~ Sex, scales = "free") +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+
+    png(paste("TracePars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
+    print(p)
+    dev.off()    
 
     print(length(which(pdH)))
 }

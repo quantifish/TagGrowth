@@ -2,27 +2,29 @@
 #'
 #' @export
 #' 
-plot_indiv_growth <- function(data)
+plot_indiv_growth <- function(Sex,
+                              Age1, Length1_obs, Length1_hat,
+                              Age2, Length2_obs, Length2_hat,
+                              file_name = "IndivGrowth")
 {
-    d1 <- data.frame(data[,c('Age1','Age2','Sex','Length1','Length2')], Key = "Observed")
-    d2 <- data.frame(data[,c('Age1','Age2','Sex','Length1_hat','Length2_hat')], Key = "Expected")
+    d1 <- data.frame(Age1, Age2, Sex, Length1_obs, Length2_obs, Key = "Observed")
+    d2 <- data.frame(Age1, Age2, Sex, Length1_hat, Length2_hat, Key = "Expected")
     names(d2) <- names(d1)
     dat <- rbind(d1, d2)
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
     
     p <- ggplot(data = dat) +
-        geom_segment(aes(x = Age1, y = Length1, xend = Age2, yend = Length2, group = c(Key), color = Key)) +
+        geom_segment(aes(x = Age1, y = Length1_obs, xend = Age2, yend = Length2_obs, group = c(Key), color = Key)) +
         facet_grid(. ~ Sex) +
         xlab("\nAge") + ylab("Length (cm)\n") +
         scale_x_continuous(limits = c(0, max(dat$Age1, dat$Age2))) +
-        scale_y_continuous(limits = c(0, max(dat$Length1, dat$Length2))) +
-        #coord_fixed() +
+        scale_y_continuous(limits = c(0, max(dat$Length1_obs, dat$Length2_obs))) +
         guides(color = guide_legend(title = "Key")) +
         plot_theme() +
         scale_colour_manual(values = plot_palette)
     
-    png("IndivGrowth.png", width = 10, height = 5, units = "in", res = 400)
+    png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }

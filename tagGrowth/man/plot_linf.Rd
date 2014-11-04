@@ -3,7 +3,7 @@
 \alias{plot_linf}
 \title{Plot L infinity}
 \usage{
-plot_linf(report)
+plot_linf(report, file_name = "LinfPrior")
 }
 \description{
 Plot L infinity
