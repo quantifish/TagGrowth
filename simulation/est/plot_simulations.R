@@ -13,7 +13,7 @@ plot_indiv_growth(sim$Sim$Sex,
                   sim$Sim$Age1, sim$Sim$Length1, sim$Sim$Length1_true,
                   sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true)
 
-plot.simulations <- function(directory = ".")
+plot_simulations <- function(directory = ".")
 {
     require(tagGrowth)
     directory <- "../sims"
@@ -35,6 +35,17 @@ plot.simulations <- function(directory = ".")
             pdH <- c(FALSE, pdH)
         }
     }
+
+    flag <- NULL
+    for (I in 1:ncol(par.fixed))
+    {
+        if (all(par.fixed[,I] == par.fixed[1,I]))
+        {
+            flag <- c(flag, I)
+        }
+    }
+    par.fixed <- par.fixed[,-flag]
+    
     par.fixed1 <- data.frame(melt(par.fixed[,c(1,2,9)]), Sex = "Both")
     par.fixed2 <- data.frame(melt(par.fixed[,c(3,5,7)]), Sex = "Females")
     par.fixed3 <- data.frame(melt(par.fixed[,c(4,6,8)]), Sex = "Males")
@@ -51,7 +62,7 @@ plot.simulations <- function(directory = ".")
     par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Males"] <- sim$Parameters['bmean',2]
     par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
     par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
-
+    
     #============================================================================
     
     p <- ggplot(data = par.fixed, aes(x = value)) +
