@@ -11,6 +11,7 @@ plot_obs_pred <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Length2_ha
     dat <- rbind(d1, d2)
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
+    
     p <- ggplot(data = dat) +
         geom_abline(aes(yintercept = 0, slope = 1)) +
         geom_point(aes(x = Length1_hat, y = Length1_obs, group = c(Sex), color = factor(Sex))) +

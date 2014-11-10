@@ -2,7 +2,7 @@
 #'
 #' @export
 #' 
-plot_histogram_b <- function(data, report)
+plot_histogram_b <- function(data, report, file_name = "REs_b")
 {
     REs_b <- report$par.random[names(report$par.random) %in% "ln_bdev"]
     Sex <- data$Sex
@@ -10,13 +10,15 @@ plot_histogram_b <- function(data, report)
     dat <- melt(d, id.vars = "Sex")
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
+    
     p <- ggplot(data = dat, aes(x = value)) +
         geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
         facet_grid(~ Sex) +
         xlab("\nb") + ylab("Density\n") +
         plot_theme() +
-        scale_colour_manual(values = plot_palette)    
-    png("REs_b.png", width = 8, height = 8, units = "in", res = 400)
+        scale_colour_manual(values = plot_palette)
+    
+    png(paste(file_name, ".png", sep = ""), width = 8, height = 8, units = "in", res = 400)
     print(p)
     dev.off()
 }

@@ -2,21 +2,23 @@
 require(tagGrowth)
 
 # Plot up a specific simulation
-Isim=1
-directory <- "../sims"
+Isim=3
+directory <- "../sims2"
 fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
 load(fname)
 load("../../data/ATR_mod.RData")
-plot_histogram_b(data = sim$Sim, report = sim$Report)
-plot_obs_pred(sim$Sim$Sex, sim$Sim$Length1_true, sim$Sim$Length1, sim$Sim$Length2_true, sim$Sim$Length2)
+plot_histogram_b(data = sim$Sim, report = sim$Report, file_name = paste("REs_b_", Isim, sep = ""))
+plot_obs_pred(sim$Sim$Sex, sim$Sim$Length1_true, sim$Sim$Length1, sim$Sim$Length2_true, sim$Sim$Length2,
+              file_name = paste("ObsVsPred_", Isim, sep = ""))
 plot_indiv_growth(sim$Sim$Sex,
                   sim$Sim$Age1, sim$Sim$Length1, sim$Sim$Length1_true,
-                  sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true)
+                  sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true,
+                  file_name = paste("IndivGrowth_", Isim, sep = ""))
 
 plot_simulations <- function(directory = ".")
 {
     require(tagGrowth)
-    directory <- "../sims"
+    directory <- "../sims1"
     par.fixed <- NULL
     pdH <- NULL    
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs")
