@@ -34,34 +34,38 @@ for (Isim in 1:100)
                ln_sd_obs = log(20), z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
                ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.01),
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.01))
-Random = NULL
-Map <- list()
-if(Options[1]==0){
-  Map[["ln_ydev"]] = factor(rep(NA, Nyears))
-  Map[["ln_sd_ydev"]] = factor(NA)
-}else{
-  Random = c(Random, "ln_ydev")
-} 
-if(Options[2]==0){
-  Map[["ln_sd_xdev"]]=factor(NA)
-  Map[["ln_xdev"]]=factor(rep(NA,length(Params$ln_xdev))) 
-}else{
-  Random = c(Random, "ln_xdev")
-}
-if(Options[3]==0){
-  Map[["ln_bdev"]]=factor(rep(NA,length(Params$ln_bdev)))
-  Map[["ln_sd_bdev"]]=factor(rep(NA,2)) 
-}else{
-  Random = c(Random, "ln_bdev")
-}
-if(Options[4]==0){
-  Map[["z2"]]=factor(rep(NA,length(Params$ln_bdev)))
-  Map[["z1"]]=factor(rep(NA,length(Params$z1)))
-  Map[["ln_sd_z"]]=factor(NA)  
-}else{
-  Random = c(Random, "z1", "z2")
-}
-obj <- MakeADFun(data = Data, parameters = Params, map = Map, random = Random, inner.control=list(maxit=50))
+    Random = NULL
+    Map <- list()
+    if (Options[1]==0)
+    {
+        Map[["ln_ydev"]] = factor(rep(NA, Nyears))
+        Map[["ln_sd_ydev"]] = factor(NA)
+    } else {
+        Random = c(Random, "ln_ydev")
+    } 
+    if(Options[2]==0)
+    {
+        Map[["ln_sd_xdev"]]=factor(NA)
+        Map[["ln_xdev"]]=factor(rep(NA,length(Params$ln_xdev))) 
+    } else {
+        Random = c(Random, "ln_xdev")
+    }
+    if(Options[3]==0)
+    {
+        Map[["ln_bdev"]]=factor(rep(NA,length(Params$ln_bdev)))
+        Map[["ln_sd_bdev"]]=factor(rep(NA,2)) 
+    } else {
+        Random = c(Random, "ln_bdev")
+    }
+    if(Options[4]==0)
+    {
+        Map[["z2"]]=factor(rep(NA,length(Params$ln_bdev)))
+        Map[["z1"]]=factor(rep(NA,length(Params$z1)))
+        Map[["ln_sd_z"]]=factor(NA)  
+    } else {
+        Random = c(Random, "z1", "z2")
+    }
+    obj <- MakeADFun(data = Data, parameters = Params, map = Map, random = Random, inner.control=list(maxit=50))
     # Run model
     newtonOption(smartsearch = TRUE)
     obj$fn(obj$par)
@@ -72,12 +76,12 @@ obj <- MakeADFun(data = Data, parameters = Params, map = Map, random = Random, i
     obj$hessian <- TRUE
     ConvergeTol <- 1 # 1:Normal; 2:Strong
     Upr = rep(Inf, length(obj$par))
-  Upr[match("logit_psi",names(obj$par))] = qlogis(0.999)
-Lwr = rep(-Inf, length(obj$par))
-  Lwr[match("logit_psi",names(obj$par))] = qlogis(0.001)
-  Lwr[match("ln_sd_z",names(obj$par))] = log(0.001)
-  Lwr[match("ln_sd_xdev",names(obj$par))] = log(0.001)
-  Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
+    Upr[match("logit_psi",names(obj$par))] = qlogis(0.999)
+    Lwr = rep(-Inf, length(obj$par))
+    Lwr[match("logit_psi",names(obj$par))] = qlogis(0.001)
+    Lwr[match("ln_sd_z",names(obj$par))] = log(0.001)
+    Lwr[match("ln_sd_xdev",names(obj$par))] = log(0.001)
+    Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
 
     doFit <- function()
     {
