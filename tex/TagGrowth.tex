@@ -66,31 +66,36 @@ looking Age1, Age2, liberty samples.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{sims1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This was our first attempt at estimating simulated data.  Here $b$ was treated
-as a random effect.  $L_0$ was estimated without a prior penalty.  Looking at
-the histograms below there seems to be two states that the model estimates are
-jumping between.  Looking at the trace plots, when $\sigma_o$ is estimated high
-then the remaining parameters are poorly estimated.
+This was our first attempt at estimating simulated data.  $L_0$ was simulated
+as 43 and 50 for females and males respectively (Table~\ref{tab:sims1}).
+
+$L_0$ was estimated without a prior penalty.  $b$ was treated as a random
+effect.
+
+80 of 100 fits were pdHess.  Looking at the histograms below there seems to be
+two states that the model estimates are jumping between.  Looking at the trace
+plots, when $\sigma_o$ is estimated high then the remaining parameters are
+poorly estimated (Figure~\ref{fig:sims1}).
 \begin{table}[!htbp]
   \begin{quote}
-  \caption{\label{tab:} .} \small{
-  \begin{center}
-  \begin{tabular}{lrr}
-  \hline
-  Parameter      & Female & Male\\
-  \hline
-  $L_0$          & 43   & 50\\
-  $\overline{b}$ & 0.001 & 0.00106\\
-  $\sigma_b$     & 0.21 & 0.19\\
-  $\gamma$       & 0.19   & 0.19\\
-  $\psi$         & 2e-10 & 2e-10\\
-  $\sigma_o$     & 0.083 & 0.083\\
-  $\sigma_z$     & 0.0   & 0.0\\
-  $\sigma_y$     & 0.0   & 0.0\\
-  \hline
-  \end{tabular}
-  \end{center}
-  }
+    \caption{\label{tab:sims1} .} \small{
+      \begin{center}
+        \begin{tabular}{lrr}
+          \hline
+          Parameter      & Female & Male\\
+          \hline
+          $L_0$          & 43   & 50\\
+          $\overline{b}$ & 0.00100 & 0.00106\\
+          $\sigma_b$     & 0.21 & 0.19\\
+          $\gamma$       & 0.19   & 0.19\\
+          $\psi$         & 2e-10 & 2e-10\\
+          $\sigma_o$     & 0.083 & 0.083\\
+          $\sigma_z$     & 0.0   & 0.0\\
+          $\sigma_y$     & 0.0   & 0.0\\
+          \hline
+        \end{tabular}
+      \end{center}
+    }
   \end{quote}
 \end{table}
 
@@ -100,7 +105,7 @@ then the remaining parameters are poorly estimated.
   \includegraphics[width=\linewidth]{../simulation/sims1/results/TracePars.png}
   \begin{quote}
     \caption{pdH fits plotted only (80 of 100 fits were pdH)..}
-  \label{fig:}
+    \label{fig:sims1}
   \end{quote}
 \end{figure}
 
@@ -109,31 +114,35 @@ then the remaining parameters are poorly estimated.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{sims2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this simulation/estimation we placed a prior penalty on $L_0$ (a normal
-centered about 0).  The simulation was run with $L_0$ values much closer to 0.
-Again, $b$ was treated as a random effect.  Doing a poor job of recovering
-$L_0$ for males.  Two states that seem to be linked to $\sigma_o$ again.  Not
-getting $\psi$ at all.
+The simulation was run with $L_0$ values much closer to 0
+(Table~\ref{tab:sims2}).
+
+We placed a prior penalty on $L_0$ (a normal centered about 0).  Again, $b$ was
+treated as a random effect.
+
+57 of 100 fits were pdHess.  Doing a poor job of recovering $L_0$ for males.
+Two states that seem to be linked to $\sigma_o$ again.  Not getting $\psi$ at
+all (Figure~\ref{fig:sims2}).
 \begin{table}[!htbp]
   \begin{quote}
-  \caption{\label{tab:} .} \small{
-  \begin{center}
-  \begin{tabular}{lrr}
-  \hline
-  Parameter      & Female & Male\\
-  \hline
-  $L_0$          & 0.0   & 6.9\\
-  $\overline{b}$ & 0.003 & 0.003\\
-  $\sigma_b$     & 0.106 & 0.112\\
-  $\gamma$       & 0.4   & 0.4\\
-  $\psi$         & 0.001 & 0.001\\
-  $\sigma_o$     & 0.099 & 0.099\\
-  $\sigma_z$     & 0.0   & 0.0\\
-  $\sigma_y$     & 0.0   & 0.0\\
-  \hline
-  \end{tabular}
-  \end{center}
-  }
+    \caption{\label{tab:sims2} .} \small{
+      \begin{center}
+        \begin{tabular}{lrr}
+          \hline
+          Parameter      & Female & Male\\
+          \hline
+          $L_0$          & 0.0   & 6.9\\
+          $\overline{b}$ & 0.003 & 0.003\\
+          $\sigma_b$     & 0.106 & 0.112\\
+          $\gamma$       & 0.4   & 0.4\\
+          $\psi$         & 0.001 & 0.001\\
+          $\sigma_o$     & 0.099 & 0.099\\
+          $\sigma_z$     & 0.0   & 0.0\\
+          $\sigma_y$     & 0.0   & 0.0\\
+          \hline
+        \end{tabular}
+      \end{center}
+    }
   \end{quote}
 \end{table}
 
@@ -143,7 +152,7 @@ getting $\psi$ at all.
   \includegraphics[width=\linewidth]{../simulation/sims2/results/TracePars.png}
   \begin{quote}
     \caption{pdH fits plotted only (57 of 100 fits were pdH).}
-  \label{fig:}
+    \label{fig:sims2}
   \end{quote}
 \end{figure}
 
@@ -153,7 +162,7 @@ getting $\psi$ at all.
   \includegraphics[width=\linewidth]{../simulation/sims2/results/ObsVsPred_3.png}
   \begin{quote}
     \caption{The first pdH simulation (sim 3).}
-  \label{fig:}
+    \label{fig:sims2-fits}
   \end{quote}
 \end{figure}
 
