@@ -122,22 +122,22 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
     Year2 <- rep(3, Nindiv)
     Area1 <- rep(1, Nindiv)
     # Parameters
-    L0 <- Pars['L0',]
-    bmean <- Pars['bmean',]
-    sd_b <- Pars['sd_b',]
-    gamma <- Pars['gamma',]
-    psi <- Pars['psi',]
+    L0 <-     Pars['L0',]
+    bmean <-  Pars['bmean',]
+    sd_b <-   Pars['sd_b',]
+    gamma <-  Pars['gamma',]
+    psi <-    Pars['psi',]
     sd_obs <- Pars['sd_obs',]
-    sd_z <- Pars['sd_z',]
-    sd_y <- Pars['sd_y',]
+    sd_z <-   Pars['sd_z',]
+    sd_y <-   Pars['sd_y',]
     # Individual vectors
     ln_bdev <- rep(NA, Nindiv)
     Length1 <- Length1_true <- rep(NA, Nindiv)
     Length2 <- Length2_true <- rep(NA, Nindiv)
-    sd_z1 <- rep(NA, Nindiv)
-    sd_z2 <- rep(NA, Nindiv)
-    z1 <- rep(NA, Nindiv)
-    z2 <- rep(NA, Nindiv)
+    sd_z1 <-   rep(NA, Nindiv)
+    sd_z2 <-   rep(NA, Nindiv)
+    z1 <-      rep(NA, Nindiv)
+    z2 <-      rep(NA, Nindiv)
     # Check for spatially-explicit or annual random effects
     yrs <- range(Year0, Year1, Year2)
     if ( is.null(ln_xdev) ) ln_xdev <- rep(0, Nareas)
