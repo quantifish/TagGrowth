@@ -18,7 +18,7 @@ plot_indiv_growth(sim$Sim$Sex,
 plot_simulations <- function(directory = ".")
 {
     require(tagGrowth)
-    directory <- "../sims3"
+    directory <- "../sims"
     par.fixed <- NULL
     pdH <- NULL    
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs")
@@ -49,7 +49,8 @@ plot_simulations <- function(directory = ".")
     }
     par.fixed <- par.fixed[,-flag]
     
-    par.fixed1 <- data.frame(melt(par.fixed[,c("gamma","psi","sd_obs")]), Sex = "Both")
+    ind <- which(colnames(par.fixed) %in% c("gamma","psi","sd_obs"))
+    par.fixed1 <- data.frame(melt(par.fixed[,ind]), Sex = "Both")
     ind_L0 <- which(colnames(par.fixed) %in% "L0")
     ind_bmean <- which(colnames(par.fixed) %in% "bmean")
     par.fixed2 <- data.frame(melt(par.fixed[,c(ind_L0[1],ind_bmean[1])]), Sex = "Females")

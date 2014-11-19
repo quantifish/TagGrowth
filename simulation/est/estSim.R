@@ -17,6 +17,10 @@ for (Isim in 1:100)
     # Data
     fname <- paste("../sims/sim", Isim, ".RData", sep = "")
     load(fname)
+    sim$obj <- NULL
+    sim$opt <- NULL
+    sim$Report <- NULL
+    save(sim, file = fname)
     ATR_mod <- sim$Sim
     Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=0, "IndivTimeTF"=0) #1st slot: 
     Nindiv <- nrow(ATR_mod)
@@ -31,11 +35,12 @@ for (Isim in 1:100)
     Nareas <- length(unique(ATR_mod$Area1))
     Params <- list(ln_gamma = log(10000), logit_psi = qlogis(0.2), ln_L0 = rep(log(1), 2),
                ln_bmean = rep(log(0.2), 2), ln_bdev = rep(0, Nindiv), ln_sd_bdev = c(log(0.01), log(0.01)),
-               ln_sd_obs = log(20), z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
+               ln_sd_obs = log(0.099), z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
                ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.01),
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.01))
-    Random = NULL
+    Random <- NULL
     Map <- list()
+    Map[["ln_sd_obs"]] <- factor(NA)
     if (Options[1]==0)
     {
         Map[["ln_ydev"]] = factor(rep(NA, Nyears))
@@ -102,3 +107,4 @@ for (Isim in 1:100)
     tryCatch(doFit(), error = function(e) cat("Error in simulation", Isim, "\n"), finally = cat("Simulation", Isim, "done\n"))
     dyn.unload(dynlib("../../estimation/ATR"))
 }
+
