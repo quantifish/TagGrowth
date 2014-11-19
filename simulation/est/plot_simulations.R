@@ -18,7 +18,7 @@ plot_indiv_growth(sim$Sim$Sex,
 plot_simulations <- function(directory = ".")
 {
     require(tagGrowth)
-    directory <- "../sims1"
+    directory <- "../sims3"
     par.fixed <- NULL
     pdH <- NULL    
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs")
@@ -38,6 +38,7 @@ plot_simulations <- function(directory = ".")
         }
     }
 
+    # Remove those parameters (columns) in which the parameter is static
     flag <- NULL
     for (I in 1:ncol(par.fixed))
     {
@@ -48,22 +49,24 @@ plot_simulations <- function(directory = ".")
     }
     par.fixed <- par.fixed[,-flag]
     
-    par.fixed1 <- data.frame(melt(par.fixed[,c(1,2,9)]), Sex = "Both")
-    par.fixed2 <- data.frame(melt(par.fixed[,c(3,5,7)]), Sex = "Females")
-    par.fixed3 <- data.frame(melt(par.fixed[,c(4,6,8)]), Sex = "Males")
+    par.fixed1 <- data.frame(melt(par.fixed[,c("gamma","psi","sd_obs")]), Sex = "Both")
+    ind_L0 <- which(colnames(par.fixed) %in% "L0")
+    ind_bmean <- which(colnames(par.fixed) %in% "bmean")
+    par.fixed2 <- data.frame(melt(par.fixed[,c(ind_L0[1],ind_bmean[1])]), Sex = "Females")
+    par.fixed3 <- data.frame(melt(par.fixed[,c(ind_L0[2],ind_bmean[2])]), Sex = "Males")
     par.fixed4 <- rbind(par.fixed1, par.fixed2, par.fixed3)
     par.fixed <- par.fixed4
     par.fixed$truth <- NA
     par.fixed$truth[par.fixed$Var2 == "gamma"] <- sim$Parameters['gamma',1]
     par.fixed$truth[par.fixed$Var2 == "psi"] <- sim$Parameters['psi',1]
     par.fixed$truth[par.fixed$Var2 == "sd_obs"] <- sim$Parameters['sd_obs',1]
-    par.fixed$truth[par.fixed$Var2 == "sd_z"] <- sim$Parameters['sd_z',1]
+    #par.fixed$truth[par.fixed$Var2 == "sd_z"] <- sim$Parameters['sd_z',1]
     par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Females"] <- sim$Parameters['L0',1]
     par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Males"] <- sim$Parameters['L0',2]
     par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Females"] <- sim$Parameters['bmean',1]
     par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Males"] <- sim$Parameters['bmean',2]
-    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
-    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
+    #par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
+    #par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
     
     #============================================================================
     
@@ -77,7 +80,7 @@ plot_simulations <- function(directory = ".")
         plot_theme()
         #scale_colour_manual(values = plot_palette)
     
-    png(paste("SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
+    png(paste(directory, "/results/", "SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
     print(p)
     dev.off()
 
@@ -90,7 +93,7 @@ plot_simulations <- function(directory = ".")
         xlab("") + ylab("Frequency\n") +
         plot_theme()
 
-    png(paste("TracePars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
+    png(paste(directory, "/results/", "TracePars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
     print(p)
     dev.off()    
 
