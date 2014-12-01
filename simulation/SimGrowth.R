@@ -36,15 +36,26 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
         # the value of the third
         chooser <- function()
         {
-            Age1 <- sample(ATR_mod$Age1, size = 1, replace = TRUE) #* rnorm(1, 1, 0.4)
-            Age2 <- sample(ATR_mod$Age2, size = 1, replace = TRUE) #* rnorm(1, 1, 0.4)
-            Liberty <- sample(ATR_mod$Liberty, size = 1, replace = TRUE) #* rnorm(1, 1, 1)
-            rnd <- rbinom(1, 1, 0.5) + 1
-            #if (rnd == 1) Age1 <- Age2 - Liberty
-            #if (rnd == 2) Age2 <- Age1 + Liberty
-            #Age1 <- Age2 - Liberty
-            Age2 <- Age1 + Liberty
-            cat(Age1, "|", Age2, "|", Liberty, "\n")
+            yep <- 0
+            while (yep < 1)
+            {
+                Age1 <- sample(ATR_mod$Age1, size = 1, replace = TRUE)
+                Age2 <- sample(ATR_mod$Age2, size = 1, replace = TRUE)
+                Liberty <- sample(ATR_mod$Liberty, size = 1, replace = TRUE)
+                rnd <- sample(1:3, 1, replace = TRUE)
+                if (rnd == 1)
+                {
+                    Age1 <- Age2 - Liberty
+                    Age2 <- Age1 + Liberty
+                } else if (rnd == 2) {
+                    Age1 <- Age2 - Liberty
+                    Liberty <- Age2 - Age1
+                } else {
+                    Age2 <- Age1 + Liberty
+                    Liberty <- Age2 - Age1
+                }
+                if (Liberty >= 0 && Age1 >= 0 && Age2 >= 0 && Age2 >= Age1) yep <- yep + 1
+            }
             if (Liberty < 0) stop("Error: a negative time at liberty was simulated")
             if (Age1 < 0 | Age2 < 0) stop("Error: a fish younger than zero was simulated")
             return(c(Age1, Age2, Liberty))
@@ -177,7 +188,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
         }
         # Time-variation error from first capture to second capture
         # Second length measurement
-        year <- Year1[i]; # The (index) year that the individual was born
+        year <- Year1[i] # The (index) year that the individual was born
         sumj <- 0
         #for (j in seq(0,Liberty[i]-1,length=Liberty[i]) ) sumj <- sumj + gamma * exp(ln_xdev[a] + ln_ydev[Year1[i]+j+1] - bmean[s]*exp(ln_bdev[i])*j)
         Length2_true[i] <- Length1_true[i]
@@ -193,7 +204,7 @@ SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
             z_increment <- rnorm(1, 0, sd_z[s])
             Length2_true[i] <- Length2_true[i] * exp(-b) + gamma[s] * exp(ln_ydev[year+1]) * b^(psi[s] - 1) * (1 - exp(-b)) + z_increment
         }
-        #Length2[i] <- Length2_hat[i]
+        #Length2[i] <- Length2_hat[i] # Can use the actual first length estimated in the model
         # Add observation error
         if ( obs_err )
         {

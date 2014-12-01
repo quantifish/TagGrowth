@@ -1,24 +1,6 @@
-
-require(tagGrowth)
-
-# Plot up a specific simulation
-Isim=3
-directory <- "../sims2"
-fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
-load(fname)
-load("../../data/ATR_mod.RData")
-plot_histogram_b(data = sim$Sim, report = sim$Report, file_name = paste("REs_b_", Isim, sep = ""))
-plot_obs_pred(sim$Sim$Sex, sim$Sim$Length1_true, sim$Sim$Length1, sim$Sim$Length2_true, sim$Sim$Length2,
-              file_name = paste("ObsVsPred_", Isim, sep = ""))
-plot_indiv_growth(sim$Sim$Sex,
-                  sim$Sim$Age1, sim$Sim$Length1, sim$Sim$Length1_true,
-                  sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true,
-                  file_name = paste("IndivGrowth_", Isim, sep = ""))
-
-plot_simulations <- function(directory = ".")
+plot_simulations <- function(directory = "../sims")
 {
     require(tagGrowth)
-    directory <- "../sims"
     par.fixed <- NULL
     pdH <- NULL    
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs")
@@ -47,27 +29,31 @@ plot_simulations <- function(directory = ".")
             flag <- c(flag, I)
         }
     }
-    par.fixed <- par.fixed[,-flag]
+    ind_remove <- colnames(par.fixed[,flag])
     
-    ind <- which(colnames(par.fixed) %in% c("gamma","psi","sd_obs"))
+    ind <- which(colnames(par.fixed) %in% c("psi","sd_obs"))
     par.fixed1 <- data.frame(melt(par.fixed[,ind]), Sex = "Both")
+    ind_gamma <- which(colnames(par.fixed) %in% "gamma")
     ind_L0 <- which(colnames(par.fixed) %in% "L0")
     ind_bmean <- which(colnames(par.fixed) %in% "bmean")
-    par.fixed2 <- data.frame(melt(par.fixed[,c(ind_L0[1],ind_bmean[1])]), Sex = "Females")
-    par.fixed3 <- data.frame(melt(par.fixed[,c(ind_L0[2],ind_bmean[2])]), Sex = "Males")
+    ind_sd_bdev <- which(colnames(par.fixed) %in% "sd_bdev")
+    par.fixed2 <- data.frame(melt(par.fixed[,c(ind_L0[1], ind_bmean[1], ind_gamma[1], ind_sd_bdev[1])]), Sex = "Females")
+    par.fixed3 <- data.frame(melt(par.fixed[,c(ind_L0[2], ind_bmean[2], ind_gamma[2], ind_sd_bdev[2])]), Sex = "Males")
     par.fixed4 <- rbind(par.fixed1, par.fixed2, par.fixed3)
     par.fixed <- par.fixed4
     par.fixed$truth <- NA
-    par.fixed$truth[par.fixed$Var2 == "gamma"] <- sim$Parameters['gamma',1]
     par.fixed$truth[par.fixed$Var2 == "psi"] <- sim$Parameters['psi',1]
     par.fixed$truth[par.fixed$Var2 == "sd_obs"] <- sim$Parameters['sd_obs',1]
     #par.fixed$truth[par.fixed$Var2 == "sd_z"] <- sim$Parameters['sd_z',1]
+    par.fixed$truth[par.fixed$Var2 == "gamma" & par.fixed$Sex == "Females"] <- sim$Parameters['gamma',1]
+    par.fixed$truth[par.fixed$Var2 == "gamma" & par.fixed$Sex == "Males"] <- sim$Parameters['gamma',2]
     par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Females"] <- sim$Parameters['L0',1]
     par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Males"] <- sim$Parameters['L0',2]
     par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Females"] <- sim$Parameters['bmean',1]
     par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Males"] <- sim$Parameters['bmean',2]
-    #par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
-    #par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
+    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
+    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
+    par.fixed <- par.fixed[!par.fixed$Var2 %in% ind_remove,]
     
     #============================================================================
     

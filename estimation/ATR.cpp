@@ -23,9 +23,9 @@ Type objective_function<Type>::operator() ()
   DATA_FACTOR(Area1);    // Area that individual was in at time 1 
 
   // Parameters
-  PARAMETER(ln_gamma);          // Fixed effect vector (1)
+  PARAMETER_VECTOR(ln_gamma);   // Fixed effect vector (1)
   PARAMETER(logit_psi);         // Fixed effect (1)
-  PARAMETER_VECTOR(ln_L0);      // Fixed effect vector (2, sex-specific)
+  PARAMETER_VECTOR(L0);         // Fixed effect vector (2, sex-specific)
   PARAMETER_VECTOR(ln_bmean);   // Random effects vector (2, sex-specific)
   PARAMETER_VECTOR(ln_bdev);    // Random effects vector (315, individual)
   PARAMETER_VECTOR(ln_sd_bdev); // Random effect standard deviation (2, sex-specific)
@@ -44,23 +44,22 @@ Type objective_function<Type>::operator() ()
 
   // Initialize population-level parameters:
   Type psi = 1 / (1 + exp(-logit_psi));
-  Type gamma = exp(ln_gamma);
   Type sd_obs = exp(ln_sd_obs);
 
   // Initialize sex-specific parameters:
-  vector<Type> L0(Nsex);
+  vector<Type> gamma(Nsex);
   vector<Type> bmean(Nsex);
   vector<Type> sd_bdev(Nsex);
   vector<Type> amean(Nsex);
   vector<Type> Linf(Nsex);
-  L0 = exp(ln_L0);
-  bmean = exp(ln_bmean);
+  bmean   = exp(ln_bmean);
   sd_bdev = exp(ln_sd_bdev);
-  amean = gamma * pow(bmean, psi);
+  gamma   = exp(ln_gamma);
+  amean   = gamma * pow(bmean, psi);
   
   // Initialize some computational variables:
   int sex;
-  Type ans = 0.;
+  Type ans  = 0.;
   Type sumj = 0.;
   
   // Distribution of observations x given random effects u (x|u):
@@ -71,8 +70,8 @@ Type objective_function<Type>::operator() ()
 
   // Prior penalty for Linf for females and males:
   Type Linf_cv = 0.102;
-  Type pLinfF = 180.20;
-  Type pLinfM = 169.07;
+  Type pLinfF  = 180.20;
+  Type pLinfM  = 169.07;
   vector<Type> pLinf_sd(Nsex);
   Linf = (gamma * pow(bmean, psi)) / bmean;
   pLinf_sd(0) = Linf_cv * pLinfF; // sd=cv*mu
@@ -117,7 +116,7 @@ Type objective_function<Type>::operator() ()
     year = Year0(i);                           // The (index) year that the individual was born
     area = Area1(i) - 1;                       // Location of the individual at time 1
     b_indiv(i) = bmean(sex) * exp(ln_bdev(i)); // Value for b_indiv
-    a_indiv(i) = gamma * pow(b_indiv(i), psi); // Derived value for a_indiv
+    a_indiv(i) = gamma(sex) * pow(b_indiv(i), psi); // Derived value for a_indiv
     // Random effect probability of bdevs
     if (Options(2) == 1)
     {
@@ -132,7 +131,7 @@ Type objective_function<Type>::operator() ()
       // to be referencing the correct year-effect parameter.
       time = Time0(i) + j;
       if ( fmod (time, time_step) == 0. ) { year += 1; }
-      sumj += gamma * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
+      sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
     }
     Length1_hat(i) = ( L0(sex) * exp(-b_indiv(i) * iAge1(i)) ) + ( pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i))) * sumj );
     Length1_hat(i) += z1(i);
@@ -152,7 +151,7 @@ Type objective_function<Type>::operator() ()
     {
       time = Time1(i) + j;
       if ( fmod (time, time_step) == 0. ) { year += 1; }
-      sumj += gamma * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
+      sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
     }
     Length2_hat(i) = ( Length1_hat(i) * exp(-b_indiv(i) * iLiberty(i)) ) + ( pow(b_indiv(i), psi-1) * (1 - exp(-b_indiv(i))) * sumj );
     Length2_hat(i) += z2(i);
