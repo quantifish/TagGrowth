@@ -24,7 +24,7 @@ for (Isim in 1:100)
     sim$Report <- NULL
     save(sim, file = fname)
     ATR_mod <- sim$Sim
-    Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 0) #1st slot: 
+    Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 1) #1st slot: 
     Nindiv <- nrow(ATR_mod)
     # Make AD object
     Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'Age1'], iLiberty = ATR_mod[1:Nindiv,'Liberty'],
@@ -43,7 +43,7 @@ for (Isim in 1:100)
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.001))
     Random <- NULL
     Map <- list()
-    Map[["logit_psi"]] <- factor(NA)
+    Map[["logit_psi"]] <- factor(NA) # We have fixed psi at 0 (or close enough)
     if (Options[1] == 0)
     {
         Map[["ln_ydev"]]    = factor(rep(NA, Nyears))

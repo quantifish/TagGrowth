@@ -34,6 +34,67 @@
 Key words: Antarctic toothfish, Ross Sea
 
 
+\begin{equation}
+  \frac{dL}{dt} = a - k L,
+\end{equation}
+
+\begin{equation}
+  a = \gamma k^\psi,
+\end{equation}
+When $\psi = 0$ this model become the classic von Bertallanffy.
+
+\begin{align}
+  \frac{dL}{dt} &= \gamma k^\psi - k L,\\
+  &= \gamma - k L \quad \text{if} \quad \psi = 0,
+\end{align}
+
+\begin{align}
+  L_\infty &= \frac{\gamma k^\psi}{k},\\
+  &= \frac{\gamma}{k} \quad \text{if} \quad \psi = 0, 
+\end{align}
+
+\begin{align}
+  \gamma &= \frac{k L_\infty}{k^\psi},\\
+  &= k L_\infty \quad \text{if} \quad \psi = 0, 
+\end{align}
+
+
+\begin{equation}
+  L_0 = L_\infty \left( 1 - e^{k t_0} \right),
+\end{equation}
+$L_0$ is the length at time 0.
+
+\begin{align}
+  c_v &= \frac{\sigma}{\mu},\\
+  \sigma &= c_v \mu,\\
+  \varepsilon &\sim \mathcal{N} \left( 0, \sigma^2_o L_t \right),
+\end{align}
+
+
+\begin{table}[!htbp]
+  \begin{quote}
+    \caption{\label{tab:Dunn} .} \small{
+      \begin{center}
+        \begin{tabular}{lrr}
+          \hline
+          Parameter      & Female & Male\\
+          \hline
+          $t_0$ (y) & 0.021 & -0.256\\
+          $k$ ($\text{y}^{-1}$) & 0.090 & 0.093\\
+          $L_\infty$ (cm) & 180.20 & 169.07\\
+          $c_v$ & 0.102 & 0.012\\
+          \hline
+        \end{tabular}
+      \end{center}
+    }
+  \end{quote}
+\end{table}
+
+\begin{equation}
+  L_t = L_\infty \left( 1 - e^{-k (t - t_0)} \right),
+\end{equation}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
