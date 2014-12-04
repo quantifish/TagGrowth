@@ -57,6 +57,7 @@ sd_y <-   c(0,        0)
 
 Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)
 colnames(Pars) <- c("female", "male")
+Pars
 
 
 #=================================================================================

@@ -1,9 +1,9 @@
-plot_simulations <- function(directory = "../sims")
+plot_simulations <- function(directory = "../v0")
 {
     require(tagGrowth)
     par.fixed <- NULL
     pdH <- NULL    
-    fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs")
+    fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs","sd_z")
     for (Isim in 1:100)
     {
         fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
@@ -20,7 +20,7 @@ plot_simulations <- function(directory = "../sims")
         }
     }
 
-    # Remove those parameters (columns) in which the parameter is static
+    # Identify those parameters (columns) in which the parameter is static for removal
     flag <- NULL
     for (I in 1:ncol(par.fixed))
     {
@@ -29,30 +29,35 @@ plot_simulations <- function(directory = "../sims")
             flag <- c(flag, I)
         }
     }
-    ind_remove <- colnames(par.fixed[,flag])
-    
-    ind <- which(colnames(par.fixed) %in% c("psi","sd_obs"))
-    par.fixed1 <- data.frame(melt(par.fixed[,ind]), Sex = "Both")
-    ind_gamma <- which(colnames(par.fixed) %in% "gamma")
-    ind_L0 <- which(colnames(par.fixed) %in% "L0")
-    ind_bmean <- which(colnames(par.fixed) %in% "bmean")
+    ind_remove <- colnames(par.fixed)[flag]
+
+    # Identify those parameters that are not sex-specific, we will plonk these in with females
+    ind <- which(colnames(par.fixed) %in% c("psi","sd_obs","sd_z"))
+    par.fixed1 <- data.frame(melt(par.fixed[,ind]), Sex = "Females")
+
+    # Identify those parameters that are sex-specific
+    ind_gamma   <- which(colnames(par.fixed) %in% "gamma")
+    ind_psi     <- which(colnames(par.fixed) %in% "psi")
+    ind_L0      <- which(colnames(par.fixed) %in% "L0")
+    ind_bmean   <- which(colnames(par.fixed) %in% "bmean")
     ind_sd_bdev <- which(colnames(par.fixed) %in% "sd_bdev")
     par.fixed2 <- data.frame(melt(par.fixed[,c(ind_L0[1], ind_bmean[1], ind_gamma[1], ind_sd_bdev[1])]), Sex = "Females")
     par.fixed3 <- data.frame(melt(par.fixed[,c(ind_L0[2], ind_bmean[2], ind_gamma[2], ind_sd_bdev[2])]), Sex = "Males")
+    
     par.fixed4 <- rbind(par.fixed1, par.fixed2, par.fixed3)
     par.fixed <- par.fixed4
     par.fixed$truth <- NA
-    par.fixed$truth[par.fixed$Var2 == "psi"] <- sim$Parameters['psi',1]
-    par.fixed$truth[par.fixed$Var2 == "sd_obs"] <- sim$Parameters['sd_obs',1]
-    #par.fixed$truth[par.fixed$Var2 == "sd_z"] <- sim$Parameters['sd_z',1]
-    par.fixed$truth[par.fixed$Var2 == "gamma" & par.fixed$Sex == "Females"] <- sim$Parameters['gamma',1]
-    par.fixed$truth[par.fixed$Var2 == "gamma" & par.fixed$Sex == "Males"] <- sim$Parameters['gamma',2]
-    par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Females"] <- sim$Parameters['L0',1]
-    par.fixed$truth[par.fixed$Var2 == "L0" & par.fixed$Sex == "Males"] <- sim$Parameters['L0',2]
-    par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Females"] <- sim$Parameters['bmean',1]
-    par.fixed$truth[par.fixed$Var2 == "bmean" & par.fixed$Sex == "Males"] <- sim$Parameters['bmean',2]
+    par.fixed$truth[par.fixed$Var2 == "psi"]                                  <- sim$Parameters['psi',1]
+    par.fixed$truth[par.fixed$Var2 == "sd_obs"]                               <- sim$Parameters['sd_obs',1]
+    par.fixed$truth[par.fixed$Var2 == "sd_z"]                                 <- sim$Parameters['sd_z',1]
+    par.fixed$truth[par.fixed$Var2 == "gamma"   & par.fixed$Sex == "Females"] <- sim$Parameters['gamma',1]
+    par.fixed$truth[par.fixed$Var2 == "gamma"   & par.fixed$Sex == "Males"]   <- sim$Parameters['gamma',2]
+    par.fixed$truth[par.fixed$Var2 == "L0"      & par.fixed$Sex == "Females"] <- sim$Parameters['L0',1]
+    par.fixed$truth[par.fixed$Var2 == "L0"      & par.fixed$Sex == "Males"]   <- sim$Parameters['L0',2]
+    par.fixed$truth[par.fixed$Var2 == "bmean"   & par.fixed$Sex == "Females"] <- sim$Parameters['bmean',1]
+    par.fixed$truth[par.fixed$Var2 == "bmean"   & par.fixed$Sex == "Males"]   <- sim$Parameters['bmean',2]
     par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Females"] <- sim$Parameters['sd_b',1]
-    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"] <- sim$Parameters['sd_b',2]
+    par.fixed$truth[par.fixed$Var2 == "sd_bdev" & par.fixed$Sex == "Males"]   <- sim$Parameters['sd_b',2]
     par.fixed <- par.fixed[!par.fixed$Var2 %in% ind_remove,]
     
     #============================================================================
@@ -77,12 +82,17 @@ plot_simulations <- function(directory = "../sims")
         geom_hline(aes(yintercept = truth), size = 0.75, colour = "red") +
         geom_line(colour = "black", fill = "orange") +
         facet_grid(Var2 ~ Sex, scales = "free") +
-        xlab("") + ylab("Frequency\n") +
+        xlab("\nSimulation") + ylab("") +
         plot_theme()
 
     png(paste(directory, "/results/", "TracePars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
     print(p)
     dev.off()    
 
-    print(length(which(pdH)))
+    # Print the number of fits that were pdH to screen
+    cat("\nNumber of pdH fits =", length(which(pdH)), "\n\n")
+
+    # Print the true parameter values to screen
+    print(round(sim$Parameters, 5))
+    cat("\n")
 }
