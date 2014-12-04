@@ -47,9 +47,9 @@ set.seed(15)            # A random number seed
 #=================================================================================
 #           females, males
 L0 <-     c(L0[1],    L0[2])    # L0 = Linf*(1 - exp(k*t0))
-bmean <-  c(b[1],     b[2])     # i.e. b = k
-sd_b <-   c(0.1,      0.2)
-gamma <-  c(gamma[1], gamma[2]) # gamma = (b * Linf) / (b^psi)
+bmean <-  c(b[1],     b[2])
+sd_b <-   c(0.0,      0.0)
+gamma <-  c(gamma[1], gamma[2]) # gamma = (b * Linf) / (k^psi)
 psi <-    c(0,        0)
 sd_obs <- c(0.05,     0.05)       # this is actually a cv
 sd_z <-   c(0.2,      0.4)
