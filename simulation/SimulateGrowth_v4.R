@@ -48,11 +48,11 @@ set.seed(15)            # A random number seed
 #           females, males
 L0 <-     c(L0[1],    L0[2])    # L0 = Linf*(1 - exp(k*t0))
 bmean <-  c(b[1],     b[2])
-sd_b <-   c(0.0,      0.0)
+sd_b <-   c(0.01,     0.02)
 gamma <-  c(gamma[1], gamma[2]) # gamma = (b * Linf) / (k^psi)
 psi <-    c(0,        0)
 sd_obs <- c(0.05,     0.05)       # this is actually a cv
-sd_z <-   c(0.2,      0.4)
+sd_z <-   c(0.3,      0.3)
 sd_y <-   c(0,        0)
 
 Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)

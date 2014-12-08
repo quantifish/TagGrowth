@@ -11,20 +11,21 @@ require(tagGrowth)
 source("plot_simulations.R")
 
 compile("../../estimation/ATR.cpp")
+directory <- "../sims/"
 
 for (Isim in 1:100)
 {
     cat("\nStarting simulation", Isim, "...\n")
     dyn.load(dynlib("../../estimation/ATR"))
     # Data
-    fname <- paste("../sims/sim", Isim, ".RData", sep = "")
+    fname <- paste(directory, "sim", Isim, ".RData", sep = "")
     load(fname)
     sim$obj <- NULL
     sim$opt <- NULL
     sim$Report <- NULL
     save(sim, file = fname)
     ATR_mod <- sim$Sim
-    Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1) #1st slot: 
+    Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 1) #1st slot: 
     Nindiv <- nrow(ATR_mod)
     # Make AD object
     Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'Age1'], iLiberty = ATR_mod[1:Nindiv,'Liberty'],
@@ -111,18 +112,17 @@ for (Isim in 1:100)
     dyn.unload(dynlib("../../estimation/ATR"))
 }
 
-plot_simulations()
+plot_simulations(directory)
 
 # Plot up a specific simulation
-Isim=3
-directory <- "../sims"
-fname <- paste(directory, "/sim", Isim, ".RData", sep = "")
+Isim = 3
+fname <- paste(directory, "sim", Isim, ".RData", sep = "")
 load(fname)
 load("../../data/ATR_mod.RData")
-plot_histogram_b(data = sim$Sim, report = sim$Report, file_name = paste("REs_b_", Isim, sep = ""))
+plot_histogram_b(data = sim$Sim, report = sim$Report, file_name = paste(directory, "results/REs_b_", Isim, sep = ""))
 plot_obs_pred(sim$Sim$Sex, sim$Sim$Length1_true, sim$Sim$Length1, sim$Sim$Length2_true, sim$Sim$Length2,
-              file_name = paste("ObsVsPred_", Isim, sep = ""))
+              file_name = paste(directory, "results/ObsVsPred_", Isim, sep = ""))
 plot_indiv_growth(sim$Sim$Sex,
                   sim$Sim$Age1, sim$Sim$Length1, sim$Sim$Length1_true,
                   sim$Sim$Age2, sim$Sim$Length2, sim$Sim$Length2_true,
-                  file_name = paste("IndivGrowth_", Isim, sep = ""))
+                  file_name = paste(directory, "results/IndivGrowth_", Isim, sep = ""))

@@ -45,6 +45,7 @@ Type objective_function<Type>::operator() ()
   // Initialize population-level parameters:
   Type psi = 1 / (1 + exp(-logit_psi));
   Type sd_obs = exp(ln_sd_obs);
+  Type sd_z = exp(ln_sd_z);
 
   // Initialize sex-specific parameters:
   vector<Type> gamma(Nsex);
@@ -84,7 +85,6 @@ Type objective_function<Type>::operator() ()
   ans -= dnorm( L0(1), Type(3.98), Type(1), 1 );
 
   // Time varying individual stuff
-  Type sd_z = exp(ln_sd_z);
   vector<Type> sd_z1(Nindiv);
   vector<Type> sd_z2(Nindiv);
 
