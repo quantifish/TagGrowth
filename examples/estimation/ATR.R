@@ -10,14 +10,14 @@ rm(list = ls())
 require(tagGrowth)
 
 # Compile the model
-compile("ATR.cpp")
+compile("../../inst/executables/ATR.cpp")
 
 
 ######################################################################################################
 # DATA
 ######################################################################################################
 # Load data
-load("../data/ATR_mod.RData")
+load("../../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
 ATR_mod <- time_step(ATR_mod, units = "weeks")
@@ -26,10 +26,11 @@ ATR_mod <- time_step(ATR_mod, units = "weeks")
 ######################################################################################################
 # Make AD object
 ######################################################################################################
-dyn.load(dynlib("ATR"))
-Options <- c("YearTF"=0, "AreaTF"=0, "IndivTF"=1, "IndivTimeTF"=0) #1st slot: 
+dyn.load(dynlib("../../inst/executables/ATR"))
+Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
 Nindiv <- nrow(ATR_mod)
-Data <- list(Options=Options, iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
+Data <- list(Options = Options,
+             iAge1 = ATR_mod[1:Nindiv,'iAge1'], iLiberty = ATR_mod[1:Nindiv,'iLiberty'],
              Length1 = ATR_mod[1:Nindiv,'Length1'], Length2 = ATR_mod[1:Nindiv,'Length2'],
              Sex = ATR_mod[1:Nindiv,'Sex'],
              Time0 = ATR_mod[1:Nindiv,'Time0'], Time1 = ATR_mod[1:Nindiv,'Time1'],
@@ -44,12 +45,14 @@ Params <- list(ln_gamma = log(10000), logit_psi = qlogis(0.2), ln_L0 = rep(log(1
                ln_sd_obs = log(20), z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.1),
                ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.01),
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.01))
-Random = NULL
+Random <- NULL
 Map <- list()
-if(Options[1]==0){
+Map[["logit_psi"]] <- factor(NA)
+if (Options[1] == 0)
+{
   Map[["ln_ydev"]] = factor(rep(NA, Nyears))
   Map[["ln_sd_ydev"]] = factor(NA)
-}else{
+} else {
   Random = c(Random, "ln_ydev")
 } 
 if(Options[2]==0){

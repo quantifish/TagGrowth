@@ -8,7 +8,7 @@
   cat("\n")
   cat("==============================================\n")
   cat("Mixed-effects tag-recapture-age library\n")
-  cat(tagGrowth.version())
+  cat(TagGrowth.version())
   cat("For help contact darcy@quantifish.co.nz\n")
   cat("==============================================\n")
   cat("\n")
