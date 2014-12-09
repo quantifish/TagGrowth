@@ -41,6 +41,23 @@ random effects b, while noting that Eq. 15 also requires estimation of Li(t0),
 i.e., the length upon first observation for each individual.
 
 
+##Installation
+
+Install the package from R using
+
+    # Install package
+    install.packages("devtools")
+    library("devtools")
+    install_github("quantifish/tag-growth")
+    # Load package
+    library(tag-growth)
+
+This does not work yet as we need to rename the pkg TagGrowth rather than
+tag-growth or something.
+
+Please see the examples folder for an example of how to run the model.
+
+
 ##Simulation
 
 Details to come.
@@ -52,3 +69,8 @@ We implement this model using the Template Model Builder (TMB) software called
 from R using the TMB package (https://github.com/kaskr/adcomp). The model is
 written in C++ "estimation/ATR.cpp", and an R script "estimation/ATR.R" loads
 the data and fits the model.
+
+
+##Further reading
+
+Citations to come.
