@@ -1,9 +1,11 @@
 *~
-*.dll
-*.o
-*.so
 *.Rout
+
 .directory
 .RData
 .Rhistory
-data/
+
+AGE.RData
+TR.RData
+ATR.RData
+ATR_mod.RData
