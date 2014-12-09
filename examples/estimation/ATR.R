@@ -7,7 +7,7 @@
 rm(list = ls())
 
 # Load TMB
-require(tagGrowth)
+require(TagGrowth)
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")

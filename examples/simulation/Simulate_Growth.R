@@ -2,9 +2,9 @@
 # SIMULATION
 #=================================================================================
 
-rm(list=ls())         # Make sure R is clean
-require(tagGrowth)    # Import our library
-source("SimGrowth.R") # Source the growth model function
+rm(list=ls())           # Make sure R is clean
+require(TagGrowth)      # Import library
+source("GrowthModel.R") # Source the growth model function
 
 # Annual
 t0 = 0.021
@@ -35,11 +35,11 @@ gamma <- (b * Linf) / (b^psi)
 #=================================================================================
 # SIMULATION SETUP
 #=================================================================================
-directory <- "sims/sim" # Directory to save simulations to (save as .RData files)
-Ndesign <- 100          # The number of simulations we will do
-Nindiv <- 315           # The same as our estimation model
-Nareas <- 1             # The number of areas in our simulation
-set.seed(15)            # A random number seed
+directory <- "v0/sim" # Directory to save simulations to (save as .RData files)
+Ndesign <- 100        # The number of simulations we will do
+Nindiv <- 315         # The same as our estimation model
+Nareas <- 1           # The number of areas in our simulation
+set.seed(15)          # A random number seed
 
 
 #=================================================================================
@@ -65,7 +65,7 @@ Pars
 #=================================================================================
 for (Isim in 1:Ndesign)
 {
-    ATR_sim <- SimGrowth(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv)
+    ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv)
     sim <- list(Sim = ATR_sim, Parameters = Pars)
     save(sim, file = paste(directory, Isim, ".RData", sep = ""))
     plot_growth(ATR_sim, Isim)

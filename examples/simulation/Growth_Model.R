@@ -7,9 +7,9 @@
 #' @param tvi_err is the time-variying individual error
 #' @param Pars the parameters for the model
 #' 
-SimGrowth <- function(ln_xdev = NULL, ln_ydev = NULL,
-                      obs_err = TRUE, tvi_err = TRUE,
-                      Pars, Nindiv)
+GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
+                        obs_err = TRUE, tvi_err = TRUE,
+                        Pars, Nindiv)
 {
     load("../data/ATR_mod.RData")
     ATR_mod <- time_step(ATR_mod, units = "weeks")
