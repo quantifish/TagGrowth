@@ -1,10 +1,11 @@
-Welcome to tag-growth
+Welcome to TagGrowth
 ==========
 
-The software tag-growth includes an estimation model for analysing growth using
-tag-recapture data where the individual fish have been aged upon recapture and
-a model for simulating growth of individual fish to test the performance of the
+The software TagGrowth includes an estimation model for analysing growth using
+tag-recapture data where the individual fish have been aged upon recapture and a
+model for simulating growth of individual fish to test the performance of the
 estimation model.
+
 
 ##Introduction 
 
@@ -29,12 +30,12 @@ acquisition. Integration then yields:
 L(t) = L(t)
 
 where Δt is the number of time-periods elapsed between length intervals, and
-where the Brody growth coefficient k = b (as in the conventional von
-Bertalanffy growth function). Readers are referred to Shelton et al. (2013) for
-an expanded model that incorporates variability in γ over time, although we
-retain the assumption that b varies among individuals (and hence has subscript
-i), where it follows a normal distribution (truncated at zero) with estimated
-mean and variance parameters.
+where the Brody growth coefficient k = b (as in the conventional von Bertalanffy
+growth function). Readers are referred to Shelton et al. (2013) for an expanded
+model that incorporates variability in γ over time, although we retain the
+assumption that b varies among individuals (and hence has subscript i), where it
+follows a normal distribution (truncated at zero) with estimated mean and
+variance parameters.
 
 Following previous notation, parameters are estimated by integrating across all
 random effects b, while noting that Eq. 15 also requires estimation of Li(t0),
@@ -48,9 +49,9 @@ Install the package from R using
     # Install package
     install.packages("devtools")
     library("devtools")
-    install_github("quantifish/tag-growth")
+    install_github("quantifish/TagGrowth")
     # Load package
-    library(tag-growth)
+    require(TagGrowth)
 
 This does not work yet as we need to rename the pkg TagGrowth rather than
 tag-growth or something.
@@ -72,5 +73,7 @@ the data and fits the model.
 
 
 ##Further reading
+
+Shelton et al. (2013)
 
 Citations to come.

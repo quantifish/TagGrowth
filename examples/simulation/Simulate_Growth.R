@@ -4,7 +4,7 @@
 
 rm(list=ls())           # Make sure R is clean
 require(TagGrowth)      # Import library
-source("GrowthModel.R") # Source the growth model function
+source("Growth_Model.R") # Source the growth model function
 
 # Annual
 t0 = 0.021

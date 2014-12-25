@@ -6,6 +6,8 @@
 #' @param obs_err is the observation error
 #' @param tvi_err is the time-variying individual error
 #' @param Pars the parameters for the model
+#'
+#' @export
 #' 
 GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
                         obs_err = TRUE, tvi_err = TRUE,

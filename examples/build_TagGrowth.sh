@@ -25,8 +25,8 @@ mv TagGrowth.zip ..
 cd ..
 rm -r localRlib/
 
-mv TagGrowth_*.tar.gz TagGrowth/
-mv TagGrowth.zip TagGrowth/
+mv TagGrowth_*.tar.gz TagGrowth/examples/
+mv TagGrowth.zip TagGrowth/examples/
 
 cd TagGrowth
 chmod 777 DESCRIPTION
