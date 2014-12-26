@@ -5,8 +5,6 @@ Growth_Model.R to run the simulations.
 
 The model is then fit to simulated data sets using Estimate_Simulations.R.
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29%0D%0A&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
-
 | Random effects | pdH | Folder |
 | -------------- |:---:|:------:|
 | None           | 97  | v0     |
