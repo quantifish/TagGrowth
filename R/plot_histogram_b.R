@@ -12,13 +12,13 @@ plot_histogram_b <- function(data, report, file_name = "REs_b")
     dat$Sex[dat$Sex == 2] <- "Males"
     
     p <- ggplot(data = dat, aes(x = value)) +
-        geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
+        geom_histogram(aes(y = ..density..), colour = "black", fill = "grey") +
         facet_grid(~ Sex) +
-        xlab("\nb") + ylab("Density\n") +
+        xlab("\nk") + ylab("Density\n") +
         plot_theme() +
         scale_colour_manual(values = plot_palette)
     
-    png(paste(file_name, ".png", sep = ""), width = 8, height = 8, units = "in", res = 400)
+    png(paste(file_name, ".png", sep = ""), width = 8, height = 4, units = "in", res = 400)
     print(p)
     dev.off()
 }

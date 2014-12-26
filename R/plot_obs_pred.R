@@ -14,13 +14,14 @@ plot_obs_pred <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Length2_ha
     
     p <- ggplot(data = dat) +
         geom_abline(aes(yintercept = 0, slope = 1)) +
-        geom_point(aes(x = Length1_hat, y = Length1_obs, group = c(Sex), color = factor(Sex))) +
+        aes(shape = Sex) + 
+        geom_point(aes(x = Length1_hat, y = Length1_obs, color = Sex)) +
         facet_grid(. ~ Length) +
         xlab("\nPredicted length (cm)") + ylab("Observed length (cm)\n") +
         scale_x_continuous(limits = c(50, 175)) +
         scale_y_continuous(limits = c(50, 175)) +
         coord_fixed() +
-        guides(color = guide_legend(title = "Sex")) +
+        #guides(shape = guide_legend(title = "Sex")) +
         plot_theme() +
         scale_colour_manual(values = plot_palette)
     
