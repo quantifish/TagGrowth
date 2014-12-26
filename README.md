@@ -16,7 +16,8 @@ growth function:
 
 ![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
 dL/dt = a - bL
-![equation](http://latex.codecogs.com/gif.latex?a%2DbL)
+
+![equation](http://latex.codecogs.com/gif.latex?dL%2Fdt%3Da%2DbL)
 
 where dL/dt is change in length as a function of time, a scales with energy
 acquisition, and b represents metabolic upkeep costs. However, individuals that
