@@ -58,15 +58,15 @@ Please see the examples folder for an example of how to run the model.
 
 ##Simulation
 
-Details to come.
+"examples/simulation/ATR.R"
 
 
 ##Estimation 
 
 We implement this model using the Template Model Builder (TMB) software called
 from R using the TMB package (https://github.com/kaskr/adcomp). The model is
-written in C++ "estimation/ATR.cpp", and an R script "estimation/ATR.R" loads
-the data and fits the model.
+written in C++ "inst/executables/ATR.cpp", and an R script
+"examples/estimation/ATR.R" loads the data and fits the model.
 
 
 ##Further reading
