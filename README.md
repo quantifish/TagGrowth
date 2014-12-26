@@ -6,7 +6,6 @@ tag-recapture data where the individual fish have been aged upon recapture and a
 model for simulating growth of individual fish to test the performance of the
 estimation model.
 
-![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
 
 ##Introduction 
 
@@ -15,7 +14,9 @@ each individual's demographic parameters as a random effect that arises from a
 population-level distribution. We start with the specialized von Bertalanffy
 growth function:
 
+![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
 dL/dt = a - bL
+![equation](http://latex.codecogs.com/gif.latex?a%2DbL)
 
 where dL/dt is change in length as a function of time, a scales with energy
 acquisition, and b represents metabolic upkeep costs. However, individuals that
