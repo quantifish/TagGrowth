@@ -5,8 +5,11 @@
 # Make sure R is clean
 rm(list = ls())
 
-# Load TMB
+# Load package
 require(TagGrowth)
+
+# Directory to save output files to
+folder <- "v0/"
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -18,15 +21,18 @@ load("../../data/ATR_mod.RData")
 ATR_mod <- time_step(ATR_mod, units = "weeks")
 data <- ATR_mod
 
-
-######################################################################################################
-# Make AD object
-######################################################################################################
+# Load the model
 dyn.load(dynlib("../../inst/executables/ATR"))
+
 # Specify the random-effects we want to try to estimate
 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
+
+# Dimensions
 Nindiv <- nrow(data)
-# Make AD object
+Nyears <- 40
+Nareas <- length(unique(data$Area1))
+
+# Create lists of data and parameters
 Data <- list(Options = Options,
              iAge1 = data[1:Nindiv,'Age1'], iLiberty = data[1:Nindiv,'Liberty'],
              Length1 = data[1:Nindiv,'Length1'], Length2 = data[1:Nindiv,'Length2'],
@@ -34,14 +40,13 @@ Data <- list(Options = Options,
              Time0 = data[1:Nindiv,'Time0'], Time1 = data[1:Nindiv,'Time1'],
              Year0 = data[1:Nindiv,'Year0'], Year1 = data[1:Nindiv,'Year1'],
              Area1 = data[1:Nindiv,'Area1'])
-Nyears <- 40
-Nareas <- length(unique(data$Area1))
 Params <- list(ln_gamma = c(log(0.3), log(0.3)), logit_psi = qlogis(0.000001), L0 = c(0.0, 0.0),
                ln_bmean = c(log(0.002), log(0.002)), ln_bdev = rep(0, Nindiv), ln_sd_bdev = c(log(0.001), log(0.001)),
                ln_sd_obs = log(0.102),
                z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.001),
                ln_ydev = rep(0, Nyears), ln_sd_ydev = log(0.001),
                ln_xdev = rep(0, Nareas), ln_sd_xdev = log(0.001))
+
 # Use TMB's Map option to turn parameters on/off
 Random <- NULL
 Map <- list()
@@ -55,23 +60,23 @@ if (Options[1] == 0)
 } 
 if (Options[2]==0)
 {
-  Map[["ln_sd_xdev"]]=factor(NA)
-  Map[["ln_xdev"]]=factor(rep(NA,length(Params$ln_xdev))) 
+  Map[["ln_sd_xdev"]] = factor(NA)
+  Map[["ln_xdev"]] = factor(rep(NA,length(Params$ln_xdev))) 
 } else {
   Random = c(Random, "ln_xdev")
 }
 if (Options[3]==0)
 {
-  Map[["ln_bdev"]]=factor(rep(NA,length(Params$ln_bdev)))
-  Map[["ln_sd_bdev"]]=factor(rep(NA,2)) 
+  Map[["ln_bdev"]] = factor(rep(NA,length(Params$ln_bdev)))
+  Map[["ln_sd_bdev"]] = factor(rep(NA,2)) 
 } else {
   Random = c(Random, "ln_bdev")
 }
 if (Options[4]==0)
 {
-  Map[["z2"]]=factor(rep(NA,length(Params$ln_bdev)))
-  Map[["z1"]]=factor(rep(NA,length(Params$z1)))
-  Map[["ln_sd_z"]]=factor(NA)  
+  Map[["z2"]] = factor(rep(NA,length(Params$ln_bdev)))
+  Map[["z1"]] = factor(rep(NA,length(Params$z1)))
+  Map[["ln_sd_z"]] = factor(NA)  
 } else {
   Random = c(Random, "z1", "z2")
 }
@@ -102,6 +107,7 @@ Lwr <- rep(-Inf, length(obj$par))
   Lwr[match("ln_sd_xdev",names(obj$par))] = log(0.001)
   Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
 
+# Optimize!
 #ptm <- proc.time()
 opt <- nlminb(start = obj$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
 opt[["final_gradient"]] <- obj$gr(opt$par)
@@ -109,53 +115,40 @@ Diag <- obj$report()
 Report <- sdreport(obj)
 #proc.time() - ptm
 
+# Do we need this bit?
 Hess <- optimHess(par = opt$par, fn = obj$fn)
 opt <- nlminb(start = opt$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
 
-cbind(Lwr, opt$par, Upr)
-
-Delta <- rep(0,length(opt$par))
-Delta[2] = 1e-5
-( obj$fn(opt$par - Delta/2) - obj$fn(opt$par + Delta/2) )  / abs(max(Delta))
-
+# Dynamically unload the model
 dyn.unload(dynlib("../../inst/executables/ATR"))
-Report$pdHess
 
 # Save outputs
-capture.output(Report, file = "Report.txt")
-save(obj, file = "obj.RData")
-save(opt, file = "opt.RData")
-save(Report, file = "Report.RData")
-write.csv(data.frame(names(Report$value), Report$value), file = "Pars.csv", row.names = TRUE)
+capture.output(Report, file = paste(folder, "Report.txt", sep = ""))
+save(obj, file = paste(folder, "obj.RData", sep = ""))
+save(opt, file = paste(folder, "opt.RData", sep = ""))
+save(Report, file = paste(folder, "Report.RData", sep = ""))
+write.csv(data.frame(names(Report$value), Report$value), file = paste(folder, "Pars.csv", sep = ""), row.names = TRUE)
 
 
 ######################################################################################################
 # Inspect results
 ######################################################################################################
+
+Delta <- rep(0,length(opt$par))
+Delta[2] = 1e-5
+(obj$fn(opt$par - Delta/2) - obj$fn(opt$par + Delta/2))  / abs(max(Delta))
+
+# Check none of the parameters are up against the bounds
+cbind(Lwr, opt$par, Upr)
+
+# Is the fit positive definite Hessian?
+Report$pdHess
+
 REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
 REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
 REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
 REs_y <- Report$par.random[names(Report$par.random) %in% "ln_ydev"]
 head(Report$value, 15)
 t(t(tapply(X = Report$value, INDEX = names(Report$value), FUN = length)))
-
-
-
-######################################################################################################
-# Plot results
-######################################################################################################
-
-# Load if not estimating
-#load("Report.RData")
-
-# Append model outputs to ATR_mod
-ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
-ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
-
-plot_obs_pred(ATR_mod$Sex, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Length2, ATR_mod$Length2_hat)
-plot_indiv_growth(ATR_mod$Sex, ATR_mod$Age1, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Age2, ATR_mod$Length2, ATR_mod$Length2_hat)
-plot_linf(Report)
-plot_histogram_b(ATR_mod, Report)
-plot_histogram_z(ATR_mod, Report)
 
 # END

@@ -17,7 +17,7 @@ plot_indiv_growth <- function(Sex,
     p <- ggplot(data = dat) +
         geom_segment(aes(x = Age1, y = Length1_obs, xend = Age2, yend = Length2_obs, group = c(Key), color = Key)) +
         facet_grid(. ~ Sex) +
-        xlab("\nAge") + ylab("Length (cm)\n") +
+        xlab("\nAge (weeks)") + ylab("Length (cm)\n") +
         scale_x_continuous(limits = c(0, max(dat$Age1, dat$Age2))) +
         scale_y_continuous(limits = c(0, max(dat$Length1_obs, dat$Length2_obs))) +
         guides(color = guide_legend(title = "Key")) +

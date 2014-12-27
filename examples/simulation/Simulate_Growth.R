@@ -2,8 +2,8 @@
 # SIMULATION
 #=================================================================================
 
-rm(list=ls())           # Make sure R is clean
-require(TagGrowth)      # Import library
+rm(list=ls())            # Make sure R is clean
+require(TagGrowth)       # Import library
 source("Growth_Model.R") # Source the growth model function
 
 # Annual
@@ -27,7 +27,7 @@ Linf <- c(180.20, 169.07)
 cv   <- 0.102
 
 psi   <- 0
-L0    <- Linf * (1 - exp(k * t0))
+L0    <- Linf * (1 - exp(k/52 * t0*52))
 b     <- k/52
 gamma <- (b * Linf) / (b^psi)
 
