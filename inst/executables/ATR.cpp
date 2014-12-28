@@ -1,14 +1,11 @@
 // Tag recapture model
 #include <TMB.hpp>
 
-using std::cout;
-using std::endl;
-
 template<class Type>
 Type objective_function<Type>::operator() ()
 {
   // Options
-  DATA_FACTOR( Options );
+  DATA_FACTOR(Options);
   
   // Observations
   DATA_FACTOR(iAge1);    // Age of individual at time 1 (days, weeks, months, or years, rounded to nearest integer)
@@ -57,6 +54,7 @@ Type objective_function<Type>::operator() ()
   sd_bdev = exp(ln_sd_bdev);
   gamma   = exp(ln_gamma);
   amean   = gamma * pow(bmean, psi);
+  Linf = (gamma * pow(bmean, psi)) / bmean;
   
   // Initialize some computational variables:
   int sex;
@@ -70,19 +68,18 @@ Type objective_function<Type>::operator() ()
   vector<Type> Length2_hat(Nindiv);
 
   // Prior penalty for Linf for females and males:
-  Type Linf_cv = 0.102;
-  Type pLinfF  = 180.20;
-  Type pLinfM  = 169.07;
-  vector<Type> pLinf_sd(Nsex);
-  Linf = (gamma * pow(bmean, psi)) / bmean;
-  pLinf_sd(0) = Linf_cv * pLinfF; // sd=cv*mu
-  pLinf_sd(1) = Linf_cv * pLinfM; // sd=cv*mu
-  ans -= dnorm( Linf(0), pLinfF, pLinf_sd(0), 1 );
-  ans -= dnorm( Linf(1), pLinfM, pLinf_sd(1), 1 );
+  //Type Linf_cv = 0.102;
+  //Type pLinfF  = 180.20;
+  //Type pLinfM  = 169.07;
+  //vector<Type> pLinf_sd(Nsex);
+  //pLinf_sd(0) = Linf_cv * pLinfF; // sd=cv*mu
+  //pLinf_sd(1) = Linf_cv * pLinfM; // sd=cv*mu
+  //ans -= dnorm( Linf(0), pLinfF, pLinf_sd(0), 1 );
+  //ans -= dnorm( Linf(1), pLinfM, pLinf_sd(1), 1 );
 
   // Prior penalty for L0 for females and males
-  ans -= dnorm( L0(0), Type(-0.34), Type(1), 1 );
-  ans -= dnorm( L0(1), Type(3.98), Type(1), 1 );
+  //ans -= dnorm( L0(0), Type(-0.34), Type(1), 1 );
+  //ans -= dnorm( L0(1), Type(3.98), Type(1), 1 );
 
   // Time varying individual stuff
   vector<Type> sd_z1(Nindiv);

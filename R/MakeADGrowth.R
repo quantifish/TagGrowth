@@ -18,7 +18,8 @@ MakeADGrowth <- function(data, Options)
                  Area1 = data[1:Nindiv,'Area1'])
     Nyears <- 40
     Nareas <- length(unique(data$Area1))
-    Params <- list(ln_gamma = c(log(0.3), log(0.3)), logit_psi = qlogis(0.000001), L0 = c(0.0, 4.0),
+    Params <- list(ln_gamma = c(log(0.3), log(0.3)),
+                   logit_psi = qlogis(0.000001), L0 = c(0.0, 0.0),
                    ln_bmean = c(log(0.002), log(0.002)), ln_bdev = rep(0, Nindiv), ln_sd_bdev = c(log(0.001), log(0.001)),
                    ln_sd_obs = log(0.102),
                    z1 = rep(0, Nindiv), z2 = rep(0, Nindiv), ln_sd_z = log(0.001),

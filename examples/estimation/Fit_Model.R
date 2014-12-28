@@ -9,7 +9,9 @@ rm(list = ls())
 require(TagGrowth)
 
 # Directory to save output files to
-folder <- "v0/"
+#folder <- "v0/"
+#folder <- "v1/"
+folder <- "v2/"
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -25,7 +27,7 @@ data <- ATR_mod
 dyn.load(dynlib("../../inst/executables/ATR"))
 
 # Specify the random-effects we want to try to estimate
-Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
+Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1)
 
 # Dimensions
 Nindiv <- nrow(data)
@@ -116,8 +118,8 @@ Report <- sdreport(obj)
 #proc.time() - ptm
 
 # Do we need this bit?
-Hess <- optimHess(par = opt$par, fn = obj$fn)
-opt <- nlminb(start = opt$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
+#Hess <- optimHess(par = opt$par, fn = obj$fn)
+#opt <- nlminb(start = opt$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
 
 # Dynamically unload the model
 dyn.unload(dynlib("../../inst/executables/ATR"))

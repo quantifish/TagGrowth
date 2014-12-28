@@ -1,5 +1,7 @@
 *~
 *.Rout
+*.so
+*.o
 
 .directory
 .RData
@@ -12,3 +14,5 @@ ATR_mod.csv
 
 TagGrowth_1.0.tar.gz
 TagGrowth.zip
+
+sim*.RData

@@ -6,10 +6,10 @@ in is summarised in the table below.
 | Random effects | pdH | Folder |
 | -------------- |:---:|:------:|
 | None           | Yes | v0     |
-| b              | Yes | v1     |
+| k              | Yes | v1     |
 | z              | Yes | v2     |
-| b, z           | No  | v3     |
-| b, y           | Yes | v4     |
+| k, z           | No  | v3     |
+| k, y           | Yes | v4     |
 | z, y           | Yes | v5     |
 
 

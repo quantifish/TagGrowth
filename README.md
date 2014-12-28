@@ -30,7 +30,7 @@ a = γbΨ
 where γ and Ψ approximate the allometric scaling of energy costs and
 acquisition. Integration then yields:
 
-L(t) = L(t)
+L(t+Δₜ) = L(t) e-bᵢΔₜ + bᵢ Ψ-1 (1 - e-bᵢ) γ sum j=0 Δₜ-1 e-bᵢⱼ + zᵢ
 
 where Δt is the number of time-periods elapsed between length intervals, and
 where the Brody growth coefficient k = b (as in the conventional von Bertalanffy

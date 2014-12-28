@@ -3,7 +3,7 @@
 \alias{plot_histogram_z}
 \title{Plot histogram of time-varying individual growth parameter (z)}
 \usage{
-plot_histogram_z(data, report)
+plot_histogram_z(data, report, file_name = "REs_z")
 }
 \description{
 Plot histogram of time-varying individual growth parameter (z)

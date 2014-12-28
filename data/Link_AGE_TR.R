@@ -93,6 +93,12 @@ ATR_mod <- cbind( ATR_mod, "Date0" = Date0 )
 
 #ord <- c("Age1","Age2","Liberty","Length1","Length2","Sex","Area1","Date0","Date1","Date2","Year0","Year1","Year2")
 #ATR_mod <- ATR_mod[,ord]
+
+# Select some of the columns
+cols <- c("Age1","Age2","Liberty","Length1","Length2","Sex","Area1",
+          "Date0","Date1","Date2","release.weight","weight","distance")
+ATR_mod <- ATR_mod[,cols]
+
 head(ATR_mod)
 write.csv( ATR_mod, file = "ATR_mod.csv" )
 save( ATR_mod, file = "ATR_mod.RData" )
