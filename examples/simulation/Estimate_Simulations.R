@@ -9,8 +9,9 @@ rm(list = ls())
 # USER SPECIFICATIONS
 # =================================================================================
 #scenarios <- c("v0/","v1/","v2/","v3/")
-scenarios <- c("v0/")
-power <- c(50, 100, 250, 500) # Power analysis
+scenarios <- c("v3/")
+#power <- c(50, 100, 250, 500) # Power analysis
+power <- c(500) # Power analysis
 Ndesign <- 200
 
 #=================================================================================
@@ -27,12 +28,15 @@ compile("../../inst/executables/ATR.cpp")
 TmbFile <- paste0(system.file("executables", package = "TagGrowth"), "/")
 Version <- "ATR"
 
+# Come back to 55
+
 # Warning - this takes a looooong time
 for (Iscenario in scenarios)
 {
     for (Ipow in power)
     {
-        for (Isim in 1:Ndesign)
+        #for (Isim in 1:Ndesign)
+        for (Isim in 107:Ndesign)
         {
             cat("\nStarting simulation", Isim, "...\n")
             dyn.load(paste0(TmbFile, dynlib("ATR")))
