@@ -32,11 +32,12 @@ Version <- "ATR"
 
 # Warning - this takes a looooong time
 for (Iscenario in scenarios)
+
 {
     for (Ipow in power)
     {
         #for (Isim in 1:Ndesign)
-        for (Isim in 107:Ndesign)
+        for (Isim in 131:Ndesign)
         {
             cat("\nStarting simulation", Isim, "...\n")
             dyn.load(paste0(TmbFile, dynlib("ATR")))
