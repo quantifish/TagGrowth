@@ -1,5 +1,23 @@
 require(TagGrowth) 
 
+d <- par.fixed
+d1 <- subset(d, subset = d$Parameter == "gamma")
+
+    p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free") +
+        #geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        geom_vline(aes(xintercept = Truth), size = 0.75, colour = "red") +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+        #scale_colour_manual(values = plot_palette)
+    
+    png(paste(directory, "results/", "SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
+    print(p)
+    dev.off()
+
+
+
 plot_simulations("v0/")
 plot_simulations("v1/")
 plot_simulations("v2/")

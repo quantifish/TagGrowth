@@ -7,7 +7,7 @@
 read_simulations <- function(directory)
 {
     par.fixed <- NULL
-    pdH <- NULL    
+    pdH <- NULL
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs","sd_z")
     for (Isim in 1:100)
     {
