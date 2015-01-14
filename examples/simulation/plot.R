@@ -1,20 +1,94 @@
-require(TagGrowth) 
+require(TagGrowth)
+d <- read_all_simulations()
 
-d <- par.fixed
+psize <- c(12, 8)
+
+# gamma
 d1 <- subset(d, subset = d$Parameter == "gamma")
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_gamma.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+# kmean
+d1 <- subset(d, subset = d$Parameter == "bmean")
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_kmean.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+# L0
+d1 <- subset(d, subset = d$Parameter == "L0")
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_L0.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+# sd_bdev
+d1 <- subset(d, subset = d$Parameter == "sd_bdev")
+d1 <- subset(d1, subset = d1$Scenario %in% c("k", "k and z"))
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_sd_kdev.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+# sd_z
+d1 <- subset(d, subset = d$Parameter == "sd_z")
+d1 <- subset(d1, subset = d1$Scenario %in% c("z", "k and z"))
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_sd_z.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+# sd_obs
+d1 <- subset(d, subset = d$Parameter == "sd_obs")
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab("") + ylab("Frequency\n") +
+        plot_theme()
+png("sim_sd_obs.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
+
+
 
     p <- ggplot(data = d1, aes(x = Estimate)) +
         geom_histogram(colour = "black", fill = "grey") +
-        facet_grid(Power + Sex ~ Scenario, scales = "free") +
+        facet_grid(Power ~ Scenario, scales = "free_x") +
         #geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
         geom_vline(aes(xintercept = Truth), size = 0.75, colour = "red") +
         xlab("") + ylab("Frequency\n") +
         plot_theme()
         #scale_colour_manual(values = plot_palette)
-    
-    png(paste(directory, "results/", "SimPars.png", sep = ""), width = 10, height = 6, units = "in", res = 300)
-    print(p)
-    dev.off()
+
 
 
 

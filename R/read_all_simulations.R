@@ -4,9 +4,10 @@
 #' 
 #' @export
 #' 
-read_all_simulations <- function(directory = "../examples/simulation/", Nsims = 200)
+read_all_simulations <- function(directory = "", Nsims = 200)
 {
     scenarios <- c("v0","v1","v2","v3")
+    slabs <- c("None","k","z","k and z")
     powers <- c(50,100,250,500)
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs","sd_z")
     sex <- c("Female","Male","Both","Female","Male","Female","Male","Female","Male","Both","Both")
@@ -26,31 +27,28 @@ read_all_simulations <- function(directory = "../examples/simulation/", Nsims = 
                     if ( sim$Report$pdHess )
                     {
                         pf <- sim$Report$value[names(sim$Report$value) %in% fixed.pars]
-                        pf2 <- data.frame(Iscenario, Ipow, names(pf), sex, pf)
-                        par.fixed <- rbind(pf2, par.fixed)
+                        pf <- data.frame(Scenario = slabs[Iscenario == scenarios], Power = Ipow, Parameter = names(pf), Sex = sex, Estimate = pf, Truth = NA)
+                        pf$Truth[pf$Parameter == "sd_z"]                         <- sim$Parameters['sd_z',1]
+                        pf$Truth[pf$Parameter == "psi"]                          <- sim$Parameters['psi',1]
+                        pf$Truth[pf$Parameter == "sd_obs"]                       <- sim$Parameters['sd_obs',1]
+                        pf$Truth[pf$Parameter == "gamma"   & pf$Sex == "Female"] <- sim$Parameters['gamma',1]
+                        pf$Truth[pf$Parameter == "gamma"   & pf$Sex == "Male"]   <- sim$Parameters['gamma',2]
+                        pf$Truth[pf$Parameter == "L0"      & pf$Sex == "Female"] <- sim$Parameters['L0',1]
+                        pf$Truth[pf$Parameter == "L0"      & pf$Sex == "Male"]   <- sim$Parameters['L0',2]
+                        pf$Truth[pf$Parameter == "bmean"   & pf$Sex == "Female"] <- sim$Parameters['bmean',1]
+                        pf$Truth[pf$Parameter == "bmean"   & pf$Sex == "Male"]   <- sim$Parameters['bmean',2]
+                        pf$Truth[pf$Parameter == "sd_bdev" & pf$Sex == "Female"] <- sim$Parameters['sd_b',1]
+                        pf$Truth[pf$Parameter == "sd_bdev" & pf$Sex == "Male"]   <- sim$Parameters['sd_b',2]
+                        par.fixed <- rbind(pf, par.fixed)
                     }
                 }
             }
         }
     }
-    names(par.fixed) <- c("Scenario","Power","Parameter","Sex","Estimate")
-    
-    par.fixed$truth <- NA
-    par.fixed$truth[par.fixed$Parameter == "sd_z"]                                 <- sim$Parameters['sd_z',1]
-    par.fixed$truth[par.fixed$Parameter == "psi"]                                  <- sim$Parameters['psi',1]
-    par.fixed$truth[par.fixed$Parameter == "sd_obs"]                               <- sim$Parameters['sd_obs',1]
-    par.fixed$truth[par.fixed$Parameter == "gamma"   & par.fixed$Sex == "Female"] <- sim$Parameters['gamma',1]
-    par.fixed$truth[par.fixed$Parameter == "gamma"   & par.fixed$Sex == "Male"]   <- sim$Parameters['gamma',2]
-    par.fixed$truth[par.fixed$Parameter == "L0"      & par.fixed$Sex == "Female"] <- sim$Parameters['L0',1]
-    par.fixed$truth[par.fixed$Parameter == "L0"      & par.fixed$Sex == "Male"]   <- sim$Parameters['L0',2]
-    par.fixed$truth[par.fixed$Parameter == "bmean"   & par.fixed$Sex == "Female"] <- sim$Parameters['bmean',1]
-    par.fixed$truth[par.fixed$Parameter == "bmean"   & par.fixed$Sex == "Male"]   <- sim$Parameters['bmean',2]
-    par.fixed$truth[par.fixed$Parameter == "sd_bdev" & par.fixed$Sex == "Female"] <- sim$Parameters['sd_b',1]
-    par.fixed$truth[par.fixed$Parameter == "sd_bdev" & par.fixed$Sex == "Male"]   <- sim$Parameters['sd_b',2]
 
     ord <- fixed.pars[fixed.pars %in% unique(par.fixed$Parameter)]
     par.fixed$Parameter <- factor(par.fixed$Parameter, levels = ord)
+    par.fixed$Scenario <- factor(par.fixed$Scenario, levels = slabs)
     
-    names(par.fixed) <- c("Scenario","Power","Parameter","Sex","Estimate","Truth")
     return(par.fixed)
 }

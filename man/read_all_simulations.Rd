@@ -3,7 +3,7 @@
 \alias{read_all_simulations}
 \title{Function to read simulations}
 \usage{
-read_all_simulations(directory = "../examples/simulation/", Nsims = 200)
+read_all_simulations(directory = "", Nsims = 200)
 }
 \arguments{
 \item{directory}{the dir}
