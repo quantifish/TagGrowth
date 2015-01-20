@@ -10,7 +10,8 @@ rm(list=ls())
 # =================================================================================
 # Directory to save simulations to (save as .RData files), these are also the
 # scenarios
-scenarios <- c("v0/","v1/","v2/","v3/")
+#scenarios <- c("v0/","v1/","v2/","v3/")
+scenarios <- c("v2/","v3/")
 Ndesign <- 200        # The number of simulations we will do
 set.seed(15)          # A random number seed
 power <- c(50, 100, 250, 500) # Power analysis
@@ -85,13 +86,13 @@ for (Iscenario in scenarios)
     if (directory == "v2/")
     {
         sd_b <-   c(0.0, 0.0)
-        sd_z <-   c(0.2, 0.4)
+        sd_z <-   c(0.3, 0.3)
         sd_obs <- c(0.05, 0.05)
     }
     if (directory == "v3/")
     {
         sd_b <-   c(0.1, 0.2)
-        sd_z <-   c(0.2, 0.4)
+        sd_z <-   c(0.3, 0.3)
         sd_obs <- c(0.05, 0.05)
     }
     Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)
