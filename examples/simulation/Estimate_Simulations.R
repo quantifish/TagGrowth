@@ -9,9 +9,12 @@ rm(list = ls())
 # USER SPECIFICATIONS
 # =================================================================================
 #scenarios <- c("v0/","v1/","v2/","v3/")
-scenarios <- c("v2/","v3/")
-power <- c(50, 100, 250, 500) # Power analysis
+scenarios <- c("v3/")
+#power <- c(50, 100, 250, 500) # Power analysis
+power <- c(500) # Power analysis
 Ndesign <- 200
+
+# Up to 34 (skip it for now perhaps)
 
 #=================================================================================
 # SET UP MODEL FITS
@@ -32,7 +35,8 @@ for (Iscenario in scenarios)
 {
     for (Ipow in power)
     {
-        for (Isim in 1:Ndesign)
+        #for (Isim in 1:Ndesign)
+        for (Isim in 63:Ndesign)
         {
             cat("\nStarting simulation", Isim, "...\n")
             dyn.load(paste0(TmbFile, dynlib("ATR")))
@@ -78,7 +82,6 @@ for (Iscenario in scenarios)
 
         # Plot the estimated parameter values from all of the simulations
         plot_simulations(paste0(Iscenario, Ipow, "/"))
-
     }
 }
 
