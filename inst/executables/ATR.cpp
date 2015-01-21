@@ -8,15 +8,15 @@ Type objective_function<Type>::operator() ()
   DATA_FACTOR(Options);
   
   // Observations
-  DATA_FACTOR(iAge1);    // Age of individual at time 1 (days, weeks, months, or years, rounded to nearest integer)
-  DATA_VECTOR(iLiberty); // Time at liberty of individual (days, weeks, months, or years)
+  DATA_FACTOR(iAge1);    // Age of individual at time 1 (with units days, weeks, months, or years, rounded to nearest integer)
+  DATA_VECTOR(iLiberty); // Time at liberty of individual (with units days, weeks, months, or years)
   DATA_VECTOR(Length1);  // Length of individual at time 1
   DATA_VECTOR(Length2);  // Length of individual at time 2
   DATA_FACTOR(Sex);      // Sex of individual
-  DATA_FACTOR(Time0);    // Time at which individual was born (days, weeks, months, or years)
-  DATA_FACTOR(Time1);    // Time at which individual was caught/tagged (days, weeks, months, or years)
-  DATA_FACTOR(Year0);    // Year in which individual was born
-  DATA_FACTOR(Year1);    // Year in which individual was born
+  DATA_FACTOR(Time0);    // Time at which individual was born (time 0, with units days, weeks, months, or years)
+  DATA_FACTOR(Time1);    // Time at which individual was caught/tagged (time 1, with units days, weeks, months, or years)
+  DATA_FACTOR(Year0);    // Year in which individual was born (time 0)
+  DATA_FACTOR(Year1);    // Year in which individual was caught/tagged (time 1)
   DATA_FACTOR(Area1);    // Area that individual was in at time 1 
 
   // Parameters
