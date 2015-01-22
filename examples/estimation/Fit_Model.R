@@ -9,9 +9,9 @@ rm(list = ls())
 require(TagGrowth)
 
 # Directory to save output files to
-#folder <- "v0/"
+folder <- "v0/" # done
 #folder <- "v1/"
-folder <- "v2/"
+#folder <- "v2/"
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -27,7 +27,7 @@ data <- ATR_mod
 dyn.load(dynlib("../../inst/executables/ATR"))
 
 # Specify the random-effects we want to try to estimate
-Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1)
+Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 0)
 
 # Dimensions
 Nindiv <- nrow(data)

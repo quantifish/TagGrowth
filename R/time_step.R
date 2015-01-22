@@ -1,4 +1,5 @@
-#' Function for converting data.frame from annual to daily/weekly/monthly time steps.
+#' Function for converting data.frame from annual to daily/weekly/monthly time
+#' steps.
 #'
 #' @author Darcy Webber, Jim Thorson
 #' @param ATR_mod data.frame of data
