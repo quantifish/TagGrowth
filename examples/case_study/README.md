@@ -13,7 +13,7 @@ in is summarised in the table below.
 | y              | No  | v3     |
 | k, z           | Yes | v4     |
 | k, y           |  | v5     |
-| z, y           |  | v6     |
+| z, y           | Yes | v6     |
 | k, z, y        |  | v7     |
 
 
@@ -44,25 +44,25 @@ pdH: No
 
 ## v4
 
-Random effects:
-pdH:
+Random effects: k, z
+pdH: Yes
 
 
 ## v5
 
-Random effects:
+Random effects: k, y
 pdH:
 
 
 ## v6
 
-Random effects:
+Random effects: z, y
 pdH:
 
 
 ## v7
 
-Random effects:
+Random effects: k, z, y
 pdH:
 
 
