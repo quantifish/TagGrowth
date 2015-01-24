@@ -17,11 +17,13 @@ dev.off()
 
 # kmean
 d1 <- subset(d, subset = d$Parameter == "bmean")
+d1$Estimate <- d1$Estimate * 52 # Convert to years-1
+d1$Truth <- d1$Truth * 52       # Convert to years-1
 p <- ggplot(data = d1, aes(x = Estimate)) +
         geom_histogram(colour = "black", fill = "grey") +
         facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
         geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
-        xlab("") + ylab("Frequency\n") +
+        xlab(\nexpression(mu[k])) + ylab("Frequency\n") +
         plot_theme()
 png("sim_kmean.png", width = psize[1], height = psize[2], units = "in", res = 300)
 print(p)
