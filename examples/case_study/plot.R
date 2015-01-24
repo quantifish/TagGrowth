@@ -14,6 +14,7 @@ load("../../data/ATR_mod.RData")
 # 6. z, y
 # 7. k, z, y
 scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
+scenarios <- c("v0/","v1/","v2/","v3/","v4/","v6/")
 
 for (Iscenario in scenarios)
 {
@@ -30,9 +31,12 @@ for (Iscenario in scenarios)
     # Do some plots
     plot_obs_pred(ATR_mod$Sex, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Length2, ATR_mod$Length2_hat, file_name = paste0(folder, "ObsVsPred"))
     plot_indiv_growth(ATR_mod$Sex, ATR_mod$Age1, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Age2, ATR_mod$Length2, ATR_mod$Length2_hat, file_name = paste0(folder, "IndivGrowth"))
-    plot_histogram_k(ATR_mod, Report, file_name = paste0(folder, "REs_b"))
-    plot_histogram_z(ATR_mod, Report, file_name = paste0(folder, "REs_z"))
-    #plot_annual_devs()
+    if (Iscenario %in% c("v1/","v4/","v5/","v7/"))
+        plot_histogram_k(ATR_mod, Report, file_name = paste0(folder, "REs_b"))
+    if (Iscenario %in% c("v2/","v4/","v6/","v7/"))
+        plot_histogram_z(ATR_mod, Report, file_name = paste0(folder, "REs_z"))
+    if (Iscenario %in% c("v3/","v5/","v6/","v7/"))
+        plot_annual_devs(Report, file_name = paste0(folder, "REs_y"))
     #plot_linf(Report, file_name = paste0(folder, "LinfPrior"))
 }
 
