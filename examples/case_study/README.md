@@ -57,7 +57,7 @@ pdH:
 ## v6
 
 Random effects: z, y
-pdH:
+pdH: Yes
 
 
 ## v7

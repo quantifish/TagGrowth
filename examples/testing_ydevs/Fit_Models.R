@@ -12,13 +12,13 @@ require(TagGrowth)
 # 0. none
 # 1. k
 # 2. z
-# 3. y
+# 3. y - is NOT pdH
 # 4. k, z
 # 5. k, y - did not work, RETURN TO THIS
 # 6. z, y
 # 7. k, z, y - did not work, RETURN TO THIS
-#scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
-scenarios <- c("v5/")
+
+scenarios <- c("v3/") # JIM - just change this to v3/, v5/ or v7/
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -32,22 +32,12 @@ data <- ATR_mod
 
 
 # Specify the random-effects we want to try to estimate
-for (Iscenario in scenarios)
-{
+Iscenario <- scenarios
     # Load the model
     dyn.load(dynlib("../../inst/executables/ATR"))
-
     folder <- Iscenario
-    if (Iscenario == "v0/") # none
-        Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 0)
-    if (Iscenario == "v1/") # k
-        Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
-    if (Iscenario == "v2/") # z
-        Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1)
     if (Iscenario == "v3/") # y
         Options <- c("YearTF" = 1, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 0)
-    if (Iscenario == "v4/") # k, z
-        Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 1)
     if (Iscenario == "v5/") # k, y
         Options <- c("YearTF" = 1, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
     if (Iscenario == "v6/") # z, y
@@ -57,7 +47,7 @@ for (Iscenario in scenarios)
 
     # Dimensions
     Nindiv <- nrow(data)
-    Nyears <- 31
+    Nyears <- 40
     Nareas <- length(unique(data$Area1))
 
     # Create lists of data and parameters
@@ -157,25 +147,6 @@ for (Iscenario in scenarios)
 
     # Is the fit positive definite Hessian?
     print(Report$pdHess)
-}
 
-
-######################################################################################################
-# Inspect results
-######################################################################################################
-
-Delta <- rep(0,length(opt$par))
-Delta[2] = 1e-5
-(obj$fn(opt$par - Delta/2) - obj$fn(opt$par + Delta/2))  / abs(max(Delta))
-
-# Check none of the parameters are up against the bounds
-cbind(Lwr, opt$par, Upr)
-
-REs_b <- Report$par.random[names(Report$par.random) %in% "ln_bdev"]
-REs_z1 <- Report$par.random[names(Report$par.random) %in% "z1"]
-REs_z2 <- Report$par.random[names(Report$par.random) %in% "z2"]
-REs_y <- Report$par.random[names(Report$par.random) %in% "ln_ydev"]
-head(Report$value, 15)
-t(t(tapply(X = Report$value, INDEX = names(Report$value), FUN = length)))
 
 # END
