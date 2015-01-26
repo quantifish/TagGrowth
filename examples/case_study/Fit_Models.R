@@ -17,8 +17,8 @@ require(TagGrowth)
 # 5. k, y - did not work, RETURN TO THIS
 # 6. z, y
 # 7. k, z, y - did not work, RETURN TO THIS
-#scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
-scenarios <- c("v5/")
+scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
+#scenarios <- c("v2/")
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -32,6 +32,7 @@ data <- ATR_mod
 
 
 # Specify the random-effects we want to try to estimate
+Iscenario = "v3/"
 for (Iscenario in scenarios)
 {
     # Load the model
@@ -57,7 +58,7 @@ for (Iscenario in scenarios)
 
     # Dimensions
     Nindiv <- nrow(data)
-    Nyears <- 31
+    Nyears <- 40  # Learned from isYearUsedTF
     Nareas <- length(unique(data$Area1))
 
     # Create lists of data and parameters
@@ -111,7 +112,7 @@ for (Iscenario in scenarios)
 
     # Create the AD object
     obj <- MakeADFun(data = Data, parameters = Params, map = Map, random = Random, inner.control=list(maxit=50))
-
+    
     # List of parameters that are "on"
     names(obj$par)
 
@@ -136,7 +137,7 @@ for (Iscenario in scenarios)
     Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
 
     # Optimize!
-    opt <- nlminb(start = obj$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
+    opt <- nlminb(start = obj$par, objective = obj$fn, gr=obj$gr, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
     opt[["final_gradient"]] <- obj$gr(opt$par)
     Diag <- obj$report()
     Report <- sdreport(obj)

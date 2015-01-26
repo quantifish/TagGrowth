@@ -95,6 +95,8 @@ Type objective_function<Type>::operator() ()
   {
     for (int y = 0; y < Nyears; y++) { ans -= dnorm( ln_ydev(y), Type(0.), sd_ydev, true ); }
   }
+  vector<Type> isYearUsedTF(Nyears);
+  isYearUsedTF.setZero();
   
   // Area effects
   int Narea = ln_xdev.size();
@@ -129,6 +131,7 @@ Type objective_function<Type>::operator() ()
       time = Time0(i) + j;
       if ( fmod (time, time_step) == 0. ) { year += 1; }
       sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
+      isYearUsedTF( year ) = 1;
     }
     Length1_hat(i) = ( L0(sex) * exp(-b_indiv(i) * iAge1(i)) ) + ( pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i))) * sumj );
     Length1_hat(i) += z1(i);
@@ -149,6 +152,7 @@ Type objective_function<Type>::operator() ()
       time = Time1(i) + j;
       if ( fmod (time, time_step) == 0. ) { year += 1; }
       sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
+      isYearUsedTF( year ) = 1;
     }
     Length2_hat(i) = ( Length1_hat(i) * exp(-b_indiv(i) * iLiberty(i)) ) + ( pow(b_indiv(i), psi-1) * (1 - exp(-b_indiv(i))) * sumj );
     Length2_hat(i) += z2(i);
@@ -166,6 +170,7 @@ Type objective_function<Type>::operator() ()
   // REPORT DIAGNOSTICS
   REPORT( b_indiv );
   REPORT( a_indiv );  
+  REPORT( Tmp );
   
   // Append outputs to report
   ADREPORT( gamma );
