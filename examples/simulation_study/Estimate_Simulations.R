@@ -57,11 +57,12 @@ for (Iscenario in scenarios)
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1)
             if (Iscenario == "v3/")
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 1)
+            
             obj <- MakeADGrowth(data = sim$Sim, Options = Options)
     
             doFit <- function()
             {
-                opt <- nlminb(start = obj$par, objective = obj$fn, control = list(eval.max = 1e4, iter.max = 1e4))
+                opt <- nlminb(start = obj$par, objective = obj$fn, gr = obj$gr, control = list(eval.max = 1e4, iter.max = 1e4))
                 opt[["final_gradient"]] <- obj$gr(opt$par)
                 Report                 <- sdreport(obj)
                 Report$diag.cov.random <- NULL

@@ -170,13 +170,12 @@ Type objective_function<Type>::operator() ()
   // REPORT DIAGNOSTICS
   REPORT( b_indiv );
   REPORT( a_indiv );  
-  REPORT( Tmp );
+  REPORT( Linf );
   
   // Append outputs to report
   ADREPORT( gamma );
   ADREPORT( psi );
   ADREPORT( L0 );
-  ADREPORT( Linf );
   ADREPORT( amean );
   ADREPORT( bmean );
   ADREPORT( sd_bdev );
