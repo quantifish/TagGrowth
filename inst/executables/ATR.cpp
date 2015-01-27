@@ -15,7 +15,7 @@ Type objective_function<Type>::operator() ()
   DATA_FACTOR(Sex);      // Sex of individual
   DATA_FACTOR(Time0);    // Time at which individual was born (time 0, with units days, weeks, months, or years)
   DATA_FACTOR(Time1);    // Time at which individual was caught/tagged (time 1, with units days, weeks, months, or years)
-  DATA_FACTOR(Time1);    // Time at which individual was recaptured (time 2, with units days, weeks, months, or years)
+  DATA_FACTOR(Time2);    // Time at which individual was recaptured (time 2, with units days, weeks, months, or years)
   DATA_FACTOR(Year0);    // Year in which individual was born (time 0)
   DATA_FACTOR(Year1);    // Year in which individual was caught/tagged (time 1)
   DATA_FACTOR(Year2);    // Year in which individual was recaptured (time 2)
