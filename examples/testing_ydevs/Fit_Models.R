@@ -47,7 +47,7 @@ Iscenario <- scenarios
 
     # Dimensions
     Nindiv <- nrow(data)
-    Nyears <- 40
+    Nyears <- length(min(data$Year0, data$Year1, data$Year2):max(data$Year0, data$Year1, data$Year2))
     Nareas <- length(unique(data$Area1))
 
     # Create lists of data and parameters
