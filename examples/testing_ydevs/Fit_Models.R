@@ -126,7 +126,7 @@ Iscenario <- scenarios
     Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
 
     # Optimize!
-    opt <- nlminb(start = obj$par, objective = obj$fn, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
+    opt <- nlminb(start = obj$par, objective = obj$fn, gr = obj$gr, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
     opt[["final_gradient"]] <- obj$gr(opt$par)
     Diag <- obj$report()
     Report <- sdreport(obj)
