@@ -45,6 +45,7 @@ Type objective_function<Type>::operator() ()
   Type psi = 1 / (1 + exp(-logit_psi));
   Type sd_obs = exp(ln_sd_obs);
   Type sd_z = exp(ln_sd_z);
+  Type sd_ydev = exp(ln_sd_ydev);
 
   // Initialize sex-specific parameters:
   vector<Type> gamma(Nsex);
@@ -83,6 +84,9 @@ Type objective_function<Type>::operator() ()
   //ans -= dnorm( L0(0), Type(-0.34), Type(1), 1 );
   //ans -= dnorm( L0(1), Type(3.98), Type(1), 1 );
 
+  // Prior penalty for sd_ydev
+  //ans -= dgamma( sd_ydev, Type(1.), Type(1/500.), 1 );
+
   // Time varying individual stuff
   vector<Type> sd_z1(Nindiv);
   vector<Type> sd_z2(Nindiv);
@@ -91,7 +95,6 @@ Type objective_function<Type>::operator() ()
   int Nyears = ln_ydev.size(); // Number of years
   int time_step = 52;
   int time, year;
-  Type sd_ydev = exp(ln_sd_ydev);
   // Random effect probability of each year
   if (Options(0) == 1)
   {
