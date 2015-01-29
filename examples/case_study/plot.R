@@ -13,8 +13,8 @@ load("../../data/ATR_mod.RData")
 # 5. k, y
 # 6. z, y
 # 7. k, z, y
-scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
-scenarios <- c("v0/","v1/","v2/","v3/","v4/","v6/")
+scenarios <- c("v0/","v1/","v2/","v4/")
+#scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
 
 for (Iscenario in scenarios)
 {

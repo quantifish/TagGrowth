@@ -12,9 +12,9 @@ in is summarised in the table below.
 | z              | Yes | v2     |
 | y              | No  | v3     |
 | k, z           | Yes | v4     |
-| k, y           |  | v5     |
+| k, y           | -   | v5     |
 | z, y           | Yes | v6     |
-| k, z, y        |  | v7     |
+| k, z, y        | -   | v7     |
 
 
 

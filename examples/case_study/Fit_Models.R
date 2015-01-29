@@ -17,8 +17,9 @@ require(TagGrowth)
 # 5. k, y - did not work, RETURN TO THIS
 # 6. z, y
 # 7. k, z, y - did not work, RETURN TO THIS
+scenarios <- c("v0/","v1/","v2/","v4/")
 #scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
-scenarios <- c("v3/")
+#scenarios <- c("v3/")
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
