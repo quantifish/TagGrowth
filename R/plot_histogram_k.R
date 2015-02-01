@@ -2,17 +2,29 @@
 #'
 #' @export
 #' 
-plot_histogram_k <- function(data, report, file_name = "REs_b")
+plot_histogram_k <- function(data, report, file_name = "REs_b", delta_t = "weeks")
 {
-    REs_b <- report$par.random[names(report$par.random) %in% "ln_bdev"]
+    if (delta_t == "weeks") adj <- 52.15
+    if (delta_t == "months") adj <- 12
+    if (delta_t == "years") adj <- 1
+    
+    REs_b <- exp(report$par.random[names(report$par.random) %in% "ln_bdev"])
     Sex <- data$Sex
     d <- data.frame(Sex, REs_b)
     dat <- melt(d, id.vars = "Sex")
     dat$Sex[dat$Sex == 1] <- "Females"
     dat$Sex[dat$Sex == 2] <- "Males"
+    mu_b <- exp(report$par.fixed[names(report$par.fixed) %in% "ln_bmean"])
+    dat$mu_b[dat$Sex == "Females"] <- mu_b[1]
+    dat$mu_b[dat$Sex == "Males"] <- mu_b[2]
+
+    # Make k annual rather than whatever is being used
+    dat$value <- dat$value * dat$mu_b * adj
+    dat$mu_b <- dat$mu_b * adj
     
     p <- ggplot(data = dat, aes(x = value)) +
         geom_histogram(aes(y = ..density..), colour = "black", fill = "grey") +
+        geom_vline(aes(xintercept = mu_b), size = 0.75, colour = "red") +
         facet_grid(~ Sex) +
         xlab("\nk") + ylab("Density\n") +
         plot_theme() +

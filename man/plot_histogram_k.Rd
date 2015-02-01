@@ -3,7 +3,7 @@
 \alias{plot_histogram_k}
 \title{Plot histogram of time-varying k}
 \usage{
-plot_histogram_k(data, report, file_name = "REs_b")
+plot_histogram_k(data, report, file_name = "REs_b", delta_t = "weeks")
 }
 \description{
 Plot histogram of time-varying k

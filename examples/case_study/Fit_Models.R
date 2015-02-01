@@ -17,9 +17,9 @@ require(TagGrowth)
 # 5. k, y - did not work, RETURN TO THIS
 # 6. z, y
 # 7. k, z, y - did not work, RETURN TO THIS
-scenarios <- c("v0/","v1/","v2/","v4/")
+#scenarios <- c("v0/","v1/","v2/","v4/")
 #scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
-#scenarios <- c("v3/")
+scenarios <- c("v4/")
 
 # Compile the model
 compile("../../inst/executables/ATR.cpp")
@@ -129,12 +129,12 @@ for (Iscenario in scenarios)
     summary(obj)
 
     Upr <- rep(Inf, length(obj$par))
-    Upr[match("logit_psi",names(obj$par))] = qlogis(0.999)
     Lwr <- rep(-Inf, length(obj$par))
+    Upr[match("logit_psi",names(obj$par))] = qlogis(0.999)
     Lwr[match("logit_psi",names(obj$par))] = qlogis(0.001)
     Lwr[match("ln_sd_z",names(obj$par))] = log(0.001)
     Lwr[match("ln_sd_xdev",names(obj$par))] = log(0.001)
-    Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.001)
+    Lwr[match("ln_sd_bdev",names(obj$par))] = log(0.0001)
 
     # Optimize!
     opt <- nlminb(start = obj$par, objective = obj$fn, gr = obj$gr, upper = Upr, lower = Lwr, control = list(eval.max = 1e4, iter.max = 1e4, rel.tol = c(1e-10, 1e-8)[ConvergeTol], trace = 1))
@@ -159,6 +159,7 @@ for (Iscenario in scenarios)
     # Is the fit positive definite Hessian?
     print(Report$pdHess)
 }
+
 
 
 
