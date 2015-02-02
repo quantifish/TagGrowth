@@ -15,6 +15,9 @@ load("../../data/ATR_mod.RData")
 # 7. k, z, y
 scenarios <- c("v0/","v1/","v2/","v4/")
 #scenarios <- c("v0/","v1/","v2/","v3/","v4/","v5/","v6/","v7/")
+LL <- rep(NA, length(scenarios))
+npar <- rep(NA, length(scenarios))
+aic <- rep(NA, length(scenarios))
 
 for (Iscenario in scenarios)
 {
@@ -23,6 +26,11 @@ for (Iscenario in scenarios)
 
     # Load report
     load(paste(folder, "Report.RData", sep = ""))
+    
+    load(paste(folder, "opt.RData", sep = ""))
+    LL[which(scenarios == Iscenario)] <- -1 * opt$objective
+    npar[which(scenarios == Iscenario)] <- length(opt$par)
+    aic[which(scenarios == Iscenario)] <- (2 * opt$objective) + (2 * length(opt$par))
 
     # Append model outputs to ATR_mod
     ATR_mod$Length1_hat <- Report$value[names(Report$value) %in% "Length1_hat"]
@@ -39,5 +47,9 @@ for (Iscenario in scenarios)
         plot_annual_devs(Report, file_name = paste0(folder, "REs_y"))
     #plot_linf(Report, file_name = paste0(folder, "LinfPrior"))
 }
+
+LL
+npar
+aic
 
 # END

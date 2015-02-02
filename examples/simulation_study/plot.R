@@ -3,6 +3,8 @@ d <- read_all_simulations()
 
 psize <- c(12, 8)
 
+d$Linf <- d$gamma * d$bmean^d$psi
+
 # gamma
 d1 <- subset(d, subset = d$Parameter == "gamma")
 p <- ggplot(data = d1, aes(x = Estimate)) +
@@ -78,6 +80,19 @@ p <- ggplot(data = d1, aes(x = Estimate)) +
 png("sim_sd_obs.png", width = psize[1], height = psize[2]/2, units = "in", res = 300)
 print(p)
 dev.off()
+
+# Linf
+d1 <- subset(d, subset = d$Parameter == "gamma")
+p <- ggplot(data = d1, aes(x = Estimate)) +
+        geom_histogram(colour = "black", fill = "grey") +
+        facet_grid(Power + Sex ~ Scenario, scales = "free_x") +
+        geom_vline(aes(xintercept = Truth), size = 1.5, colour = "red", alpha = 0.6) +
+        xlab(expression(gamma)) + ylab("Frequency\n") +
+        plot_theme() + theme(axis.title.x = element_text(vjust = -0.5))
+png("sim_gamma.png", width = psize[1], height = psize[2], units = "in", res = 300)
+print(p)
+dev.off()
+
 
 # Summary
 aggregate(Estimate ~ Sex + Parameter + Power + Scenario, data = d, FUN = length)
