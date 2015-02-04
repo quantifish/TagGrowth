@@ -37,7 +37,8 @@ for (Iscenario in scenarios)
     ATR_mod$Length2_hat <- Report$value[names(Report$value) %in% "Length2_hat"]
 
     # Do some plots
-    plot_obs_pred(ATR_mod$Sex, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Length2, ATR_mod$Length2_hat, file_name = paste0(folder, "ObsVsPred"))
+    plot_obs_pred(Sex = ATR_mod$Sex, Length1_obs = ATR_mod$Length1, Length1_hat = ATR_mod$Length1_hat, Length2_obs = ATR_mod$Length2, Length2_hat = ATR_mod$Length2_hat, file_name = paste0(folder, "ObsVsPred"))
+    plot_resids(Sex = ATR_mod$Sex, Length1_obs = ATR_mod$Length1, Length1_hat = ATR_mod$Length1_hat, Length2_obs = ATR_mod$Length2, Length2_hat = ATR_mod$Length2_hat, file_name = paste0(folder, "Resids"))
     plot_indiv_growth(ATR_mod$Sex, ATR_mod$Age1, ATR_mod$Length1, ATR_mod$Length1_hat, ATR_mod$Age2, ATR_mod$Length2, ATR_mod$Length2_hat, file_name = paste0(folder, "IndivGrowth"))
     if (Iscenario %in% c("v1/","v4/","v5/","v7/"))
         plot_histogram_k(ATR_mod, Report, file_name = paste0(folder, "REs_b"))
