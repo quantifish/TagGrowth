@@ -4,6 +4,9 @@ require(TagGrowth)
 # Load data
 load("../../data/ATR_mod.RData")
 
+table(format(ATR_mod$Date1, "%b"))
+table(format(ATR_mod$Date2, "%b"))
+
 # Versions
 # 0. none
 # 1. k
