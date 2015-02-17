@@ -7,6 +7,12 @@ psize <- c(12, 8)
 aggregate(Estimate ~ Sex + Parameter + Power + Scenario, data = d, FUN = length)
 aggregate(Estimate ~ Sex + Parameter + Power + Scenario, data = d, FUN = median)
 
+# SDs
+d1 <- subset(d, subset = d$Parameter == "L0")
+d2 <- subset(d1, subset = d1$Scenario == "k and z")
+aggregate(Estimate ~ Sex + Power, data = d2, FUN = sd)
+
+
 # Linf
 d1 <- subset(d, subset = d$Parameter == "gamma")
 d2 <- subset(d, subset = d$Parameter == "bmean")
