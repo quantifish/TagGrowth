@@ -7,6 +7,11 @@ load("../../data/ATR_mod.RData")
 table(format(ATR_mod$Date1, "%b"))
 table(format(ATR_mod$Date2, "%b"))
 
+(range(ATR_mod$Date1, ATR_mod$Date2)[2] - range(ATR_mod$Date1, ATR_mod$Date2)[1])/365
+
+range(ATR_mod$Date1)
+range(ATR_mod$Date2)
+      
 # Versions
 # 0. none
 # 1. k
