@@ -1,4 +1,4 @@
-# Tag-recapture data
+# Capture-mark-recapture (CMR) data
 
 This folder contains example capture-mark-recapture (CMR) data from a wild
 population of Antarctic toothfish (*Dissostichus mawsoni*) in the Ross Sea.
