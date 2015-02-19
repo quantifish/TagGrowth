@@ -14,26 +14,22 @@ each individual's demographic parameters as a random effect that arises from a
 population-level distribution. We start with the specialized von Bertalanffy
 growth function:
 
-dL/dt = a - bL
-
-![equation](http://latex.codecogs.com/gif.latex?dL%2Fdt%3Da%2DbL)
-
-![equation](http://latex.codecogs.com/gif.latex?%5Cfrac%7BdL%7D%7Bdt%7D%20%3D%20a%20-%20bL)
+![equation](http://latex.codecogs.com/gif.latex?%5Cfrac%7BdL%7D%7Bdt%7D%20%3D%20a%20-%20kL)
 
 where dL/dt is change in length as a function of time, a scales with energy
-acquisition, and b represents metabolic upkeep costs. However, individuals that
+acquisition, and k represents metabolic upkeep costs. However, individuals that
 are more highly active may obtain more food (increased a) and simultaneously
 have greater upkeep costs (increased b). Following Shelton et al. (2013), we
 include this correlation via the following equation:
 
-a = γbΨ
-
-![equation](http://latex.codecogs.com/gif.latex?a%3Dγb%5EΨ)
+![equation](http://latex.codecogs.com/gif.latex?a_i%20%3D%20%5Cgamma%20k_i%5E%5Cpsi)
 
 where γ and Ψ approximate the allometric scaling of energy costs and
 acquisition. Integration then yields:
 
 L(t+Δₜ) = L(t) e-bᵢΔₜ + bᵢ Ψ-1 (1 - e-bᵢ) γ sum j=0 Δₜ-1 e-bᵢⱼ + zᵢ
+
+![equation](http://latex.codecogs.com/gif.latex?L%28t&plus;%5CDelta_t%29%3DL%28t%29%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5CDelta_t%5Cright%29&plus;%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5Cright%29%5E%7B%5Cpsi-1%7D%5Cleft%281-%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5Cright%29%5Cright%29%5Cfrac%7B%5Cgamma%7D%7Bn_%5CDelta%7D%5Csum%5E%7B%5CDelta_t-1%7D_%7Bj%3D1%7D%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7Dj%5Cright%29&plus;z_%7B%5CDelta_t%7D)
 
 where Δt is the number of time-periods elapsed between length intervals, and
 where the Brody growth coefficient k = b (as in the conventional von Bertalanffy
