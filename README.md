@@ -18,6 +18,8 @@ dL/dt = a - bL
 
 ![equation](http://latex.codecogs.com/gif.latex?dL%2Fdt%3Da%2DbL)
 
+![equation](http://latex.codecogs.com/gif.latex?%5Cfrac%7BdL%7D%7Bdt%7D%20%3D%20a%20-%20bL)
+
 where dL/dt is change in length as a function of time, a scales with energy
 acquisition, and b represents metabolic upkeep costs. However, individuals that
 are more highly active may obtain more food (increased a) and simultaneously
