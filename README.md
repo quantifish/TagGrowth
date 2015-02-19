@@ -77,5 +77,7 @@ written in C++ "inst/executables/ATR.cpp", and an R script
 
 Citations to come.
 
+http://www.codecogs.com/latex/eqneditor.php
+
 
 ![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
