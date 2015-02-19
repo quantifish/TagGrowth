@@ -14,7 +14,6 @@ each individual's demographic parameters as a random effect that arises from a
 population-level distribution. We start with the specialized von Bertalanffy
 growth function:
 
-![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
 dL/dt = a - bL
 
 ![equation](http://latex.codecogs.com/gif.latex?dL%2Fdt%3Da%2DbL)
@@ -26,6 +25,8 @@ have greater upkeep costs (increased b). Following Shelton et al. (2013), we
 include this correlation via the following equation:
 
 a = γbΨ
+
+![equation](http://latex.codecogs.com/gif.latex?a%3Dγb%5EΨ)
 
 where γ and Ψ approximate the allometric scaling of energy costs and
 acquisition. Integration then yields:
@@ -74,6 +75,7 @@ written in C++ "inst/executables/ATR.cpp", and an R script
 
 ##Further reading
 
-Shelton et al. (2013)
-
 Citations to come.
+
+
+![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)

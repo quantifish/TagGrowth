@@ -2,8 +2,8 @@
 rm(list=ls())
 
 # Load data
-load("AGE.RData")
-load("TR.RData")
+load("../../data/AGE.RData")
+load("../../data/TR.RData")
 
 # Identify which aged fish had a tag
 a <- AGE[AGE$tagged == TRUE,]
@@ -100,8 +100,8 @@ cols <- c("Age1","Age2","Liberty","Length1","Length2","Sex","Area1",
 ATR_mod <- ATR_mod[,cols]
 
 head(ATR_mod)
-write.csv( ATR_mod, file = "ATR_mod.csv" )
-save( ATR_mod, file = "ATR_mod.RData" )
+write.csv( ATR_mod, file = "../../data/ATR_mod.csv" )
+save( ATR_mod, file = "../../data/ATR_mod.RData" )
 
 #Year1 <- as.numeric(as.factor(strftime(Date1, format="%Y")))
 #Nyears <- length(unique(Year1))

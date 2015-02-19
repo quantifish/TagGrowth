@@ -37,6 +37,7 @@ p <- ggplot(data = d3, aes(x = Estimate)) +
         xlab(expression(L[infinity])) + ylab("Frequency\n") +
         scale_x_continuous(limits = c(120, 300)) +
         plot_theme() + theme(axis.title.x = element_text(vjust = -0.5))
+        #labs(title = "Estimation model")
 png("sim_linf.png", width = psize[1], height = psize[2], units = "in", res = 300)
 print(p)
 dev.off()
