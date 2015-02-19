@@ -27,9 +27,11 @@ include this correlation via the following equation:
 where γ and Ψ approximate the allometric scaling of energy costs and
 acquisition. Integration then yields:
 
-L(t+Δₜ) = L(t) e-bᵢΔₜ + bᵢ Ψ-1 (1 - e-bᵢ) γ sum j=0 Δₜ-1 e-bᵢⱼ + zᵢ
-
 ![equation](http://latex.codecogs.com/gif.latex?L%28t&plus;%5CDelta_t%29%3DL%28t%29%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5CDelta_t%5Cright%29&plus;%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5Cright%29%5E%7B%5Cpsi-1%7D%5Cleft%281-%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%5Cright%29%5Cright%29%5Cfrac%7B%5Cgamma%7D%7Bn_%5CDelta%7D%5Csum%5E%7B%5CDelta_t-1%7D_%7Bj%3D1%7D%5Cexp%5Cleft%28%5Cfrac%7B-k%7D%7Bn_%5CDelta%7Dj%5Cright%29&plus;z_%7B%5CDelta_t%7D)
+
+where
+
+![equation](http://latex.codecogs.com/gif.latex?z_%7B%5CDelta_t%7D%20%5Csim%20%5Cmathcal%7BN%7D%20%5Cleft%280%2C%20%5Csigma%5E2_z%20%5Cleft%5B%20%5Cleft%28%20%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%20%5Cright%29%5E%7B%5Cpsi-1%7D%20%5Cleft%28%201%20-%20%5Cexp%20%5Cleft%28%20%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%20%5Cright%20%29%20%5Cright%20%29%20%5Cright%5D%5E2%20%5Csum%5E%7B%5CDelta_t%20-%201%7D_%7Bj%3D1%7D%20%5Cexp%20%5Cleft%28%20-2%20%5Cfrac%7B-k%7D%7Bn_%5CDelta%7D%20j%20%5Cright%20%29%20%5Cright%29)
 
 where Δt is the number of time-periods elapsed between length intervals, and
 where the Brody growth coefficient k = b (as in the conventional von Bertalanffy
