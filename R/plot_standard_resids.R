@@ -3,7 +3,7 @@
 #' @export
 #' 
 plot_standard_resids <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Length2_hat,
-                                 file_name = "StandardResids")
+                                 file_name = "StandardResids", file_suffix = "eps")
 {
     res1 <- Length1_obs - Length1_hat
     res2 <- Length2_obs - Length2_hat
@@ -27,7 +27,10 @@ plot_standard_resids <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Len
         plot_theme() + theme(legend.position = c(0.86, 0.13)) +
         scale_colour_manual(values = plot_palette)
     
-    png(paste(file_name, ".png", sep = ""), width = 5, height = 5, units = "in", res = 400)
+    if (file_suffix %in% c("eps",".eps"))
+        cairo_ps(paste(file_name, ".eps", sep = ""), width = 5, height = 5)
+    if (file_suffix %in% c("png",".png"))
+        png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }

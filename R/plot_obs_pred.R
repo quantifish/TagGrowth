@@ -3,7 +3,7 @@
 #' @export
 #' 
 plot_obs_pred <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Length2_hat,
-                          file_name = "ObsVsPred")
+                          file_name = "ObsVsPred", file_suffix = "eps")
 {
     d1 <- data.frame(Sex, Length1_obs, Length1_hat, Length = "Length at tagging")
     d2 <- data.frame(Sex, Length2_obs, Length2_hat, Length = "Length at recapture")
@@ -25,7 +25,10 @@ plot_obs_pred <- function(Sex, Length1_obs, Length1_hat, Length2_obs, Length2_ha
         plot_theme() +
         scale_colour_manual(values = plot_palette)
     
-    png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
+    if (file_suffix %in% c("eps",".eps"))
+        cairo_ps(paste(file_name, ".eps", sep = ""), width = 10, height = 5)
+    if (file_suffix %in% c("png",".png"))
+        png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }

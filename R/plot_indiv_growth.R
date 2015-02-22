@@ -5,7 +5,7 @@
 plot_indiv_growth <- function(Sex,
                               Age1, Length1_obs, Length1_hat,
                               Age2, Length2_obs, Length2_hat,
-                              file_name = "IndivGrowth")
+                              file_name = "IndivGrowth", file_suffix = "eps")
 {
     d1 <- data.frame(Age1, Age2, Sex, Length1_obs, Length2_obs, Key = "Observed")
     d2 <- data.frame(Age1, Age2, Sex, Length1_hat, Length2_hat, Key = "Expected")
@@ -24,7 +24,10 @@ plot_indiv_growth <- function(Sex,
         plot_theme() +
         scale_colour_manual(values = plot_palette)
     
-    png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
+    if (file_suffix %in% c("eps",".eps"))
+        cairo_ps(paste(file_name, ".eps", sep = ""), width = 10, height = 5)
+    if (file_suffix %in% c("png",".png"))
+        png(paste(file_name, ".png", sep = ""), width = 10, height = 5, units = "in", res = 400)
     print(p)
     dev.off()
 }
