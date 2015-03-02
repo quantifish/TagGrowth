@@ -62,7 +62,7 @@ Please see the examples folder for an example of how to run the model.
 
 ##Simulation
 
-"examples/simulation/ATR.R"
+Simulation is done in `examples/simulation/ATR.R`.
 
 
 ##Estimation 
@@ -70,7 +70,7 @@ Please see the examples folder for an example of how to run the model.
 We implement this model using the Template Model Builder (TMB) software called
 from R using the TMB package (https://github.com/kaskr/adcomp). The model is
 written in C++ `inst/executables/ATR.cpp`, and an R script
-"examples/estimation/ATR.R" loads the data and fits the model.
+`examples/estimation/ATR.R` loads the data and fits the model.
 
 
 ##Further reading
@@ -78,6 +78,3 @@ written in C++ `inst/executables/ATR.cpp`, and an R script
 Citations to come.
 
 http://www.codecogs.com/latex/eqneditor.php
-
-
-![equation](http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A)
