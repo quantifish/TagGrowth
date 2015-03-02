@@ -10,8 +10,8 @@ estimation model.
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Simulation](#simulation)
-- [Estimation](#estimation)
+- [Case study](#case-study)
+- [Simulation study](#simulation-study)
 - [Further reading](#further-reading)
 
 
@@ -68,17 +68,16 @@ Install the package from R using
 Please see the examples folder for an example of how to run the model.
 
 
-##Simulation
+##Case study
 
-Simulation is done in `examples/simulation/ATR.R`.
+A case stduy is done using Antarctic toothfish in `examples/case_study/`. The tag-recapture (`TR.RData`) and aging (`AGE.RData`) data are linked using the script `Link_AGE_TR.R`. The linked data set is provided in `data/ATR_mod.RData`. The original data sets `TR.RData` and `AGE.RData` are not provided.
+
+We implement this model using the Template Model Builder (TMB) software called from R using the TMB package (https://github.com/kaskr/adcomp). The model is written in C++ `inst/executables/ATR.cpp`, and an R script `Fit_Models.R` loads the data and fits the model. The script `plot.R` is also provided to plot the outputs of the case study.
 
 
-##Estimation 
+##Simulation study
 
-We implement this model using the Template Model Builder (TMB) software called
-from R using the TMB package (https://github.com/kaskr/adcomp). The model is
-written in C++ `inst/executables/ATR.cpp`, and an R script
-`examples/estimation/ATR.R` loads the data and fits the model.
+A simulation study based on Antarctic toothfish is done in `examples/simulation_study/`. Simulation is done in `Simulate_Growth.R`. Estimation is then done using `Estimate_Simulations.R`. The script `plot.R` is also provided to plot the outputs of the case study.
 
 
 ##Further reading
