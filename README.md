@@ -6,6 +6,14 @@ tag-recapture data where the individual fish have been aged upon recapture and a
 model for simulating growth of individual fish to test the performance of the
 estimation model.
 
+## Table of contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Simulation](#simulation)
+- [Estimation](#estimation)
+- [Further reading](#further-reading)
+
 
 ##Introduction 
 
