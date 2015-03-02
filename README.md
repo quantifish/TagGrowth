@@ -1,7 +1,7 @@
 Welcome to TagGrowth
 ==========
 
-The software TagGrowth includes an estimation model for analysing growth using
+The software **TagGrowth** includes an estimation model for analysing growth using
 tag-recapture data where the individual fish have been aged upon recapture and a
 model for simulating growth of individual fish to test the performance of the
 estimation model.
@@ -69,7 +69,7 @@ Please see the examples folder for an example of how to run the model.
 
 We implement this model using the Template Model Builder (TMB) software called
 from R using the TMB package (https://github.com/kaskr/adcomp). The model is
-written in C++ "inst/executables/ATR.cpp", and an R script
+written in C++ 'inst/executables/ATR.cpp', and an R script
 "examples/estimation/ATR.R" loads the data and fits the model.
 
 
