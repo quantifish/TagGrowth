@@ -1,10 +1,10 @@
 Package: TagGrowth
-Title: Mixed effects model of tag-recapture-age data
+Title: Mixed effects model of capture-mark-recapture-age data
 Version: 1.0
-Date: 2015-02-05
+Date: 2015-03-04
 Author: Darcy Webber, James Thorson
-Description: Software for mixed effects modelling of tag-recapture-age data
-    using template model builder (TMB)
+Description: Software for mixed effects modelling of capture-mark-recapture-age
+    data using template model builder (TMB)
 Depends:
     TMB,
     ggplot2,
