@@ -1,7 +1,7 @@
 *~
 *.Rout
-*.so
-*.o
+ATR.o
+ATR.so
 
 .directory
 .RData
