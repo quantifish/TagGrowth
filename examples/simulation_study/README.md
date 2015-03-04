@@ -12,6 +12,8 @@ Table showing the simulation design, the number of fits that were positive
 definite Hessian (pdH), and the directory that contains the 200 simulated/estimated
 data sets.
 
+WARNING: this takes a long time to run (over a week).
+
 | Random effects | Power |pdH   | Directory |
 | -------------- |:-----:|:----:|:---------:|
 | None           | 50    | 196  | v0/50     |
