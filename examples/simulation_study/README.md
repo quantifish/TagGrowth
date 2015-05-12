@@ -1,12 +1,12 @@
 # Simulation
 
-Simulation of data sets is done using the script Simulate_Growth.R. Simulate_Growth.R calls
-Growth_Model.R to run the simulations. All simulations are saved as .RData
+Simulation of data sets is done using the script `Simulate_Growth.R`. `Simulate_Growth.R` calls
+`Growth_Model.R` to run the simulations. All simulations are saved as `.RData`
 files.
 
-The model is then fit to each of the simulated data sets using Estimate_Simulations.R. The
+The model is then fit to each of the simulated data sets using `Estimate_Simulations.R`. The
 parameter estimates for each simulation are saved along with the simulated data
-as .RData files.
+as `.RData` files.
 
 Table showing the simulation design, the number of fits that were positive
 definite Hessian (pdH), and the directory that contains the 200 simulated/estimated
@@ -56,6 +56,3 @@ Random effects: z
 ## v3
 
 Random effects: k, z
-
-
-
