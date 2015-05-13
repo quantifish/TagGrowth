@@ -1,6 +1,6 @@
 Welcome to TagGrowth
 ==========
-[![Build Status](https://travis-ci.org/quantifish/TagGrowth.svg?)](https://travis-ci.org/quantifish/TagGrowth)
+[![Build Status](https://travis-ci.org/quantifish/TagGrowth.svg?branch=master)](https://travis-ci.org/quantifish/TagGrowth)
 
 The software **TagGrowth** includes an estimation model for analysing growth using
 tag-recapture data where the individual fish have been aged upon recapture and a
