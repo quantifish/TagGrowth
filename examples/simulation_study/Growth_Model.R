@@ -84,7 +84,8 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
     #=================================================================================================
     if ( FALSE )
     {
-        Sex <- rbinom(Nindiv, 1, 0.5) + 1 # (1 = female, 2 = male)
+        mu <- mean(ATR_mod$Sex - 1)
+        Sex <- rbinom(Nindiv, 1, mu) + 1 # (1 = female, 2 = male)
         # Fit lognormal distributions to Age1 and Liberty
         if ( TRUE )
         {

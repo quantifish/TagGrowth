@@ -10,3 +10,4 @@ Depends:
     ggplot2,
     reshape2
 Maintainer: Darcy Webber <darcy@quantifish.co.nz>
+License: GPL-2

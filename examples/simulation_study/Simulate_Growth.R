@@ -11,11 +11,11 @@ rm(list=ls())
 # Directory to save simulations to (save as .RData files), these are also the
 # scenarios
 #scenarios <- c("v0/","v1/","v2/","v3/")
-scenarios <- c("v2/","v3/")
-Ndesign <- 200        # The number of simulations we will do
-set.seed(15)          # A random number seed
+scenarios <- c("none_none/","k_k/","z_z/","kz_kz/")
+Ndesign <- 200                # The number of simulations we will do
+set.seed(15)                  # A random number seed
 power <- c(50, 100, 250, 500) # Power analysis
-Nareas <- 1           # The number of areas in our simulation
+Nareas <- 1                   # The number of areas in our simulation
 
 #=================================================================================
 # SET UP SIMULATION
@@ -59,6 +59,7 @@ bmean <-  c(b[1],     b[2])
 gamma <-  c(gamma[1], gamma[2]) # gamma = (b * Linf) / (k^psi)
 psi <-    c(0.0,      0.0)
 sd_y <-   c(0.0,      0.0)
+
 
 #=================================================================================
 # RUN THE SIMULATION MODEL
