@@ -11,7 +11,8 @@ rm(list=ls())
 # Directory to save simulations to (save as .RData files), these are also the
 # scenarios
 #scenarios <- c("v0/","v1/","v2/","v3/")
-scenarios <- c("none_none/","k_k/","z_z/","kz_kz/")
+xx <- expand.grid(simulator = c("none","k","z","kz"), estimator = c("none","k","z","kz"))
+scenarios <- paste0(xx[,1], "_", xx[,2], "/")
 Ndesign <- 200                # The number of simulations we will do
 set.seed(15)                  # A random number seed
 power <- c(50, 100, 250, 500) # Power analysis
