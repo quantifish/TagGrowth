@@ -11,8 +11,9 @@ rm(list=ls())
 # Directory to save simulations to (save as .RData files), these are also the
 # scenarios
 #scenarios <- c("v0/","v1/","v2/","v3/")
-xx <- expand.grid(simulator = c("none","k","z","kz"), estimator = c("none","k","z","kz"))
-scenarios <- paste0(xx[,1], "_", xx[,2], "/")
+#xx <- expand.grid(simulator = c("none","k","z","kz"), estimator = c("none","k","z","kz"))
+#scenarios <- paste0(xx[,1], "_", xx[,2], "/")
+scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
 Ndesign <- 200                # The number of simulations we will do
 set.seed(15)                  # A random number seed
 power <- c(50, 100, 250, 500) # Power analysis
@@ -23,6 +24,7 @@ Nareas <- 1                   # The number of areas in our simulation
 #=================================================================================
 # Import library and load data (for resampling)
 require(TagGrowth)
+source("Growth_Model.R")
 load("../../data/ATR_mod.RData")
 
 # Annual
@@ -67,39 +69,55 @@ sd_y <-   c(0.0,      0.0)
 #=================================================================================
 for (Iscenario in scenarios)
 {
+    # Identify which simulator/estimator we are using
+    #xx <- unlist(strsplit(Iscenario, split = "_"))
+    #csim <- xx[1]
+    #cest <- gsub("/", "", xx[2])
+    
+    # Parameters specific to each scenario
+    if (Iscenario == "sim_none/")
+    {
+        sd_b <-   c(0.0, 0.0)
+        sd_z <-   c(0.0, 0.0)
+        sd_obs <- c(0.102, 0.102)        
+    }
+    if (Iscenario == "sim_k/")
+    {
+        sd_b <-   c(0.1, 0.2)
+        sd_z <-   c(0.0, 0.0)
+        sd_obs <- c(0.05, 0.05)
+    }
+    if (Iscenario == "sim_z/")
+    {
+        sd_b <-   c(0.0, 0.0)
+        sd_z <-   c(0.3, 0.3)
+        sd_obs <- c(0.05, 0.05)
+    }
+    if (Iscenario == "sim_kz/")
+    {
+        sd_b <-   c(0.1, 0.2)
+        sd_z <-   c(0.3, 0.3)
+        sd_obs <- c(0.05, 0.05)
+    }
+
     # Folder structure
-    directory <- Iscenario
+    directory <- gsub("/", "", Iscenario)
     dir.create(directory)
     lapply(file.path(directory, power), dir.create)
 
-    # Parameters specific to each scenario
-    if (directory == "v0/")
-    {
-        sd_b <-   c(0.0, 0.0)
-        sd_z <-   c(0.0, 0.0)
-        sd_obs <- c(0.102, 0.102)
-    }
-    if (directory == "v1/")
-    {
-        sd_b <-   c(0.1, 0.2)
-        sd_z <-   c(0.0, 0.0)
-        sd_obs <- c(0.05, 0.05)
-    }
-    if (directory == "v2/")
-    {
-        sd_b <-   c(0.0, 0.0)
-        sd_z <-   c(0.3, 0.3)
-        sd_obs <- c(0.05, 0.05)
-    }
-    if (directory == "v3/")
-    {
-        sd_b <-   c(0.1, 0.2)
-        sd_z <-   c(0.3, 0.3)
-        sd_obs <- c(0.05, 0.05)
-    }
+    # Collect up the parameters
     Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)
     colnames(Pars) <- c("female", "male")
 
+    # Do the simulation
+    Nindiv <- 315
+    for (Isim in 1:Ndesign)
+    {
+        ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, ATR_mod = ATR_mod)
+        sim <- list(Sim = ATR_sim, Parameters = Pars)
+        save(sim, file = paste0(Iscenario, "sim", Isim, ".RData"))
+    }
+    
     for (Ipow in power)
     {
         Nindiv <- Ipow
@@ -107,10 +125,11 @@ for (Iscenario in scenarios)
         {
             ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, ATR_mod = ATR_mod)
             sim <- list(Sim = ATR_sim, Parameters = Pars)
-            save(sim, file = paste0(directory, Ipow, "/sim", Isim, ".RData"))
+            save(sim, file = paste0(Iscenario, Ipow, "/sim", Isim, ".RData"))
             #plot_growth(ATR_sim, Isim)
         }
     }
+
 }
 
 # END

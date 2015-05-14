@@ -19,7 +19,7 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
     #=================================================================================================
     # Simulate from observations?
     #=================================================================================================
-    if ( TRUE )
+    if ( FALSE )
     {
         # First we are going to load in the observed data set. We are going to
         # sample things like time at liberty and age at capture and recapture
@@ -82,7 +82,7 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
     #=================================================================================================
     # Simulate from distributions?
     #=================================================================================================
-    if ( FALSE )
+    if ( TRUE )
     {
         mu <- mean(ATR_mod$Sex - 1)
         Sex <- rbinom(Nindiv, 1, mu) + 1 # (1 = female, 2 = male)
@@ -90,35 +90,38 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
         if ( TRUE )
         {
             fit_age1 <- MASS::fitdistr(ATR_mod$Age1, "lognormal")$estimate
-            fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "lognormal")$estimate
+            fit_age2 <- MASS::fitdistr(ATR_mod$Age2, "lognormal")$estimate
+            fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "exponential")$estimate
+            #fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "lognormal")$estimate
+            #Liberty <- rlnorm(Nindiv, fit_liberty[1], fit_liberty[2])
             Age1 <- rlnorm(Nindiv, fit_age1[1], fit_age1[2])
-            Liberty <- rlnorm(Nindiv, fit_liberty[1], fit_liberty[2])
+            Age2 <- rlnorm(Nindiv, fit_age2[1], fit_age2[2])
+            Liberty <- rexp(Nindiv, fit_liberty)
         }
-        # Fit Poisson distributions to Age1 and Liberty
-        if ( FALSE )
-        {
-            fit_age1 <- MASS::fitdistr(ATR_mod$iAge1, "Poisson")$estimate
-            fit_liberty <- MASS::fitdistr(ATR_mod$iLiberty, "Poisson")$estimate
-            Age1 <- rpois(Nindiv, fit_age1)
-            Liberty <- rpois(Nindiv, fit_liberty)
-        }
-        Age1 <- round(Age1, digits = 0)
-        Liberty <- round(Liberty, digits = 0)
         Age2 <- Age1 + Liberty
+        #Age1 <- Age2 - Liberty
+        #Liberty <- Age2 - Age1
+        #Age1 <- round(Age1, digits = 0)
+        Age2 <- round(Age2, digits = 0)
+        #Liberty <- round(Liberty, digits = 0)
     }
     #=================================================================================================
     if ( FALSE )
     {
+        png("Age2_Calc.png")
         par(mfrow = c(2,2))
-        plot(density(ATR_mod$Age1), type = "l")
+        #plot(density(ATR_mod$Age1), type = "l")
+        hist(ATR_mod$Age1, freq = FALSE)
         #for (j in 1:100) lines(density(Age1[j,]), col = 2)
         lines(density(Age1), col = 2)
         lines(density(ATR_mod$Age1))
-        plot(density(ATR_mod$Age2), type = "l")
+        #plot(density(ATR_mod$Age2), type = "l")
+        hist(ATR_mod$Age2, freq = FALSE)
         #for (j in 1:100) lines(density(Age2[j,]), col = 2)
         lines(density(Age2), col = 2)
         lines(density(ATR_mod$Age2))
-        plot(density(ATR_mod$iLiberty), type = "l")
+        #plot(density(ATR_mod$iLiberty), type = "l")
+        hist(ATR_mod$iLiberty, freq = FALSE)
         #for (j in 1:100) lines(density(Liberty[j,]), col = 2)
         lines(density(Liberty), col = 2)
         lines(density(ATR_mod$Liberty))
