@@ -1,5 +1,15 @@
 # Simulation
 
+could only do the power analysis for one data-generating scenario (i.e.,
+variation in K and z) and all estimation models, with 4 x 4 x 200 runs.  I
+think its reasonable to do another 4 x 4 x 200 runs, with 4 estimation
+models, 4 simulation scenarios, and 200 replicates each, with sample size
+fixed at what we saw in the data.  Breaking up factorials is a standard
+trick, e.g., here:
+http://www.nrcresearchpress.com/doi/abs/10.1139/cjfas-2012-0330.  Anyway,
+this would double simulation design size, but wouldn't require rerunning
+the power analysis.
+
 Simulation of data sets is done using the script `Simulate_Growth.R`. `Simulate_Growth.R` calls
 `Growth_Model.R` to run the simulations. All simulations are saved as `.RData`
 files.

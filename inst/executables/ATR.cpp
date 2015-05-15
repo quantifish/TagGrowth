@@ -15,22 +15,22 @@ Type objective_function<Type>::operator() ()
   DATA_FACTOR(Sex);      // Sex of individual
   DATA_FACTOR(Time0);    // Time at which individual was born (time 0, with units days, weeks, months, or years)
   DATA_FACTOR(Time1);    // Time at which individual was caught/tagged (time 1, with units days, weeks, months, or years)
-  DATA_FACTOR(Time2);    // Time at which individual was recaptured (time 2, with units days, weeks, months, or years)
+  //DATA_FACTOR(Time2);    // Time at which individual was recaptured (time 2, with units days, weeks, months, or years)
   DATA_FACTOR(Year0);    // Year in which individual was born (time 0)
   DATA_FACTOR(Year1);    // Year in which individual was caught/tagged (time 1)
-  DATA_FACTOR(Year2);    // Year in which individual was recaptured (time 2)
+  //DATA_FACTOR(Year2);    // Year in which individual was recaptured (time 2)
   DATA_FACTOR(Area1);    // Area that individual was in at time 1 
 
   // Parameters
-  PARAMETER_VECTOR(ln_gamma);   // Fixed effect vector (1)
+  PARAMETER_VECTOR(ln_gamma);   // Fixed effect vector (2)
   PARAMETER(logit_psi);         // Fixed effect (1)
   PARAMETER_VECTOR(L0);         // Fixed effect vector (2, sex-specific)
   PARAMETER_VECTOR(ln_bmean);   // Random effects vector (2, sex-specific)
   PARAMETER_VECTOR(ln_bdev);    // Random effects vector (315, individual)
   PARAMETER_VECTOR(ln_sd_bdev); // Random effect standard deviation (2, sex-specific)
   PARAMETER(ln_sd_obs);         // Measurement standard deviation (1)
-  PARAMETER_VECTOR(z1);         // Random effects vector (315, individual)
-  PARAMETER_VECTOR(z2);         // Random effects vector (315, individual)
+  PARAMETER_VECTOR(z1);         // Random effects vector (N, individual)
+  PARAMETER_VECTOR(z2);         // Random effects vector (N, individual)
   PARAMETER(ln_sd_z);           // Random effects standard deviation (1)
   PARAMETER_VECTOR(ln_ydev);    // Random effects vector (40, year)
   PARAMETER(ln_sd_ydev);        // Random effects standard deviation (1)
@@ -108,10 +108,10 @@ Type objective_function<Type>::operator() ()
   int area;
   Type sd_xdev = exp(ln_sd_xdev);
   // Random effect probability of each area
-  if (Options(1) == 1)
-  {
-    for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, true ); }
-  }
+  //if (Options(1) == 1)
+  //{
+  //  for (int a = 0; a < Narea; a++) { ans -= dnorm( ln_xdev(a), Type(0.), sd_xdev, true ); }
+  //}
   
   // Loop over each individual in the data set
   for (int i = 0; i < Nindiv; i++)
@@ -134,7 +134,9 @@ Type objective_function<Type>::operator() ()
       // required because if a time-step other than annual is used then we need
       // to be referencing the correct year-effect parameter.
       time = Time0(i) + j;
-      if ( fmod (time, time_step) == 0. ) { year += 1; }
+      // THE ERROR IS IN HERE
+      //if ( fmod (time, time_step) == 0. ) { year += 1; }
+      // THE ERROR IS IN HERE
       sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
       isYearUsedTF( year ) = 1;
     }
@@ -151,7 +153,7 @@ Type objective_function<Type>::operator() ()
     ans -= dnorm( Length1(i), Length1_hat(i), sd_obs * Length1_hat(i), true );
     // Probability of second length measurement
     year = Year1(i); // The (index) year that the individual was first captured
-    sumj = Type(0.);
+    sumj = Type(0.0);
     for (int j = 0; j < (iLiberty(i)-1); j++)
     {
       time = Time1(i) + j;
@@ -167,11 +169,11 @@ Type objective_function<Type>::operator() ()
     sd_z2(i) = sd_z * (pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i)))) * pow(sumj,0.5);
     if (Options(3) == 1)
     {
-      ans -= dnorm( z2(i), Type(0.), sd_z2(i), true );
+      ans -= dnorm( z2(i), Type(0.0), sd_z2(i), true );
     }
     ans -= dnorm( Length2(i), Length2_hat(i), sd_obs * Length2_hat(i), true );
   }
-  
+
   // REPORT DIAGNOSTICS
   REPORT( b_indiv );
   REPORT( a_indiv );  
@@ -186,8 +188,8 @@ Type objective_function<Type>::operator() ()
   ADREPORT( sd_bdev );
   ADREPORT( sd_obs );
   ADREPORT( sd_z );
-  ADREPORT( sd_ydev );
-  ADREPORT( sd_xdev );
+  //ADREPORT( sd_ydev );
+  //ADREPORT( sd_xdev );
   ADREPORT( Length1_hat );
   ADREPORT( Length2_hat );
   ADREPORT( a_indiv );
@@ -195,8 +197,8 @@ Type objective_function<Type>::operator() ()
   ADREPORT( ln_bdev );
   ADREPORT( sd_z1 );
   ADREPORT( sd_z2 );
-  ADREPORT( ln_ydev );
-  ADREPORT( ln_xdev );
+  //ADREPORT( ln_ydev );
+  //ADREPORT( ln_xdev );
 
   return ans;
 }

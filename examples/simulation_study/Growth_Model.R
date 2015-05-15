@@ -101,9 +101,10 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
         Age2 <- Age1 + Liberty
         #Age1 <- Age2 - Liberty
         #Liberty <- Age2 - Age1
-        #Age1 <- round(Age1, digits = 0)
+        # Need to round these numbers now
+        Age1 <- round(Age1, digits = 0)
         Age2 <- round(Age2, digits = 0)
-        #Liberty <- round(Liberty, digits = 0)
+        Liberty <- round(Liberty, digits = 0)
     }
     #=================================================================================================
     if ( FALSE )

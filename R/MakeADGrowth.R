@@ -10,7 +10,7 @@ MakeADGrowth <- function(data, Options)
     Nindiv <- nrow(data)
     # Make AD object
     Data <- list(Options = Options,
-                 iAge1 = data[1:Nindiv,'Age1'], iLiberty = data[1:Nindiv,'Liberty'],
+                 iAge1 = round(data[1:Nindiv,'Age1']), iLiberty = round(data[1:Nindiv,'Liberty']),
                  Length1 = data[1:Nindiv,'Length1'], Length2 = data[1:Nindiv,'Length2'],
                  Sex = data[1:Nindiv,'Sex'],
                  Time0 = data[1:Nindiv,'Time0'], Time1 = data[1:Nindiv,'Time1'],

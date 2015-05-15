@@ -103,7 +103,6 @@ for (Iscenario in scenarios)
     # Folder structure
     directory <- gsub("/", "", Iscenario)
     dir.create(directory)
-    lapply(file.path(directory, power), dir.create)
 
     # Collect up the parameters
     Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)
@@ -118,6 +117,10 @@ for (Iscenario in scenarios)
         save(sim, file = paste0(Iscenario, "sim", Isim, ".RData"))
     }
     
+}
+
+Iscenario <- "sim_kz/"
+lapply(file.path(Iscenario, power), dir.create)
     for (Ipow in power)
     {
         Nindiv <- Ipow
@@ -130,6 +133,5 @@ for (Iscenario in scenarios)
         }
     }
 
-}
 
 # END
