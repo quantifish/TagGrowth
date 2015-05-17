@@ -136,8 +136,8 @@ Type objective_function<Type>::operator() ()
       time = Time0(i) + j;
       // THE ERROR IS IN HERE
       //if ( fmod (time, time_step) == 0. ) { year += 1; }
-      // THE ERROR IS IN HERE
-      sumj += gamma(sex) * exp(-b_indiv(i) * j) * exp(ln_ydev(year)) * exp(ln_xdev(area));
+      // THE ERROR IS IN HERE, I've commented out year and area effects below too.
+      sumj += gamma(sex) * exp(-b_indiv(i) * j);// * exp(ln_ydev(year)) * exp(ln_xdev(area));
       isYearUsedTF( year ) = 1;
     }
     Length1_hat(i) = ( L0(sex) * exp(-b_indiv(i) * iAge1(i)) ) + ( pow(b_indiv(i), psi-1) * (1-exp(-b_indiv(i))) * sumj );

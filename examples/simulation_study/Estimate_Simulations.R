@@ -12,6 +12,8 @@ require(TagGrowth)
 # USER SPECIFICATIONS
 # =================================================================================
 scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
+#mods <- c("est_none/","est_k/","est_z/","est_kz/")
+mods <- c("est_k/","est_z/","est_kz/")
 power <- c(50, 100, 250, 500) # Power analysis
 Ndesign <- 200
 
@@ -34,34 +36,33 @@ TmbFile <- "../../inst/executables/"
 # Warning - this takes a very long time. We are applying the model to the four
 # different simulated data sets as well as doing power analysis for k and z
 # only.
-Iscenario = scenarios[2]
-Isim = 4
-#for (Iscenario in scenarios)
-#{
+#Iscenario = scenarios[2]
+#Isim = 4
+for (Iscenario in scenarios)
+{
     #for (Ipow in power)
     #{
-        #for (Isim in 1:Ndesign)
-        #{
-            cat("\nStarting simulation", Isim, "of", Iscenario, "...\n")
+    for (Imod in mods)
+    {
+        for (Isim in 1:Ndesign)
+        {
+            print(paste("Starting simulation", Isim, "of", Iscenario, "using", Imod, "..."))
             dyn.load(paste0(TmbFile, dynlib("ATR")))
     
             # Data
             #fname <- paste(Iscenario, Ipow, "/sim", Isim, ".RData", sep = "")
             fname <- paste0(Iscenario, "sim", Isim, ".RData")
             load(fname)
-            sim$obj <- NULL
-            sim$opt <- NULL
-            sim$Report <- NULL
-            #save(sim, file = fname)
+            fname <- paste0(Iscenario, Imod, "sim", Isim, ".RData")
 
             # Create the AD object
-            if (Iscenario == "sim_none/")
+            if (Imod == "est_none/")
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 0)
-            if (Iscenario == "sim_k/")
+            if (Imod == "est_k/")
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 0)
-            if (Iscenario == "sim_z/")
+            if (Imod == "est_z/")
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 0, "IndivTimeTF" = 1)
-            if (Iscenario == "sim_kz/")
+            if (Imod == "est_kz/")
                 Options <- c("YearTF" = 0, "AreaTF" = 0, "IndivTF" = 1, "IndivTimeTF" = 1)
             
             obj <- MakeADGrowth(data = sim$Sim, Options = Options)
@@ -84,13 +85,13 @@ Isim = 4
             }
             tryCatch(doFit(), error = function(e) cat("Error in simulation", Isim, "\n"), finally = cat("Simulation", Isim, "done\n"))
             dyn.unload(paste0(TmbFile, dynlib("ATR")))
-        #}
+        }
 
         # Plot the estimated parameter values from all of the simulations
         #plot_simulations(paste0(Iscenario, Ipow, "/"))
         #plot_simulations(Iscenario)
-    #}
-#}
+    }
+}
 
 
 
