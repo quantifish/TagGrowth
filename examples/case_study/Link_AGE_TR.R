@@ -100,8 +100,9 @@ cols <- c("Age1","Age2","Liberty","Length1","Length2","Sex","Area1",
 ATR_mod <- ATR_mod[,cols]
 
 head(ATR_mod)
-write.csv( ATR_mod, file = "../../data/ATR_mod.csv" )
-save( ATR_mod, file = "../../data/ATR_mod.RData" )
+toothfish <- ATR_mod
+write.csv(toothfish, file = "../../data/toothfish.csv")
+save(toothfish, file = "../../data/toothfish.RData")
 
 #Year1 <- as.numeric(as.factor(strftime(Date1, format="%Y")))
 #Nyears <- length(unique(Year1))

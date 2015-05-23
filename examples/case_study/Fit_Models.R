@@ -25,7 +25,8 @@ scenarios <- c("v4/")
 compile("../../inst/executables/ATR.cpp")
 
 # Load data
-load("../../data/ATR_mod.RData")
+data(toothfish)
+#load("../../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
 ATR_mod <- time_step(ATR_mod, units = "weeks")
