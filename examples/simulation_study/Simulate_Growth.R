@@ -25,7 +25,7 @@ Nareas <- 1                   # The number of areas in our simulation
 # Import library and load data (for resampling)
 require(TagGrowth)
 source("Growth_Model.R")
-load("../../data/ATR_mod.RData")
+data(toothfish)
 
 # Annual
 t0 = 0.021
@@ -112,7 +112,7 @@ for (Iscenario in scenarios)
     Nindiv <- 315
     for (Isim in 1:Ndesign)
     {
-        ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, ATR_mod = ATR_mod)
+        ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, data = toothfish)
         sim <- list(Sim = ATR_sim, Parameters = Pars)
         save(sim, file = paste0(Iscenario, "sim", Isim, ".RData"))
     }

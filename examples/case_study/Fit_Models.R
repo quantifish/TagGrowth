@@ -26,11 +26,10 @@ compile("../../inst/executables/ATR.cpp")
 
 # Load data
 data(toothfish)
-#load("../../data/ATR_mod.RData")
 
 # Change to daily/weekly estimates
-ATR_mod <- time_step(ATR_mod, units = "weeks")
-data <- ATR_mod
+toothfish <- time_step(toothfish, units = "weeks")
+data <- toothfish
 
 
 # Specify the random-effects we want to try to estimate

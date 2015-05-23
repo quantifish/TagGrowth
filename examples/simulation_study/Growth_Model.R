@@ -11,9 +11,9 @@
 #' 
 GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
                         obs_err = TRUE, tvi_err = TRUE,
-                        Pars, Nindiv, ATR_mod)
+                        Pars, Nindiv, data)
 {
-    ATR_mod <- time_step(ATR_mod, units = "weeks")
+    data <- time_step(data, units = "weeks")
     #ln_xdev=NULL; ln_ydev=NULL; obs_err=TRUE; tvi_err=TRUE
     # Simulate sex, ages at tagging and time at liberty for each individual
     #=================================================================================================
@@ -24,14 +24,14 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
         # First we are going to load in the observed data set. We are going to
         # sample things like time at liberty and age at capture and recapture
         # from this data set
-        Sex <- sample.int(ATR_mod$Sex, size = Nindiv, replace = TRUE) # (1 = female, 2 = male)
-        #Age1 <- round(sample(ATR_mod$Age1, size = Nindiv, replace = TRUE), digits = 0)
-        #Age2 <- round(sample(ATR_mod$Age2, size = Nindiv, replace = TRUE), digits = 0)
-        #Liberty <- round(sample(ATR_mod$Liberty, size = Nindiv, replace = TRUE), digits = 0)
-        #Age1 <- sample(ATR_mod$Age1, size = Nindiv, replace = TRUE)
-        #Age2 <- sample(ATR_mod$Age2, size = Nindiv, replace = TRUE)
+        Sex <- sample.int(data$Sex, size = Nindiv, replace = TRUE) # (1 = female, 2 = male)
+        #Age1 <- round(sample(data$Age1, size = Nindiv, replace = TRUE), digits = 0)
+        #Age2 <- round(sample(data$Age2, size = Nindiv, replace = TRUE), digits = 0)
+        #Liberty <- round(sample(data$Liberty, size = Nindiv, replace = TRUE), digits = 0)
+        #Age1 <- sample(data$Age1, size = Nindiv, replace = TRUE)
+        #Age2 <- sample(data$Age2, size = Nindiv, replace = TRUE)
         #Liberty <- Age2 - Age1
-        #Liberty <- sample(ATR_mod$iLiberty, size = Nindiv, replace = TRUE)
+        #Liberty <- sample(data$iLiberty, size = Nindiv, replace = TRUE)
         #Age2 <- Age1 + Liberty
         # This functions picks 2 of either Age1, Age2 or Liberty and calculates
         # the value of the third
@@ -40,9 +40,9 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
             yep <- 0
             while (yep < 1)
             {
-                Age1 <- sample(ATR_mod$Age1, size = 1, replace = TRUE)
-                Age2 <- sample(ATR_mod$Age2, size = 1, replace = TRUE)
-                Liberty <- sample(ATR_mod$Liberty, size = 1, replace = TRUE)
+                Age1 <- sample(data$Age1, size = 1, replace = TRUE)
+                Age2 <- sample(data$Age2, size = 1, replace = TRUE)
+                Liberty <- sample(data$Liberty, size = 1, replace = TRUE)
                 rnd <- sample(1:3, 1, replace = TRUE)
                 if (rnd == 1)
                 {
@@ -84,16 +84,14 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
     #=================================================================================================
     if ( TRUE )
     {
-        mu <- mean(ATR_mod$Sex - 1)
+        mu <- mean(data$Sex - 1)
         Sex <- rbinom(Nindiv, 1, mu) + 1 # (1 = female, 2 = male)
         # Fit lognormal distributions to Age1 and Liberty
         if ( TRUE )
         {
-            fit_age1 <- MASS::fitdistr(ATR_mod$Age1, "lognormal")$estimate
-            fit_age2 <- MASS::fitdistr(ATR_mod$Age2, "lognormal")$estimate
-            fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "exponential")$estimate
-            #fit_liberty <- MASS::fitdistr(ATR_mod$Liberty, "lognormal")$estimate
-            #Liberty <- rlnorm(Nindiv, fit_liberty[1], fit_liberty[2])
+            fit_age1 <- MASS::fitdistr(data$Age1, "lognormal")$estimate
+            fit_age2 <- MASS::fitdistr(data$Age2, "lognormal")$estimate
+            fit_liberty <- MASS::fitdistr(data$Liberty, "exponential")$estimate
             Age1 <- rlnorm(Nindiv, fit_age1[1], fit_age1[2])
             Age2 <- rlnorm(Nindiv, fit_age2[1], fit_age2[2])
             Liberty <- rexp(Nindiv, fit_liberty)
@@ -111,23 +109,23 @@ GrowthModel <- function(ln_xdev = NULL, ln_ydev = NULL,
     {
         png("Age2_Calc.png")
         par(mfrow = c(2,2))
-        #plot(density(ATR_mod$Age1), type = "l")
-        hist(ATR_mod$Age1, freq = FALSE)
+        #plot(density(data$Age1), type = "l")
+        hist(data$Age1, freq = FALSE)
         #for (j in 1:100) lines(density(Age1[j,]), col = 2)
         lines(density(Age1), col = 2)
-        lines(density(ATR_mod$Age1))
-        #plot(density(ATR_mod$Age2), type = "l")
-        hist(ATR_mod$Age2, freq = FALSE)
+        lines(density(data$Age1))
+        #plot(density(data$Age2), type = "l")
+        hist(data$Age2, freq = FALSE)
         #for (j in 1:100) lines(density(Age2[j,]), col = 2)
         lines(density(Age2), col = 2)
-        lines(density(ATR_mod$Age2))
-        #plot(density(ATR_mod$iLiberty), type = "l")
-        hist(ATR_mod$iLiberty, freq = FALSE)
+        lines(density(data$Age2))
+        #plot(density(data$iLiberty), type = "l")
+        hist(data$iLiberty, freq = FALSE)
         #for (j in 1:100) lines(density(Liberty[j,]), col = 2)
         lines(density(Liberty), col = 2)
-        lines(density(ATR_mod$Liberty))
+        lines(density(data$Liberty))
         plot(Age1, Age2, col = 2, pch = 3)
-        points(ATR_mod$Age1, ATR_mod$Age2)
+        points(data$Age1, data$Age2)
         dev.off()
     }
     #=================================================================================================

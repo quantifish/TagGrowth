@@ -12,7 +12,7 @@ require(TagGrowth)
 # USER SPECIFICATIONS
 # =================================================================================
 #scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
-scenarios <- c("sim_k/","sim_z/","sim_kz/")
+scenarios <- c("sim_kz/")
 mods <- c("est_none/","est_k/","est_z/","est_kz/")
 power <- c(50, 100, 250, 500) # Power analysis
 Ndesign <- 200
@@ -40,20 +40,22 @@ TmbFile <- "../../inst/executables/"
 #Isim = 4
 for (Iscenario in scenarios)
 {
-    #for (Ipow in power)
-    #{
-    for (Imod in mods)
+    for (Ipow in power)
     {
+        for (Imod in mods)
+        {
         for (Isim in 1:Ndesign)
         {
             print(paste("Starting simulation", Isim, "of", Iscenario, "using", Imod, "..."))
+            print(paste("Starting simulation", Ipow))
             dyn.load(paste0(TmbFile, dynlib("ATR")))
     
             # Data
-            #fname <- paste(Iscenario, Ipow, "/sim", Isim, ".RData", sep = "")
-            fname <- paste0(Iscenario, "sim", Isim, ".RData")
+            fname <- paste0(Iscenario, Ipow, "/sim", Isim, ".RData")
+            #fname <- paste0(Iscenario, "sim", Isim, ".RData")
             load(fname)
-            fname <- paste0(Iscenario, Imod, "sim", Isim, ".RData")
+            #fname <- paste0(Iscenario, Imod, "sim", Isim, ".RData")
+            fname <- paste0(Iscenario, Ipow, "/", Imod, "sim", Isim, ".RData")
 
             # Create the AD object
             if (Imod == "est_none/")
@@ -86,11 +88,11 @@ for (Iscenario in scenarios)
             tryCatch(doFit(), error = function(e) cat("Error in simulation", Isim, "\n"), finally = cat("Simulation", Isim, "done\n"))
             dyn.unload(paste0(TmbFile, dynlib("ATR")))
         }
-
         # Plot the estimated parameter values from all of the simulations
         #plot_simulations(paste0(Iscenario, Imod))
         #plot_simulations(paste0(Iscenario, Ipow, "/"))
         #plot_simulations(Iscenario)
+        }
     }
 }
 
