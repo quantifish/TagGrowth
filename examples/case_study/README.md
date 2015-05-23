@@ -1,7 +1,20 @@
 # Case Study - Antarctic toothfish
 
-Antarctic toothfish are large...
-
+Antarctic toothfish are large Nototheniids native to the Southern Ocean.  They
+can grow to be more than 2m in length, weighing over 100kg, and can live for up
+to 50 years of age.  The exploratory toothfish fishery in the Ross Sea region
+began in 1997 and is managed by The Commission for the Conservation of Antarctic
+Marine Living Resources (CCAMLR).  Since then the fishery has increased to about
+3000 tonnes per year.  Fishing is restricted to the summer months (December
+usually until to March), once the ice shelf recedes allowing vessels access to
+the region.  The Antarctic toothfish tagging programme was initiated in the 2001
+fishing season by New Zealand vessels involved in the fishery.  In 2004,
+toothfish tagging was made compulsory for all vessels participating in the
+fishery.  Currently toothfish are required to be double tagged at a rate of 1
+fish per tonne landed.  The tagging programme records information on the date,
+depth, location, sex, and size of each tagged/recaptured fish.  A small subset
+of the recaptured fish are aged by reading their otolith.  The otoliths are
+assumed to be aged without error, a reasonable assumption for this species.
 
 ## Methods
 

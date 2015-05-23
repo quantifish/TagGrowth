@@ -119,19 +119,30 @@ for (Iscenario in scenarios)
     
 }
 
-Iscenario <- "sim_kz/"
-lapply(file.path(Iscenario, power), dir.create)
-    for (Ipow in power)
-    {
-        Nindiv <- Ipow
-        for (Isim in 1:Ndesign)
-        {
-            ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, ATR_mod = ATR_mod)
-            sim <- list(Sim = ATR_sim, Parameters = Pars)
-            save(sim, file = paste0(Iscenario, Ipow, "/sim", Isim, ".RData"))
-            #plot_growth(ATR_sim, Isim)
-        }
-    }
 
+Iscenario <- "sim_kz/"
+#lapply(file.path(Iscenario, power), dir.create)
+for (Ipow in power)
+{
+    if (Iscenario == "sim_kz/")
+    {
+        sd_b <-   c(0.1, 0.2)
+        sd_z <-   c(0.3, 0.3)
+        sd_obs <- c(0.05, 0.05)
+    }
+    
+    # Collect up the parameters
+    Pars <- rbind(L0, bmean, sd_b, gamma, psi, sd_obs, sd_z, sd_y)
+    colnames(Pars) <- c("female", "male")
+    
+    Nindiv <- Ipow
+    for (Isim in 1:Ndesign)
+    {
+        ATR_sim <- GrowthModel(obs_err = TRUE, tvi_err = FALSE, Pars = Pars, Nindiv = Nindiv, ATR_mod = ATR_mod)
+        sim <- list(Sim = ATR_sim, Parameters = Pars)
+        save(sim, file = paste0(Iscenario, Ipow, "/sim", Isim, ".RData"))
+        #plot_growth(ATR_sim, Isim)
+    }
+}
 
 # END
