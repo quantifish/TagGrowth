@@ -11,9 +11,9 @@ require(TagGrowth)
 #=================================================================================
 # USER SPECIFICATIONS
 # =================================================================================
-scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
-#mods <- c("est_none/","est_k/","est_z/","est_kz/")
-mods <- c("est_k/","est_z/","est_kz/")
+#scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
+scenarios <- c("sim_k/","sim_z/","sim_kz/")
+mods <- c("est_none/","est_k/","est_z/","est_kz/")
 power <- c(50, 100, 250, 500) # Power analysis
 Ndesign <- 200
 
@@ -88,11 +88,11 @@ for (Iscenario in scenarios)
         }
 
         # Plot the estimated parameter values from all of the simulations
+        #plot_simulations(paste0(Iscenario, Imod))
         #plot_simulations(paste0(Iscenario, Ipow, "/"))
         #plot_simulations(Iscenario)
     }
 }
-
 
 
 

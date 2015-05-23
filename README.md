@@ -7,6 +7,7 @@ tag-recapture data where the individual fish have been aged upon recapture and a
 model for simulating growth of individual fish to test the performance of the
 estimation model.
 
+
 ## Table of contents
 
 - [Introduction](#introduction)
@@ -82,6 +83,8 @@ A simulation study based on Antarctic toothfish is done in `examples/simulation_
 
 
 ##Further reading
+
+Need tp put Shelton ref here.
 
 A Zotero (https://www.zotero.org/) bibliography is provided in `examples/TagGrowth.rdf`.
 

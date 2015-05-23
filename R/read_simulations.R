@@ -9,17 +9,23 @@ read_simulations <- function(directory)
     par.fixed <- NULL
     pdH <- NULL
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs","sd_z")
-    for (Isim in 1:100)
+    # Should read the number of files from dir to get the 200
+    for (Isim in 1:200)
     {
         fname <- paste(directory, "sim", Isim, ".RData", sep = "")
-        load(fname)
-        if ( !is.null(sim$Report$pdHess) )
+        if ( file.exists(fname) )
         {
-            if ( sim$Report$pdHess )
+            load(fname)
+            if ( !is.null(sim$Report$pdHess) )
             {
-                par.fixed <- rbind(sim$Report$value[names(sim$Report$value) %in% fixed.pars], par.fixed)
+                if ( sim$Report$pdHess )
+                {
+                    par.fixed <- rbind(sim$Report$value[names(sim$Report$value) %in% fixed.pars], par.fixed)
+                }
+                pdH <- c(sim$Report$pdHess, pdH)
+            } else {
+                pdH <- c(FALSE, pdH)
             }
-            pdH <- c(sim$Report$pdHess, pdH)
         } else {
             pdH <- c(FALSE, pdH)
         }
