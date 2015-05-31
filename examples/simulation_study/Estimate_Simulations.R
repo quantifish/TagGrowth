@@ -11,8 +11,7 @@ require(TagGrowth)
 #=================================================================================
 # USER SPECIFICATIONS
 # =================================================================================
-#scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
-scenarios <- c("sim_kz/")
+scenarios <- c("sim_none/","sim_k/","sim_z/","sim_kz/")
 mods <- c("est_none/","est_k/","est_z/","est_kz/")
 power <- c(50, 100, 250, 500) # Power analysis
 Ndesign <- 200
