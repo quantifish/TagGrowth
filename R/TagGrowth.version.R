@@ -4,5 +4,5 @@
 #'
 TagGrowth.version <- function()
 {
-    return("Version: 1.0\nCompile date: 2015-05-18\n")
+    return("Version: 1.0\nCompile date: 2015-06-03\n")
 }

@@ -5,10 +5,11 @@
 #' 
 #' @export
 #' 
-read_all_simulations <- function(directory = "", Nsims = 200)
+read_all_powers <- function(directory = "", Nsims = 200)
 {
-    scenarios <- c("sim_none","sim_k","sim_z","sim_kz")
+    scenarios <- c("sim_kz")
     mods <- c("est_none","est_k","est_z","est_kz")
+    powers <- c(50, 100, 250, 500)
     slabs <- c("none","k","z","k and z")
     fixed.pars <- c("gamma","psi","L0","bmean","sd_bdev","sd_obs","sd_z")
     sex <- c("Female","Male","Both","Female","Male","Female","Male","Female","Male","Both","Both")
@@ -21,7 +22,9 @@ read_all_simulations <- function(directory = "", Nsims = 200)
         {
             for (Ipow in mods)
             {
-                fname <- paste0(directory, Iscenario, "/", Ipow, "/sim", Isim, ".RData")
+            for (Jpow in powers)
+            {
+                fname <- paste0(directory, Iscenario, "/", Jpow, "/", Ipow, "/sim", Isim, ".RData")
                 if (file.exists(fname))
                 {
                     load(fname)
@@ -30,7 +33,7 @@ read_all_simulations <- function(directory = "", Nsims = 200)
                         if ( sim$Report$pdHess )
                         {
                             pf <- sim$Report$value[names(sim$Report$value) %in% fixed.pars]
-                            pf <- data.frame(Simulation = slabs[Iscenario == scenarios], Estimation = slabs[Ipow == mods], Parameter = names(pf), Sex = sex, Estimate = pf, Truth = NA)
+                            pf <- data.frame(Simulation = slabs[Ipow == mods], Estimation = Jpow, Parameter = names(pf), Sex = sex, Estimate = pf, Truth = NA)
                             pf$Truth[pf$Parameter == "sd_z"]                         <- sim$Parameters['sd_z',1]
                             pf$Truth[pf$Parameter == "psi"]                          <- sim$Parameters['psi',1]
                             pf$Truth[pf$Parameter == "sd_obs"]                       <- sim$Parameters['sd_obs',1]
@@ -47,12 +50,13 @@ read_all_simulations <- function(directory = "", Nsims = 200)
                     }
                 }
             }
+            }
         }
     }
 
     ord <- fixed.pars[fixed.pars %in% unique(par.fixed$Parameter)]
     par.fixed$Parameter <- factor(par.fixed$Parameter, levels = ord)
-    par.fixed$Estimation <- factor(par.fixed$Estimation, levels = slabs)
+    #par.fixed$Estimation <- factor(par.fixed$Estimation, levels = slabs)
     par.fixed$Simulation <- factor(par.fixed$Simulation, levels = slabs)
     
     return(par.fixed)
