@@ -1,0 +1,13 @@
+convert FIG1.eps FIG1.png
+convert FIG2.eps FIG2.png
+convert FIG3.eps FIG3.png
+convert FIG4.eps FIG4.png
+convert FIG5.eps FIG5.png
+convert FIG6.eps FIG6.png
+convert FIG7.eps FIG7.png
+convert FIG8.eps FIG8.png
+convert FIG9.eps FIG9.png
+convert FIG10.eps FIG10.png
+convert FIG11.eps FIG11.png
+convert FIG12.eps FIG12.png
+convert FIG13.eps FIG13.png
