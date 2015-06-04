@@ -1,0 +1,1705 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/">
+    <bib:Article rdf:about="http://dx.plos.org/10.1371/journal.pone.0076389">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1932-6203"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Brooks</foaf:surname>
+                        <foaf:givenname>Mollie E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>McCoy</foaf:surname>
+                        <foaf:givenname>Michael W.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bolker</foaf:surname>
+                        <foaf:givenname>Benjamin M.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dalby</foaf:surname>
+                        <foaf:givenname>Andrew R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <dc:title>A Method for Detecting Positive Growth Autocorrelation without Marking Individuals</dc:title>
+        <bib:pages>e76389</bib:pages>
+        <dc:date>2013-10-28</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://dx.plos.org/10.1371/journal.pone.0076389</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:00:17</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1932-6203">
+        <dc:title>PLoS ONE</dc:title>
+        <prism:volume>8</prism:volume>
+        <prism:number>10</prism:number>
+        <dc:identifier>DOI 10.1371/journal.pone.0076389</dc:identifier>
+        <dc:identifier>ISSN 1932-6203</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783615000065">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:01657836"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hordyk</foaf:surname>
+                        <foaf:givenname>Adrian R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Loneragan</foaf:surname>
+                        <foaf:givenname>Neil R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Prince</foaf:surname>
+                        <foaf:givenname>Jeremy D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>An evaluation of an iterative harvest strategy for data-poor fisheries using the length-based spawning potential ratio assessment methodology</dc:title>
+        <dc:date>1/2015</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783615000065</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:00:46</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:01657836">
+        <dc:title>Fisheries Research</dc:title>
+        <dc:identifier>DOI 10.1016/j.fishres.2014.12.018</dc:identifier>
+        <dc:identifier>ISSN 01657836</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://bioscience.oxfordjournals.org/cgi/doi/10.1641/0006-3568(2001)051[1069:DFELAR]2.0.CO;2">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0006-3568"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Larsen</foaf:surname>
+                        <foaf:givenname>David P.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kincaid</foaf:surname>
+                        <foaf:givenname>Thomas M.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Jacobs</foaf:surname>
+                        <foaf:givenname>Steven E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Urquhart</foaf:surname>
+                        <foaf:givenname>N. Scott</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Designs for Evaluating Local and Regional Scale Trends</dc:title>
+        <bib:pages>1069</bib:pages>
+        <dc:date>2001</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://bioscience.oxfordjournals.org/cgi/doi/10.1641/0006-3568(2001)051[1069:DFELAR]2.0.CO;2</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:01:37</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0006-3568">
+        <dc:title>BioScience</dc:title>
+        <prism:volume>51</prism:volume>
+        <prism:number>12</prism:number>
+        <dc:identifier>DOI 10.1641/0006-3568(2001)051[1069:DFELAR]2.0.CO;2</dc:identifier>
+        <dc:identifier>ISSN 0006-3568</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/cjfas-2013-0508">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0706-652X,%201205-7533"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Shelton</foaf:surname>
+                        <foaf:givenname>Andrew Olaf</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>James T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ward</foaf:surname>
+                        <foaf:givenname>Eric J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Feist</foaf:surname>
+                        <foaf:givenname>Blake E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cooper</foaf:surname>
+                        <foaf:givenname>Andrew</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Spatial semiparametric models improve estimates of species abundance and distribution</dc:title>
+        <bib:pages>1655-1666</bib:pages>
+        <dc:date>11/2014</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/cjfas-2013-0508</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:02:04</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0706-652X,%201205-7533">
+        <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+        <prism:volume>71</prism:volume>
+        <prism:number>11</prism:number>
+        <dc:identifier>DOI 10.1139/cjfas-2013-0508</dc:identifier>
+        <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.esajournals.org/doi/abs/10.1890/14-0739.1">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0012-9658"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>James T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Skaug</foaf:surname>
+                        <foaf:givenname>Hans J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kristensen</foaf:surname>
+                        <foaf:givenname>Kasper</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Shelton</foaf:surname>
+                        <foaf:givenname>Andrew Olaf</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ward</foaf:surname>
+                        <foaf:givenname>Eric J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Harms</foaf:surname>
+                        <foaf:givenname>John H.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Benante</foaf:surname>
+                        <foaf:givenname>James A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>The importance of spatial models for estimating the strength of density dependence</dc:title>
+        <bib:pages>141010123301009</bib:pages>
+        <dc:date>2014-10-10</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.esajournals.org/doi/abs/10.1890/14-0739.1</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:02:22</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0012-9658">
+        <dc:title>Ecology</dc:title>
+        <dc:identifier>DOI 10.1890/14-0739.1</dc:identifier>
+        <dc:identifier>ISSN 0012-9658</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://dx.plos.org/10.1371/journal.pcbi.1003828">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1553-7358"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Vincenzi</foaf:surname>
+                        <foaf:givenname>Simone</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Mangel</foaf:surname>
+                        <foaf:givenname>Marc</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Crivelli</foaf:surname>
+                        <foaf:givenname>Alain J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Munch</foaf:surname>
+                        <foaf:givenname>Stephan</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Skaug</foaf:surname>
+                        <foaf:givenname>Hans J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Levin</foaf:surname>
+                        <foaf:givenname>Simon A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <dc:title>Determining Individual Variation in Growth and Its Implication for Life-History and Population Processes Using the Empirical Bayes Method</dc:title>
+        <bib:pages>e1003828</bib:pages>
+        <dc:date>2014-9-11</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://dx.plos.org/10.1371/journal.pcbi.1003828</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:02:36</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1553-7358">
+        <dc:title>PLoS Computational Biology</dc:title>
+        <prism:volume>10</prism:volume>
+        <prism:number>9</prism:number>
+        <dc:identifier>DOI 10.1371/journal.pcbi.1003828</dc:identifier>
+        <dc:identifier>ISSN 1553-7358</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://rspb.royalsocietypublishing.org/cgi/doi/10.1098/rspb.2014.2283">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0962-8452,%201471-2954"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Biro</foaf:surname>
+                        <foaf:givenname>P. A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sampson</foaf:surname>
+                        <foaf:givenname>P.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Fishing directly selects on growth rate via behaviour: implications of growth-selection that is independent of size</dc:title>
+        <bib:pages>20142283-20142283</bib:pages>
+        <dc:date>2015-01-21</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Fishing directly selects on growth rate via behaviour</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://rspb.royalsocietypublishing.org/cgi/doi/10.1098/rspb.2014.2283</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:11:14</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0962-8452,%201471-2954">
+        <dc:title>Proceedings of the Royal Society B: Biological Sciences</dc:title>
+        <prism:volume>282</prism:volume>
+        <prism:number>1802</prism:number>
+        <dc:identifier>DOI 10.1098/rspb.2014.2283</dc:identifier>
+        <dc:identifier>ISSN 0962-8452, 1471-2954</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_11">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <dc:title>WG-SAM</dc:title><prism:volume>07/6</prism:volume>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dunn</foaf:surname>
+                        <foaf:givenname>Alistair</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hanchet</foaf:surname>
+                        <foaf:givenname>S.M.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Revised input parameters and implications for the Antarctic toothfish (&lt;i&gt;Dissostichus mawsoni&lt;/i&gt;) stock assessment in Subareas 88.1 &amp; 88.2</dc:title>
+        <dcterms:abstract>In this paper, we address a number of aspects of the model inputs and parameters of the Antarctic
+toothfish stock assessment for the Ross Sea fishery. In particular we review catch history, lengthweight
+relationships, catch-at-length and catch-at age. In addition, we report some preliminary model
+runs that investigate the sensitivity of the 2006 stock assessment to changes in these model inputs and
+parameters.
+Tree-regression methods were used to investigate the areal structure of the length distribution of
+Antarctic toothfish. While tree-regressions suggested strong evidence of a high degree of small-scale
+areal complexity, we were unable to provide a stratification that resulted in improved or consistent
+patterns in length frequencies over the duration of the fishery. Including terms for nation, vessel, or
+vessel type did not provide any additional information as these tended to be highly correlated with the
+location variables.
+The catch and CPUE indices for the Ross Sea Antarctic toothfish fishery were updated, as are some
+modelling parameters, and methods for calculating age- and length-frequencies. Most of these changes
+did not have a significant impact on the assessment results.
+We also provide an update of the numbers of fish scanned at length by New Zealand vessels, and the
+numbers of tagged fish recaptured. Inclusion of observations of the 2006 fish recaptured in 2007 had
+the greatest impact on the assessment model results. Dunn et al. (2007) noted that the locations of the
+2007 recaptures were highly aggregated and were mostly located on four key locations in the Ross Sea,
+and most had moved only short distances. This confirms the concern that the key uncertainty
+underlying the current model is the impact of movements and spatial structure in the Antarctic
+toothfish population. In particular, the level and nature of the bias from non-homogeneous mixing
+assumptions of tagged fish.</dcterms:abstract>
+        <bib:pages>1-32</bib:pages>
+        <dc:date>22/6/2014</dc:date>
+    </bib:Article>
+    <bib:Article rdf:about="#item_12">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <dc:title>WG-FSA-SAM</dc:title><prism:volume>06/8</prism:volume>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dunn</foaf:surname>
+                        <foaf:givenname>Alistair</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Horn</foaf:surname>
+                        <foaf:givenname>Peter L.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hanchet</foaf:surname>
+                        <foaf:givenname>S.M.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Revised estimates of the biological parameters for Antarctic toothfish (&lt;i&gt;Dissostichus mawsoni&lt;/i&gt;) in the Ross Sea</dc:title>
+        <bib:pages>1-14</bib:pages>
+        <dc:date>25/6/2006</dc:date>
+    </bib:Article>
+    <bib:BookSection rdf:about="urn:isbn:978-1-4612-7248-9,%20978-1-4612-1694-0">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:title>Selected Papers of Hirotugu Akaike</dc:title>
+                <dc:identifier>ISBN 978-1-4612-7248-9, 978-1-4612-1694-0</dc:identifier>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>New York, NY</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Springer New York</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Akaike</foaf:surname>
+                        <foaf:givenname>Hirotogu</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Parzen</foaf:surname>
+                        <foaf:givenname>Emanuel</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tanabe</foaf:surname>
+                        <foaf:givenname>Kunio</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kitagawa</foaf:surname>
+                        <foaf:givenname>Genshiro</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <dc:title>Information Theory and an Extension of the Maximum Likelihood Principle</dc:title>
+        <dc:date>1998</dc:date>
+        <bib:pages>199-213</bib:pages>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://link.springer.com/10.1007/978-1-4612-1694-0_15</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:21:57</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:BookSection>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f03-163">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0706-652X"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Eveson</foaf:surname>
+                        <foaf:givenname>J Paige</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Laslett</foaf:surname>
+                        <foaf:givenname>Geoff M</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Polacheck</foaf:surname>
+                        <foaf:givenname>Tom</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_15"/>
+        <dc:title>An integrated model for growth incorporating tag-recapture, length-frequency, and direct aging data</dc:title>
+        <dcterms:abstract>A maximum likelihood method for modelling fish growth is presented that integrates data from three key sources of growth information: tagrecapture studies, lengthfrequency samples from commercial catches, and direct aging data from hard-parts analyses. Previous studies have almost exclusively modelled growth using only one of these sources of information. Different data sources are often most informative about different portions of the life cycle. The development of an integrated approach allows for the different data sources to complement each other and provide more comprehensive and robust estimates of growth parameters. The integrated method is applied to data sets from southern bluefin tuna (Thunnus maccoyii) using the von Bertalanffy growth curve as well as a more sophisticated growth curve that makes a smooth transition between two von Bertalanffy curves with different growth rate parameters. The latter is found to provide a significantly better fit and supports previous findings that southern blu..., Nous présentons une méthode de vraisemblance maximale pour la modélisation de la croissance des poissons qui intègre les données provenant de trois sources importantes de renseignements sur la croissance, soit les études de marquagerecapture, les échantillons de longueursfréquences provenant des pêches commerciales et les données de détermination directe de l'âge par l'analyse des structures anatomiques dures. La plupart des études antérieures ont modélisé la croissance presque exclusivement à partir d'une seule de ces sources. Les sources différentes de données apportent souvent des informations sur des phases différentes du cycle biologique. La mise au point d'une approche intégrée permet aux différentes sources de renseignements de se compléter les unes les autres et de fournir des estimations plus complètes et plus robustes des paramètres de la croissance. Nous appliquons notre méthode intégrée à des séries de données sur le thon rouge du Sud (Thunnus maccoyii) à l'aide de la courbe de croissance de...</dcterms:abstract>
+        <bib:pages>292-306</bib:pages>
+        <dc:date>February 1, 2004</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f03-163</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:28:16</dcterms:dateSubmitted>
+        <z:libraryCatalog>NRC Research Press</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0706-652X">
+        <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+        <prism:volume>61</prism:volume>
+        <prism:number>2</prism:number>
+        <dcterms:alternative>Can. J. Fish. Aquat. Sci.</dcterms:alternative>
+        <dc:identifier>DOI 10.1139/f03-163</dc:identifier>
+        <dc:identifier>ISSN 0706-652X</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_15">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>NRC Research Press Snapshot</dc:title>
+        <dcterms:dateSubmitted>2015-02-17 06:28:16</dcterms:dateSubmitted>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f03-163#.VOLfcS7LKnI</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/F10-055">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>67</prism:volume>
+                <prism:number>7</prism:number>
+                <dc:identifier>DOI 10.1139/F10-055</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Black</foaf:surname>
+                        <foaf:givenname>Bryan A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schroeder</foaf:surname>
+                        <foaf:givenname>Isaac D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sydeman</foaf:surname>
+                        <foaf:givenname>William J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bograd</foaf:surname>
+                        <foaf:givenname>Steven J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lawson</foaf:surname>
+                        <foaf:givenname>Peter W.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Wintertime ocean conditions synchronize rockfish growth and seabird reproduction in the central California Current ecosystem</dc:title>
+        <bib:pages>1149-1158</bib:pages>
+        <dc:date>07/2010</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/F10-055</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:49:54</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="#item_17">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <dc:title>Journal of Statistical Software</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kristensen</foaf:surname>
+                        <foaf:givenname>Kasper</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nielsen</foaf:surname>
+                        <foaf:givenname>A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Berg</foaf:surname>
+                        <foaf:givenname>C.W.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Skaug</foaf:surname>
+                        <foaf:givenname>Hans J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Template Model Builder TMB</dc:title>
+        <dc:date>In press</dc:date>
+    </bib:Article>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783605001256">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <prism:volume>74</prism:volume>
+                <prism:number>1-3</prism:number>
+                <dc:identifier>DOI 10.1016/j.fishres.2005.04.004</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dubula</foaf:surname>
+                        <foaf:givenname>O.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Groeneveld</foaf:surname>
+                        <foaf:givenname>J.C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Santos</foaf:surname>
+                        <foaf:givenname>J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>van Zyl</foaf:surname>
+                        <foaf:givenname>D.L.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Brouwer</foaf:surname>
+                        <foaf:givenname>S.L.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>van den Heever</foaf:surname>
+                        <foaf:givenname>N.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>McCue</foaf:surname>
+                        <foaf:givenname>S.A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Effects of tag-related injuries and timing of tagging on growth of rock lobster, &lt;i&gt;Jasus lalandii&lt;/i&gt;</dc:title>
+        <bib:pages>1-10</bib:pages>
+        <dc:date>8/2005</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783605001256</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:55:50</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783614002227">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <prism:volume>161</prism:volume>
+                <dc:identifier>DOI 10.1016/j.fishres.2014.07.008</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Santos</foaf:surname>
+                        <foaf:givenname>Jorge</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Groeneveld</foaf:surname>
+                        <foaf:givenname>Johan C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Accounting for tag-induced growth retardation in spiny lobsters using censoring and modelling approaches</dc:title>
+        <bib:pages>166-173</bib:pages>
+        <dc:date>01/2015</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783614002227</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:56:22</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f94-027">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>51</prism:volume>
+                <prism:number>2</prism:number>
+                <dc:identifier>DOI 10.1139/f94-027</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Xiao</foaf:surname>
+                        <foaf:givenname>Yongshun</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Growth Models with Corrections for the Retardative Effects of Tagging</dc:title>
+        <bib:pages>263-267</bib:pages>
+        <dc:date>02/1994</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f94-027</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 06:57:00</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Data rdf:about="https://github.com/kaskr/adcomp">
+        <z:itemType>computerProgram</z:itemType>
+        <z:programmers>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kristensen</foaf:surname>
+                        <foaf:givenname>Kasper</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:programmers>
+        <dc:title>General random effect model builder tool inspired by ADMB</dc:title>
+        <dc:date>2014</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://github.com/kaskr/adcomp</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+    </bib:Data>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0169534712001139">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:01695347"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Wolf</foaf:surname>
+                        <foaf:givenname>Max</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Weissing</foaf:surname>
+                        <foaf:givenname>Franz J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Animal personalities: consequences for ecology and evolution</dc:title>
+        <bib:pages>452-461</bib:pages>
+        <dc:date>8/2012</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Animal personalities</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0169534712001139</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 18:56:08</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:01695347">
+        <dc:title>Trends in Ecology &amp; Evolution</dc:title>
+        <prism:volume>27</prism:volume>
+        <prism:number>8</prism:number>
+        <dc:identifier>DOI 10.1016/j.tree.2012.05.001</dc:identifier>
+        <dc:identifier>ISSN 01695347</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.pnas.org/cgi/doi/10.1073/pnas.0708159105">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0027-8424,%201091-6490"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Biro</foaf:surname>
+                        <foaf:givenname>P. A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Post</foaf:surname>
+                        <foaf:givenname>J. R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Rapid depletion of genotypes with fast growth and bold personality traits from harvested fish populations</dc:title>
+        <bib:pages>2919-2922</bib:pages>
+        <dc:date>2008-02-26</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.pnas.org/cgi/doi/10.1073/pnas.0708159105</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 18:57:23</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0027-8424,%201091-6490">
+        <dc:title>Proceedings of the National Academy of Sciences</dc:title>
+        <prism:volume>105</prism:volume>
+        <prism:number>8</prism:number>
+        <dc:identifier>DOI 10.1073/pnas.0708159105</dc:identifier>
+        <dc:identifier>ISSN 0027-8424, 1091-6490</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.nature.com/doifinder/10.1038/nature10240">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0028-0836,%201476-4687"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Armstrong</foaf:surname>
+                        <foaf:givenname>Jonathan B.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schindler</foaf:surname>
+                        <foaf:givenname>Daniel E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Excess digestive capacity in predators reflects a life of feast and famine</dc:title>
+        <bib:pages>84-87</bib:pages>
+        <dc:date>2011-7-6</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nature.com/doifinder/10.1038/nature10240</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 18:58:11</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0028-0836,%201476-4687">
+        <dc:title>Nature</dc:title>
+        <prism:volume>476</prism:volume>
+        <prism:number>7358</prism:number>
+        <dc:identifier>DOI 10.1038/nature10240</dc:identifier>
+        <dc:identifier>ISSN 0028-0836, 1476-4687</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f05-209">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>63</prism:volume>
+                <prism:number>1</prism:number>
+                <dc:identifier>DOI 10.1139/f05-209</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Jørgensen</foaf:surname>
+                        <foaf:givenname>Christian</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fiksen</foaf:surname>
+                        <foaf:givenname>Øyvind</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>State-dependent energy allocation in cod ( &lt;i&gt;Gadus morhua&lt;/i&gt; )</dc:title>
+        <bib:pages>186-199</bib:pages>
+        <dc:date>01/2006</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f05-209</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 19:01:01</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.jstor.org/stable/info/10.1086/670198">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:00030147,%2015375323"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Shelton</foaf:surname>
+                        <foaf:givenname>Andrew O.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Satterthwaite</foaf:surname>
+                        <foaf:givenname>William H.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Beakes</foaf:surname>
+                        <foaf:givenname>Michael P.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Munch</foaf:surname>
+                        <foaf:givenname>Stephan B.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sogard</foaf:surname>
+                        <foaf:givenname>Susan M.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Mangel</foaf:surname>
+                        <foaf:givenname>Marc</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Separating Intrinsic and Environmental Contributions to Growth and Their Population Consequences</dc:title>
+        <bib:pages>799-814</bib:pages>
+        <dc:date>06/2013</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.jstor.org/stable/info/10.1086/670198</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 19:06:25</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:00030147,%2015375323">
+        <dc:title>The American Naturalist</dc:title>
+        <prism:volume>181</prism:volume>
+        <prism:number>6</prism:number>
+        <dc:identifier>DOI 10.1086/670198</dc:identifier>
+        <dc:identifier>ISSN 00030147, 15375323</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S016578361200269X">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <prism:volume>142</prism:volume>
+                <dc:identifier>DOI 10.1016/j.fishres.2012.08.021</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Taylor</foaf:surname>
+                        <foaf:givenname>Ian G.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Methot</foaf:surname>
+                        <foaf:givenname>Richard D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Hiding or dead? A computationally efficient model of selective fisheries mortality</dc:title>
+        <bib:pages>75-85</bib:pages>
+        <dc:date>05/2013</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Hiding or dead?</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S016578361200269X</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 19:09:52</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.tandfonline.com/doi/abs/10.1080/00288330.1988.9516276">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0028-8330,%201175-8805"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Francis</foaf:surname>
+                        <foaf:givenname>R. I. C. C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Maximum likelihood estimation of growth and growth variability from tagging data</dc:title>
+        <bib:pages>43-51</bib:pages>
+        <dc:date>03/1988</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.tandfonline.com/doi/abs/10.1080/00288330.1988.9516276</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:51:15</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0028-8330,%201175-8805">
+        <dc:title>New Zealand Journal of Marine and Freshwater Research</dc:title>
+        <prism:volume>22</prism:volume>
+        <prism:number>1</prism:number>
+        <dc:identifier>DOI 10.1080/00288330.1988.9516276</dc:identifier>
+        <dc:identifier>ISSN 0028-8330, 1175-8805</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://projecteuclid.org/Dienst/getRecord?id=euclid.aos/1112967698/">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0090-5364"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Gelman</foaf:surname>
+                        <foaf:givenname>Andrew</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Analysis of variance? why it is more important than ever</dc:title>
+        <bib:pages>1-53</bib:pages>
+        <dc:date>02/2005</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Analysis of variance?</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://projecteuclid.org/Dienst/getRecord?id=euclid.aos/1112967698/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:52:22</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0090-5364">
+        <dc:title>The Annals of Statistics</dc:title>
+        <prism:volume>33</prism:volume>
+        <prism:number>1</prism:number>
+        <dc:identifier>DOI 10.1214/009053604000001048</dc:identifier>
+        <dc:identifier>ISSN 0090-5364</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://www.int-res.com/abstracts/meps/v413/p125-136/">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0171-8630,%201616-1599"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Gertseva</foaf:surname>
+                        <foaf:givenname>Vv</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cope</foaf:surname>
+                        <foaf:givenname>Jm</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Matson</foaf:surname>
+                        <foaf:givenname>Se</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Growth variability in the splitnose rockfish Sebastes diploproa of the northeast Pacific Ocean: pattern revisited</dc:title>
+        <bib:pages>125-136</bib:pages>
+        <dc:date>2010-08-26</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Growth variability in the splitnose rockfish Sebastes diploproa of the northeast Pacific Ocean</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.int-res.com/abstracts/meps/v413/p125-136/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:53:19</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0171-8630,%201616-1599">
+        <dc:title>Marine Ecology Progress Series</dc:title>
+        <prism:volume>413</prism:volume>
+        <dc:identifier>DOI 10.3354/meps08719</dc:identifier>
+        <dc:identifier>ISSN 0171-8630, 1616-1599</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <dc:identifier>DOI 10.1016/j.fishres.2014.11.007</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Punt</foaf:surname>
+                        <foaf:givenname>André E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Haddon</foaf:surname>
+                        <foaf:givenname>Malcolm</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>McGarvey</foaf:surname>
+                        <foaf:givenname>Richard</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Estimating growth within size-structured fishery stock assessments: What is the state of the art and what does the future look like?</dc:title>
+        <dc:date>12/2014</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Estimating growth within size-structured fishery stock assessments</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:56:43</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f80-031">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>37</prism:volume>
+                <prism:number>2</prism:number>
+                <dc:identifier>DOI 10.1139/f80-031</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sainsbury</foaf:surname>
+                        <foaf:givenname>K. J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Effect of Individual Variability on the von Bertalanffy Growth Equation</dc:title>
+        <bib:pages>241-247</bib:pages>
+        <dc:date>02/1980</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f80-031</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 16:57:38</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1054-3139,%201095-9289"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>J. T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Minto</foaf:surname>
+                        <foaf:givenname>C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Mixed effects: a unifying framework for statistical modelling in fisheries biology</dc:title>
+        <dc:date>2014-12-04</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Mixed effects</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 17:02:56</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1054-3139,%201095-9289">
+        <dc:title>ICES Journal of Marine Science</dc:title>
+        <dc:identifier>DOI 10.1093/icesjms/fsu213</dc:identifier>
+        <dc:identifier>ISSN 1054-3139, 1095-9289</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783612003293">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <prism:volume>142</prism:volume>
+                <dc:identifier>DOI 10.1016/j.fishres.2012.10.012</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Methot</foaf:surname>
+                        <foaf:givenname>Richard D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Wetzel</foaf:surname>
+                        <foaf:givenname>Chantell R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Stock synthesis: A biological and statistical framework for fish stock assessment and fishery management</dc:title>
+        <bib:pages>86-99</bib:pages>
+        <dc:date>05/2013</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Stock synthesis</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783612003293</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 19:37:06</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:BookSection rdf:about="#item_35">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+               <dc:title>Fisheries for Global Welfare and Environment</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Tokyo</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>TerraPub</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Punt</foaf:surname>
+                        <foaf:givenname>André E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tsukamoto</foaf:surname>
+                        <foaf:givenname>K.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kawamura</foaf:surname>
+                        <foaf:givenname>T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Takeuchi</foaf:surname>
+                        <foaf:givenname>T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Beard</foaf:surname>
+                        <foaf:givenname>T.D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kaiser</foaf:surname>
+                        <foaf:givenname>M.J.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <dc:title>Refocusing stock assessment in support of policy evaluation</dc:title>
+        <dc:date>2008</dc:date>
+        <bib:pages>139-152</bib:pages>
+    </bib:BookSection>
+    <bib:Article rdf:about="http://icesjms.oxfordjournals.org/cgi/doi/10.1006/jmsc.2000.0737">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:10543139"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sainsbury</foaf:surname>
+                        <foaf:givenname>K</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Design of operational management strategies for achieving fishery ecosystem objectives</dc:title>
+        <bib:pages>731-741</bib:pages>
+        <dc:date>06/2000</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://icesjms.oxfordjournals.org/cgi/doi/10.1006/jmsc.2000.0737</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-02-17 20:17:49</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:10543139">
+        <dc:title>ICES Journal of Marine Science</dc:title>
+        <prism:volume>57</prism:volume>
+        <prism:number>3</prism:number>
+        <dc:identifier>DOI 10.1006/jmsc.2000.0737</dc:identifier>
+        <dc:identifier>ISSN 10543139</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_37">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>James T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Spatio-temporal variation in fish condition is not consistently explained by density, temperature, or season for Northeast Pacific groundfishes</dc:title>
+        <dc:date>In press</dc:date>
+    </bib:Article>
+    <bib:Article rdf:about="#item_38">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal><dc:title>Fisheries Research</dc:title></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>James T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Minte-Vera</foaf:surname>
+                        <foaf:givenname>C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Relative magnitude of cohort, age, and year effects on size at age of exploited marine fishes</dc:title>
+        <dc:date>In press</dc:date>
+    </bib:Article>
+    <bib:Article rdf:about="#item_39">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Stawitz</foaf:surname>
+                        <foaf:givenname>C.C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Essington</foaf:surname>
+                        <foaf:givenname>T.E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Branch</foaf:surname>
+                        <foaf:givenname>T.A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Haltuch</foaf:surname>
+                        <foaf:givenname>M.A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hollowed</foaf:surname>
+                        <foaf:givenname>A.B.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Spencer</foaf:surname>
+                        <foaf:givenname>P.D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>A state-space approach for measuring growth variation and application to North Pacific groundfish</dc:title>
+        <dc:date>In review</dc:date>
+    </bib:Article>
+    <bib:Data rdf:about="urn:isbn:3-900051-07-0">
+        <z:itemType>computerProgram</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Vienna, Austria</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>R Foundation for Statistical Computing</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <z:programmers>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                       <foaf:surname>R Core Development Team</foaf:surname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:programmers>
+        <dc:title>R: A Language and Environment for Statistical Computing</dc:title>
+        <dc:date>2013</dc:date>
+        <dc:identifier>ISBN 3-900051-07-0</dc:identifier>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://www.R-project.org/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+    </bib:Data>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f05-058">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>62</prism:volume>
+                <prism:number>6</prism:number>
+                <dc:identifier>DOI 10.1139/f05-058</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Snover</foaf:surname>
+                        <foaf:givenname>Melissa L</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Watters</foaf:surname>
+                        <foaf:givenname>George M</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Mangel</foaf:surname>
+                        <foaf:givenname>Marc</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Interacting effects of behavior and oceanography on growth in salmonids with examples for coho salmon ( &lt;i&gt;Oncorhynchus kisutch&lt;/i&gt; )</dc:title>
+        <bib:pages>1219-1230</bib:pages>
+        <dc:date>06/2005</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f05-058</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-06-03 20:24:47</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/f06-179">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>64</prism:volume>
+                <prism:number>2</prism:number>
+                <dc:identifier>DOI 10.1139/f06-179</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cope</foaf:surname>
+                        <foaf:givenname>Jason M</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Punt</foaf:surname>
+                        <foaf:givenname>André E</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Admitting ageing error when fitting growth curves: an example using the von Bertalanffy growth function with random effects</dc:title>
+        <bib:pages>205-218</bib:pages>
+        <dc:date>02/2007</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Admitting ageing error when fitting growth curves</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/f06-179</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-06-03 20:25:55</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.nrcresearchpress.com/doi/abs/10.1139/F08-111">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Canadian Journal of Fisheries and Aquatic Sciences</dc:title>
+                <prism:volume>65</prism:volume>
+                <prism:number>9</prism:number>
+                <dc:identifier>DOI 10.1139/F08-111</dc:identifier>
+                <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Punt</foaf:surname>
+                        <foaf:givenname>André E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Smith</foaf:surname>
+                        <foaf:givenname>David C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>KrusicGolub</foaf:surname>
+                        <foaf:givenname>Kyne</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Robertson</foaf:surname>
+                        <foaf:givenname>Simon</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Quantifying age-reading error for use in fisheries stock assessments, with application to species in Australia’s southern and eastern scalefish and shark fishery</dc:title>
+        <bib:pages>1991-2005</bib:pages>
+        <dc:date>09/2008</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.nrcresearchpress.com/doi/abs/10.1139/F08-111</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-06-03 20:26:34</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+</rdf:RDF>
