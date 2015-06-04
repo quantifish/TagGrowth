@@ -23,6 +23,178 @@ d3
 
 
 ################################################################################
+# FIG1
+plot_theme_b <- function (base_size = 12, base_family = "") 
+{
+    theme_grey(base_size = base_size, base_family = base_family) %+replace% 
+        theme(axis.text = element_text(size = rel(1)), axis.title = element_text(size = rel(1.2)), 
+            axis.ticks = element_line(colour = "black"), strip.text = element_text(size = rel(1.2)), 
+            legend.key = element_rect(colour = "grey80"), panel.background = element_rect(fill = "white", 
+                colour = NA), panel.border = element_rect(fill = NA, 
+                colour = "grey50"), panel.grid.major = element_line(colour = "grey90", 
+                size = 0.2), panel.grid.minor = element_line(colour = "grey98", 
+                size = 0.5), strip.background = element_rect(fill = "grey80", 
+                colour = "grey50", size = 0.2))
+}
+
+# All at once
+d1 <- d[!d$Parameter == "psi",]
+d1$Estimate[d1$Parameter == "sd_z" & d1$Estimation %in% c("none","k")] <- NA
+d1$Estimate[d1$Parameter == "sd_bdev" & d1$Estimation %in% c("none","z")] <- NA
+d1$Parameter <- as.character(d1$Parameter)
+d1$Simulation <- as.character(d1$Simulation)
+
+# Linf
+psi <- 0.000001
+d1$Estimate[d1$Parameter == "gamma"] <- (d1$Estimate[d1$Parameter == "gamma"] * d1$Estimate[d1$Parameter == "bmean"]^psi) / d1$Estimate[d1$Parameter == "bmean"]
+d1$Truth[d1$Parameter == "gamma" & d1$Sex == "Female"] <- 180.2
+d1$Truth[d1$Parameter == "gamma" & d1$Sex == "Male"] <- 169.07
+d1 <- d1[!(d1$Parameter == "gamma" & d1$Estimate > 400),]
+
+# mu_k
+d1$Estimate[d1$Parameter == "bmean"] <- d1$Estimate[d1$Parameter == "bmean"] * 52.15 # Convert to years-1
+d1$Truth[d1$Parameter == "bmean"] <- d1$Truth[d1$Parameter == "bmean"] * 52.15       # Convert to years-1
+
+d1$Simulation[d1$Simulation == "k and z"] <- "k~and~z"
+
+d1$Parameter[d1$Parameter == "gamma"] <- "mu[L[infinity]]"
+d1$Parameter[d1$Parameter == "bmean"] <- "mu[k]"
+d1$Parameter[d1$Parameter == "L0"] <- "L[0]"
+d1$Parameter[d1$Parameter == "sd_bdev"] <- "sigma[k]"
+d1$Parameter[d1$Parameter == "sd_z"] <- "sigma[z]"
+d1$Parameter[d1$Parameter == "sd_obs"] <- "c[obs]"
+
+dl <- aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = length)
+dl$x <- aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = mean)$Estimate
+dl$x[dl$Parameter == "c[obs]"] <- 0.02
+dl$Estimate[dl$Parameter != "c[obs]"] <- ""
+bit <- dl[dl$Parameter == "c[obs]",]
+bit$Sex <- "Male"
+bit$Estimate <- ""
+bit$x <- 0.01
+dl <- rbind(dl, bit)
+
+d1$Parameter <- factor(d1$Parameter, levels = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
+d1$Simulation <- factor(d1$Simulation, levels = c("none", "k", "z", "k~and~z"))
+truth <- aggregate(Truth ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = max)
+
+dsim <- d1
+
+p <- ggplot(data = d1, aes(x = Estimation, y = Estimate)) +
+    geom_hline(data = truth, aes(colour = factor(Sex), yintercept = Truth), size = 1, linetype = 3) +
+    facet_grid(Parameter ~ Simulation, scales = "free", labeller = label_parsed) +
+    #geom_jitter(aes(color = factor(Sex))) +
+    #geom_point(aes(color = factor(Sex))) +
+    #geom_boxplot(aes(fill = factor(Sex))) +
+    geom_violin(aes(fill = factor(Sex))) +
+    geom_text(data = dl, size = 4, aes(y = x, label = Estimate)) + 
+    xlab("\nEstimation model") + ylab("Estimate\n") + plot_theme_b() +
+    scale_fill_discrete(name = "Sex") + theme(legend.position = "right")
+
+z <- ggplot_gtable(ggplot_build(p)) # get gtable object
+dev.off()
+# add label for top strip
+z <- gtable_add_rows(z, z$heights[[3]], 2)
+z <- gtable_add_grob(x = z, 
+  grobs = list(rectGrob(gp = gpar(col = NA, fill = "white")),
+  textGrob("Simulation model", gp = gpar(fontsize = 14))),
+  t=3, l=4, b=3, r=10, name = paste(runif(2)))
+z <- gtable_add_cols(z, unit(1/8, "line"), 7) # add margins
+z <- gtable_add_rows(z, unit(1/8, "line"), 3)
+z$layout$clip[z$layout$name=="panel"] <- "off" # Code to override clipping
+
+cairo_ps("FIG1.eps", width = psize[1], height = psize[2])
+grid.draw(z)
+dev.off()
+################################################################################
+
+
+# Power analysis
+d <- read_all_powers()
+
+################################################################################
+# FIG2
+# All at once
+d1 <- d[!d$Parameter == "psi",]
+names(d1) <- c("Estimation", "Simulation", "Parameter", "Sex", "Estimate", "Truth")
+d1$Estimate[d1$Parameter == "sd_z" & d1$Estimation %in% c("none","k")] <- NA
+d1$Estimate[d1$Parameter == "sd_bdev" & d1$Estimation %in% c("none","z")] <- NA
+d1$Estimation <- as.character(d1$Estimation)
+d1$Parameter <- as.character(d1$Parameter)
+d1$Simulation <- as.character(d1$Simulation)
+
+# Linf
+psi <- 0.000001
+d1$Estimate[d1$Parameter == "gamma"] <- (d1$Estimate[d1$Parameter == "gamma"] * d1$Estimate[d1$Parameter == "bmean"]^psi) / d1$Estimate[d1$Parameter == "bmean"]
+d1$Truth[d1$Parameter == "gamma" & d1$Sex == "Female"] <- 180.2
+d1$Truth[d1$Parameter == "gamma" & d1$Sex == "Male"] <- 169.07
+d1 <- d1[!(d1$Parameter == "gamma" & d1$Estimate > 400),]
+d1 <- d1[!(d1$Parameter == "L0" & d1$Estimate < -200),]
+
+# mu_k
+d1$Estimate[d1$Parameter == "bmean"] <- d1$Estimate[d1$Parameter == "bmean"] * 52.15 # Convert to years-1
+d1$Truth[d1$Parameter == "bmean"] <- d1$Truth[d1$Parameter == "bmean"] * 52.15       # Convert to years-1
+
+d1$Parameter[d1$Parameter == "gamma"] <- "mu[L[infinity]]"
+d1$Parameter[d1$Parameter == "bmean"] <- "mu[k]"
+d1$Parameter[d1$Parameter == "L0"] <- "L[0]"
+d1$Parameter[d1$Parameter == "sd_bdev"] <- "sigma[k]"
+d1$Parameter[d1$Parameter == "sd_z"] <- "sigma[z]"
+d1$Parameter[d1$Parameter == "sd_obs"] <- "c[obs]"
+
+dl <- aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = length)
+dl$x <- aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = mean)$Estimate
+dl$x[dl$Parameter == "c[obs]"] <- 0.02
+dl$Estimate[dl$Parameter != "c[obs]"] <- ""
+bit <- dl[dl$Parameter == "c[obs]",]
+bit$Sex <- "Male"
+bit$Estimate <- ""
+bit$x <- 0.01
+dl <- rbind(dl, bit)
+
+d1$Parameter <- factor(d1$Parameter, levels = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
+d1$Simulation <- factor(d1$Simulation, levels = c("50", "100", "250", "500"))
+d1$Estimation <- factor(d1$Estimation, levels = c("none", "k", "z", "k and z"))
+truth <- aggregate(Truth ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = max)
+
+dpow <- d1
+
+p <- ggplot(data = d1, aes(x = Estimation, y = Estimate)) +
+    geom_hline(data = truth, aes(colour = factor(Sex), yintercept = Truth), size = 1, linetype = 3) +
+    facet_grid(Parameter ~ Simulation, scales = "free", labeller = label_parsed) +
+    #geom_jitter(aes(color = factor(Sex))) +
+    #geom_point(aes(color = factor(Sex))) +
+    #geom_boxplot(aes(fill = factor(Sex))) +
+    geom_violin(aes(fill = factor(Sex))) +
+    geom_text(data = dl, size = 4, aes(y = x, label = Estimate)) + 
+    xlab("\nEstimation model") + ylab("Estimate\n") + plot_theme_b() +
+    scale_fill_discrete(name = "Sex") + theme(legend.position = "right")
+print(p)
+
+z <- ggplot_gtable(ggplot_build(p)) # get gtable object
+dev.off()
+# add label for top strip
+z <- gtable_add_rows(z, z$heights[[3]], 2)
+z <- gtable_add_grob(x = z, 
+  grobs = list(rectGrob(gp = gpar(col = NA, fill = "white")),
+  textGrob("Sample size", gp = gpar(fontsize = 14))),
+  t=3, l=4, b=3, r=10, name = paste(runif(2)))
+z <- gtable_add_cols(z, unit(1/8, "line"), 7) # add margins
+z <- gtable_add_rows(z, unit(1/8, "line"), 3)
+z$layout$clip[z$layout$name=="panel"] <- "off" # Code to override clipping
+
+cairo_ps("FIG2.eps", width = psize[1], height = psize[2])
+grid.draw(z)
+dev.off()
+################################################################################
+
+
+
+
+
+
+
+################################################################################
 # mu_k - fig. 1
 d1 <- subset(d, subset = d$Parameter == "bmean")
 d1$Estimate <- d1$Estimate * 52.15 # Convert to years-1
