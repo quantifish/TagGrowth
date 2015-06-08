@@ -1,6 +1,5 @@
 require(TagGrowth)
 
-d <- read_all_simulations()
 
 psize <- c(12, 8)
 
@@ -36,6 +35,8 @@ plot_theme_b <- function (base_size = 12, base_family = "")
                 size = 0.5), strip.background = element_rect(fill = "grey80", 
                 colour = "grey50", size = 0.2))
 }
+
+d <- read_all_simulations()
 
 # All at once
 d1 <- d[!d$Parameter == "psi",]
@@ -74,6 +75,19 @@ bit$Estimate <- ""
 bit$x <- 0.01
 dl <- rbind(dl, bit)
 
+dlab <- expand.grid(Simulation = c("none", "k", "z", "k~and~z"),
+                    Parameter = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
+dlab$Estimation <- "none"
+dlab$Sex <- "Male"
+dlab$Label <- LETTERS[1:nrow(dlab)]
+dlab$Pos <- 0.05
+dlab$Pos[dlab$Parameter == "mu[k]"] <- 0.13
+dlab$Pos[dlab$Parameter == "mu[L[infinity]]"] <- 290
+dlab$Pos[dlab$Parameter == "L[0]"] <- 42
+dlab$Pos[dlab$Parameter == "sigma[k]"] <- 0.27
+dlab$Pos[dlab$Parameter == "sigma[z]"] <- 0.63
+dlab$Pos[dlab$Parameter == "c[obs]"] <- 0.104
+
 d1$Parameter <- factor(d1$Parameter, levels = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
 d1$Simulation <- factor(d1$Simulation, levels = c("none", "k", "z", "k~and~z"))
 truth <- aggregate(Truth ~ Sex + Parameter + Estimation + Simulation, data = d1, FUN = max)
@@ -88,6 +102,7 @@ p <- ggplot(data = d1, aes(x = Estimation, y = Estimate)) +
     #geom_boxplot(aes(fill = factor(Sex))) +
     geom_violin(aes(fill = factor(Sex))) +
     geom_text(data = dl, size = 4, aes(y = x, label = Estimate)) + 
+    geom_text(data = dlab, size = 4, aes(x = 0.6, y = Pos, label = Label, group = NULL)) + 
     xlab("\nEstimation model") + ylab("Estimate\n") + plot_theme_b() +
     scale_fill_discrete(name = "Sex") + theme(legend.position = "right")
 
@@ -97,8 +112,7 @@ dev.off()
 z <- gtable_add_rows(z, z$heights[[3]], 2)
 z <- gtable_add_grob(x = z, 
   grobs = list(rectGrob(gp = gpar(col = NA, fill = "white")),
-  textGrob("Simulation model", gp = gpar(fontsize = 14))),
-  t=3, l=4, b=3, r=10, name = paste(runif(2)))
+               textGrob("Simulation model", gp = gpar(fontsize = 14))), t=3, l=4, b=3, r=10, name = paste(runif(2)))
 z <- gtable_add_cols(z, unit(1/8, "line"), 7) # add margins
 z <- gtable_add_rows(z, unit(1/8, "line"), 3)
 z$layout$clip[z$layout$name=="panel"] <- "off" # Code to override clipping
@@ -152,6 +166,19 @@ bit$Estimate <- ""
 bit$x <- 0.01
 dl <- rbind(dl, bit)
 
+dlab <- expand.grid(Simulation = c("50", "100", "250", "500"),
+                    Parameter = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
+dlab$Estimation <- "none"
+dlab$Sex <- "Male"
+dlab$Label <- LETTERS[1:nrow(dlab)]
+dlab$Pos <- 0.05
+dlab$Pos[dlab$Parameter == "mu[k]"] <- 0.305
+dlab$Pos[dlab$Parameter == "mu[L[infinity]]"] <- 370
+dlab$Pos[dlab$Parameter == "L[0]"] <- 43
+dlab$Pos[dlab$Parameter == "sigma[k]"] <- 0.373
+dlab$Pos[dlab$Parameter == "sigma[z]"] <- 0.63
+dlab$Pos[dlab$Parameter == "c[obs]"] <- 0.1125
+
 d1$Parameter <- factor(d1$Parameter, levels = c("mu[k]", "mu[L[infinity]]", "L[0]", "sigma[k]", "sigma[z]", "c[obs]"))
 d1$Simulation <- factor(d1$Simulation, levels = c("50", "100", "250", "500"))
 d1$Estimation <- factor(d1$Estimation, levels = c("none", "k", "z", "k and z"))
@@ -167,6 +194,7 @@ p <- ggplot(data = d1, aes(x = Estimation, y = Estimate)) +
     #geom_boxplot(aes(fill = factor(Sex))) +
     geom_violin(aes(fill = factor(Sex))) +
     geom_text(data = dl, size = 4, aes(y = x, label = Estimate)) + 
+    geom_text(data = dlab, size = 4, aes(x = 0.6, y = Pos, label = Label, group = NULL)) + 
     xlab("\nEstimation model") + ylab("Estimate\n") + plot_theme_b() +
     scale_fill_discrete(name = "Sex") + theme(legend.position = "right")
 print(p)
@@ -176,9 +204,7 @@ dev.off()
 # add label for top strip
 z <- gtable_add_rows(z, z$heights[[3]], 2)
 z <- gtable_add_grob(x = z, 
-  grobs = list(rectGrob(gp = gpar(col = NA, fill = "white")),
-  textGrob("Sample size", gp = gpar(fontsize = 14))),
-  t=3, l=4, b=3, r=10, name = paste(runif(2)))
+  grobs = list(rectGrob(gp = gpar(col = NA, fill = "white")), textGrob("Sample size", gp = gpar(fontsize = 14))), t=3, l=4, b=3, r=10, name = paste(runif(2)))
 z <- gtable_add_cols(z, unit(1/8, "line"), 7) # add margins
 z <- gtable_add_rows(z, unit(1/8, "line"), 3)
 z$layout$clip[z$layout$name=="panel"] <- "off" # Code to override clipping
