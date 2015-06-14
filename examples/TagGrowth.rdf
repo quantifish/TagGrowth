@@ -8,7 +8,7 @@
  xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
  xmlns:vcard="http://nwalsh.com/rdf/vCard#"
  xmlns:link="http://purl.org/rss/1.0/modules/link/">
-    <bib:Article rdf:about="#item_50">
+    <bib:Article rdf:about="#item_3">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
            <bib:Journal></bib:Journal>
@@ -144,7 +144,7 @@
         <dc:identifier>DOI 10.1139/F10-055</dc:identifier>
         <dc:identifier>ISSN 0706-652X, 1205-7533</dc:identifier>
     </bib:Journal>
-    <bib:Article rdf:about="#item_53">
+    <bib:Article rdf:about="#item_6">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
             <bib:Journal>
@@ -372,7 +372,7 @@
         <dc:identifier>DOI 10.1016/j.fishres.2005.04.004</dc:identifier>
         <dc:identifier>ISSN 01657836</dc:identifier>
     </bib:Journal>
-    <bib:Article rdf:about="#item_59">
+    <bib:Article rdf:about="#item_19">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
            <bib:Journal><dc:title>Fisheries Research</dc:title></bib:Journal>
@@ -675,7 +675,7 @@
         <dcterms:dateSubmitted>2015-02-17 16:57:38</dcterms:dateSubmitted>
         <z:libraryCatalog>CrossRef</z:libraryCatalog>
     </bib:Article>
-    <bib:BookSection rdf:about="#item_67">
+    <bib:BookSection rdf:about="#item_38">
         <z:itemType>bookSection</z:itemType>
         <dcterms:isPartOf>
             <bib:Book>
@@ -1072,7 +1072,7 @@
         <dcterms:dateSubmitted>2015-02-17 19:09:52</dcterms:dateSubmitted>
         <z:libraryCatalog>CrossRef</z:libraryCatalog>
     </bib:Article>
-    <bib:Article rdf:about="#item_77">
+    <bib:Article rdf:about="#item_57">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
             <bib:Journal>
@@ -1259,7 +1259,7 @@ assumptions of tagged fish.</dcterms:abstract>
         <dcterms:dateSubmitted>2015-06-08 08:32:07</dcterms:dateSubmitted>
         <z:libraryCatalog>CrossRef</z:libraryCatalog>
     </bib:Article>
-    <bib:Article rdf:about="#item_81">
+    <bib:Article rdf:about="#item_73">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
             <bib:Journal>
@@ -1535,7 +1535,6 @@ assumptions of tagged fish.</dcterms:abstract>
             </rdf:Seq>
         </bib:authors>
         <dc:title>Fishing directly selects on growth rate via behaviour: implications of growth-selection that is independent of size</dc:title>
-        <bib:pages>20142283-20142283</bib:pages>
         <dc:date>2015-01-21</dc:date>
         <z:language>en</z:language>
         <z:shortTitle>Fishing directly selects on growth rate via behaviour</z:shortTitle>
@@ -1550,7 +1549,7 @@ assumptions of tagged fish.</dcterms:abstract>
     <bib:Journal rdf:about="urn:issn:0962-8452,%201471-2954">
         <dc:title>Proceedings of the Royal Society B: Biological Sciences</dc:title>
         <prism:volume>282</prism:volume>
-        <prism:number>1802</prism:number>
+        <prism:number>20142283</prism:number>
         <dc:identifier>DOI 10.1098/rspb.2014.2283</dc:identifier>
         <dc:identifier>ISSN 0962-8452, 1471-2954</dc:identifier>
     </bib:Journal>
@@ -1661,7 +1660,7 @@ assumptions of tagged fish.</dcterms:abstract>
                 </rdf:li>
             </rdf:Seq>
         </bib:editors>
-        <dc:title>A Method for Detecting Positive Growth Autocorrelation without Marking Individuals</dc:title>
+        <dc:title>A method for detecting positive growth autocorrelation without marking individuals</dc:title>
         <bib:pages>e76389</bib:pages>
         <dc:date>2013-10-28</dc:date>
         <z:language>en</z:language>
