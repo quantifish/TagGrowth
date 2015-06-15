@@ -1,24 +1,12 @@
 require(TagGrowth)
 
+d <- read_all_simulations()
 
 psize <- c(12, 8)
 
 # Summary
 aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d, FUN = length)
 aggregate(Estimate ~ Sex + Parameter + Estimation + Simulation, data = d, FUN = median)
-
-# SDs
-d1 <- subset(d, subset = d$Parameter == "L0")
-d2 <- subset(d1, subset = d1$Simulation == "k and z")
-aggregate(Estimate ~ Sex + Estimation, data = d2, FUN = sd)
-
-
-d1 <- subset(d, subset = d$Parameter == "bmean")
-d1$Estimate <- d1$Estimate * 52.15 # Convert to years-1
-d1$Truth <- d1$Truth * 52.15       # Convert to years-1
-d2 <- subset(d1, subset = d$Sex == "Male")
-d3 <- subset(d2, subset = d$Estimation == "z")
-d3
 
 
 ################################################################################
@@ -36,7 +24,6 @@ plot_theme_b <- function (base_size = 12, base_family = "")
                 colour = "grey50", size = 0.2))
 }
 
-d <- read_all_simulations()
 
 # All at once
 d1 <- d[!d$Parameter == "psi",]
@@ -125,6 +112,21 @@ dev.off()
 
 # Power analysis
 d <- read_all_powers()
+
+# SDs
+# L0 for kz model
+d1 <- subset(d, subset = d$Parameter == "L0")
+d2 <- subset(d1, subset = d1$Simulation == "k and z")
+aggregate(Estimate ~ Sex + Estimation, data = d2, FUN = sd)
+
+
+d1 <- subset(d, subset = d$Parameter == "bmean")
+d1$Estimate <- d1$Estimate * 52.15 # Convert to years-1
+d1$Truth <- d1$Truth * 52.15       # Convert to years-1
+d2 <- subset(d1, subset = d$Sex == "Male")
+d3 <- subset(d2, subset = d$Estimation == "z")
+d3
+
 
 ################################################################################
 # FIG2
