@@ -920,42 +920,6 @@
         <dcterms:dateSubmitted>2015-02-17 06:57:00</dcterms:dateSubmitted>
         <z:libraryCatalog>CrossRef</z:libraryCatalog>
     </bib:Article>
-    <bib:Article rdf:about="http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213">
-        <z:itemType>journalArticle</z:itemType>
-        <dcterms:isPartOf rdf:resource="urn:issn:1054-3139,%201095-9289"/>
-        <bib:authors>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Thorson</foaf:surname>
-                        <foaf:givenname>J. T.</foaf:givenname>
-                    </foaf:Person>
-                </rdf:li>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Minto</foaf:surname>
-                        <foaf:givenname>C.</foaf:givenname>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </bib:authors>
-        <dc:title>Mixed effects: a unifying framework for statistical modelling in fisheries biology</dc:title>
-        <dc:date>2014-12-04</dc:date>
-        <z:language>en</z:language>
-        <z:shortTitle>Mixed effects</z:shortTitle>
-        <dc:identifier>
-            <dcterms:URI>
-                <rdf:value>http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213</rdf:value>
-            </dcterms:URI>
-        </dc:identifier>
-        <dcterms:dateSubmitted>2015-02-17 17:02:56</dcterms:dateSubmitted>
-        <z:libraryCatalog>CrossRef</z:libraryCatalog>
-    </bib:Article>
-    <bib:Journal rdf:about="urn:issn:1054-3139,%201095-9289">
-        <dc:title>ICES Journal of Marine Science</dc:title>
-        <dc:identifier>DOI 10.1093/icesjms/fsu213</dc:identifier>
-        <dc:identifier>ISSN 1054-3139, 1095-9289</dc:identifier>
-    </bib:Journal>
     <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783614002227">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
@@ -1021,7 +985,7 @@
                 </rdf:li>
             </rdf:Seq>
         </bib:authors>
-        <dc:title>State-dependent energy allocation in cod ( &lt;i&gt;Gadus morhua&lt;/i&gt; )</dc:title>
+        <dc:title>State-dependent energy allocation in cod (&lt;i&gt;Gadus morhua&lt;/i&gt;)</dc:title>
         <bib:pages>186-199</bib:pages>
         <dc:date>01/2006</dc:date>
         <z:language>en</z:language>
@@ -1197,7 +1161,7 @@ assumptions of tagged fish.</dcterms:abstract>
                 </rdf:li>
             </rdf:Seq>
         </bib:authors>
-        <dc:title>Designs for Evaluating Local and Regional Scale Trends</dc:title>
+        <dc:title>Designs for evaluating local and regional scale trends</dc:title>
         <bib:pages>1069</bib:pages>
         <dc:date>2001</dc:date>
         <z:language>en</z:language>
@@ -1216,49 +1180,6 @@ assumptions of tagged fish.</dcterms:abstract>
         <dc:identifier>DOI 10.1641/0006-3568(2001)051[1069:DFELAR]2.0.CO;2</dc:identifier>
         <dc:identifier>ISSN 0006-3568</dc:identifier>
     </bib:Journal>
-    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324">
-        <z:itemType>journalArticle</z:itemType>
-        <dcterms:isPartOf>
-            <bib:Journal>
-                <dc:title>Fisheries Research</dc:title>
-                <dc:identifier>DOI 10.1016/j.fishres.2014.11.007</dc:identifier>
-                <dc:identifier>ISSN 01657836</dc:identifier>
-            </bib:Journal>
-        </dcterms:isPartOf>
-        <bib:authors>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Punt</foaf:surname>
-                        <foaf:givenname>André E.</foaf:givenname>
-                    </foaf:Person>
-                </rdf:li>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Haddon</foaf:surname>
-                        <foaf:givenname>Malcolm</foaf:givenname>
-                    </foaf:Person>
-                </rdf:li>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>McGarvey</foaf:surname>
-                        <foaf:givenname>Richard</foaf:givenname>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </bib:authors>
-        <dc:title>Estimating growth within size-structured fishery stock assessments: What is the state of the art and what does the future look like?</dc:title>
-        <dc:date>12/2014</dc:date>
-        <z:language>en</z:language>
-        <z:shortTitle>Estimating growth within size-structured fishery stock assessments</z:shortTitle>
-        <dc:identifier>
-            <dcterms:URI>
-                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324</rdf:value>
-            </dcterms:URI>
-        </dc:identifier>
-        <dcterms:dateSubmitted>2015-06-08 08:32:07</dcterms:dateSubmitted>
-        <z:libraryCatalog>CrossRef</z:libraryCatalog>
-    </bib:Article>
     <bib:Article rdf:about="#item_73">
         <z:itemType>journalArticle</z:itemType>
         <dcterms:isPartOf>
@@ -1718,4 +1639,86 @@ assumptions of tagged fish.</dcterms:abstract>
         <dcterms:dateSubmitted>2015-02-17 19:37:06</dcterms:dateSubmitted>
         <z:libraryCatalog>CrossRef</z:libraryCatalog>
     </bib:Article>
+    <bib:Article rdf:about="http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:title>Fisheries Research</dc:title>
+                <dc:identifier>DOI 10.1016/j.fishres.2014.11.007</dc:identifier>
+                <dc:identifier>ISSN 01657836</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Punt</foaf:surname>
+                        <foaf:givenname>André E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Haddon</foaf:surname>
+                        <foaf:givenname>Malcolm</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>McGarvey</foaf:surname>
+                        <foaf:givenname>Richard</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Estimating growth within size-structured fishery stock assessments: What is the state of the art and what does the future look like?</dc:title>
+        <dc:date>12/2014</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Estimating growth within size-structured fishery stock assessments</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://linkinghub.elsevier.com/retrieve/pii/S0165783614003324</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-06-15 20:55:56</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1054-3139,%201095-9289"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thorson</foaf:surname>
+                        <foaf:givenname>J. T.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Minto</foaf:surname>
+                        <foaf:givenname>C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Mixed effects: a unifying framework for statistical modelling in fisheries biology</dc:title>
+        <bib:pages>1245-1256</bib:pages>
+        <dc:date>2015-06-01</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Mixed effects</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://icesjms.oxfordjournals.org/cgi/doi/10.1093/icesjms/fsu213</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2015-06-15 20:57:34</dcterms:dateSubmitted>
+        <z:libraryCatalog>CrossRef</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1054-3139,%201095-9289">
+        <dc:title>ICES Journal of Marine Science</dc:title>
+        <prism:volume>72</prism:volume>
+        <prism:number>5</prism:number>
+        <dc:identifier>DOI 10.1093/icesjms/fsu213</dc:identifier>
+        <dc:identifier>ISSN 1054-3139, 1095-9289</dc:identifier>
+    </bib:Journal>
 </rdf:RDF>
