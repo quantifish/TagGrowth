@@ -1,4 +1,6 @@
 # Load package
+require(devtools)
+install_github("quantifish/TagGrowth")
 require(TagGrowth)
 
 # Load data
