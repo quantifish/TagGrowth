@@ -83,8 +83,6 @@ A simulation study based on Antarctic toothfish is done in `examples/simulation_
 
 ##Further reading
 
-Need tp put Shelton ref here.
-
 A Zotero (https://www.zotero.org/) bibliography is provided in `examples/TagGrowth.rdf`.
 
-http://www.codecogs.com/latex/eqneditor.php
+We used codecogs (http://www.codecogs.com/latex/eqneditor.php) to render equations in this README.
