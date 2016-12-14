@@ -61,10 +61,9 @@ Install the package from R using
 
     # Install package
     install.packages("devtools")
-    require(devtools)
-    install_github("quantifish/TagGrowth")
+    devtools::install_github("quantifish/TagGrowth")
     # Load package
-    require(TagGrowth)
+    library(TagGrowth)
 
 Please see the examples folder for an example of how to run the model.
 
